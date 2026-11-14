@@ -15,7 +15,7 @@ const curvaSigmaEpsilon = {
   id: 'curva-sigma-epsilon',
   unit: 'u6',
   title: 'Curva esfuerzo–deformación',
-  subtitle: 'Las 8 propiedades A–H sobre un solo gráfico',
+  subtitle: 'Las propiedades A–H sobre un solo gráfico',
   key: 'curva',
   notes: [
     'Marcá siempre: pendiente E en la zona elástica, triángulo de resiliencia, cedencia, σut donde empieza la estricción y la recta offset al 0,2 %.',

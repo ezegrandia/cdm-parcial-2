@@ -13,13 +13,12 @@ export const UNIT_LIST = [u6, u8];
 
 export const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
-  propiedades: { label: 'Propiedades A–H', unit: 'u6' },
+  propiedades: { label: 'Propiedades de la curva', unit: 'u6' },
   rigidez: { label: 'Rigidez y temperatura', unit: 'u6' },
   flexion: { label: 'Flexión', unit: 'u6' },
   dureza: { label: 'Dureza', unit: 'u6' },
   impacto: { label: 'Impacto', unit: 'u6' },
   transicion: { label: 'Transición', unit: 'u6' },
-  fractura: { label: 'Fractura (KIC)', unit: 'u6' },
   fatiga: { label: 'Fatiga', unit: 'u6' },
   nucleacion: { label: 'Nucleación', unit: 'u8' },
   'radio-critico': { label: 'Radio crítico', unit: 'u8' },

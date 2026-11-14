@@ -19,7 +19,6 @@ const TOPIC_BY_ENSAYO = {
   shore: 'dureza',
   'impacto-charpy': 'impacto',
   'impacto-izod': 'impacto',
-  kic: 'fractura',
   fatiga: 'fatiga',
 };
 

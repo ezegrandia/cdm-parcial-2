@@ -20,10 +20,10 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 
 ## Qué incluye
 
-- **Teoría** en 18 lecciones cortas (10 de la U6, 8 de la U8), con fórmulas, tablas, trampas de examen y «qué busca el profesor».
-- **Ensayos**: catálogo de 12 ensayos (tracción, flexión 3 y 4 puntos, Brinell, Rockwell, Vickers, Knoop, Shore, Charpy, Izod, KIC y fatiga), con probeta, procedimiento, resultados, unidades, errores y pregunta típica.
+- **Teoría** en 17 lecciones cortas (9 de la U6, 8 de la U8), con fórmulas, tablas, trampas de examen y «qué busca el profesor».
+- **Ensayos**: catálogo de 11 ensayos (tracción, flexión 3 y 4 puntos, Brinell, Rockwell, Vickers, Knoop, Shore, Charpy, Izod y fatiga), con probeta, procedimiento, resultados, unidades, errores y pregunta típica.
 - **Diagramas interactivos** (5): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación y curva de enfriamiento. Modo *Estudiar* y modo *Practicar* (con pines y opciones).
-- **Práctica**: 120 preguntas (opción múltiple y cálculos numéricos), 87 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
+- **Práctica**: 115 preguntas (opción múltiple y cálculos numéricos), 84 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
 - **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera (calculadora, comparación a igual volumen y entrenamiento de fórmulas), energía de impacto y % de fractura por corte, calculadoras de Brinell, flexión y fatiga con Marin.
 - **Progreso**: racha, meta diaria, precisión por tema, cajas de repaso, logros, respaldo exportable y borrado.
 - **PWA offline**: se puede agregar a la pantalla de inicio y funciona sin internet después de la primera visita.

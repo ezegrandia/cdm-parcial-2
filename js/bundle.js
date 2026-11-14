@@ -834,7 +834,7 @@ const u6 = {
   number: 6,
   title: 'Ensayos y Propiedades Mecánicas',
   shortTitle: 'Ensayos',
-  subtitle: 'Tracción, flexión, dureza, impacto, fractura y fatiga',
+  subtitle: 'Tracción, flexión, dureza, impacto y fatiga',
   tag: 'Va seguro',
   examQuote: '«La unidad 6 va seguro en el examen, todo eso de Charpy y los distintos ensayos.»',
   intro:
@@ -842,13 +842,13 @@ const u6 = {
     'La respuesta depende de cómo se va a cargar: estirada, doblada, golpeada, rayada o miles de veces con poca fuerza. ' +
     'Por eso hay un ensayo para cada situación y cada uno devuelve un número distinto.',
   priority: [
-    'Tracción: probetas SA-370, curva σ–ε y propiedades A–H.',
+    'Tracción: probetas SA-370, curva σ–ε y propiedades de la curva.',
     'Fluencia convencional 0,2 % (offset) y cedencia superior/inferior.',
     'Flexión en 3 y 4 puntos para materiales frágiles.',
     'Dureza: Brinell, Rockwell, Vickers, Knoop y Shore.',
     'Impacto: péndulo, energía absorbida, % de fractura por corte y expansión lateral.',
     'Charpy vs. Izod (medidas, colocación y lado del golpe).',
-    'Transición dúctil–frágil, tenacidad a la fractura (KIC) y fatiga.',
+    'Transición dúctil–frágil y fatiga.',
   ],
   notPriority: 'Nada: el profesor indicó que la unidad 6 entra completa.',
 
@@ -900,7 +900,7 @@ const u6 = {
         {
           t: 'diagram',
           id: 'curva-sigma-epsilon',
-          label: 'Ver la curva σ–ε con las 8 propiedades',
+          label: 'Ver la curva σ–ε con sus propiedades',
         },
       ],
       keyPoints: [
@@ -914,15 +914,15 @@ const u6 = {
     {
       id: 'u6-propiedades',
       unit: 'u6',
-      title: 'Las 8 propiedades A–H de la curva σ–ε',
+      title: 'Las propiedades A–H de la curva σ–ε',
       kicker: 'Puntos y áreas',
       minutes: 5,
-      goal: 'Poder nombrar A→H en orden y ubicar cada una en el gráfico.',
+      goal: 'Poder nombrar A→F y H en orden y ubicar cada una en el gráfico.',
       blocks: [
         {
           t: 'p',
           html: 'La curva de tracción es una película con tres actos: primero el material es como una banda elástica (se estira y vuelve); después empieza a deformarse para siempre (como un clavo que se dobla); al final se hace un cuello, se adelgaza y rompe. ' +
-            'Cada propiedad A–H es un punto o un área de esa película. En el examen suelen pedir «indique y explique los puntos característicos»: si nombrás A→H en orden no te podés olvidar de nada.',
+            'Cada propiedad de la lista es un punto o un área de esa película. En el examen suelen pedir «indique y explique los puntos característicos»: si nombrás A→F y H en orden no te podés olvidar de nada.',
         },
         {
           t: 'ol',
@@ -933,9 +933,12 @@ const u6 = {
             '<b>D · Estricción o encuellamiento (necking):</b> al llegar a σut la deformación deja de ser uniforme y se concentra en un «cuello». Como el área real cae, la fuerza baja: la curva desciende hasta la ruptura.',
             '<b>E · Módulo de Young (E):</b> pendiente de la zona lineal elástica: E = σ/ε. Mide la rigidez y depende de la energía de enlace entre átomos. Acero ≈ 207 GPa, aluminio ≈ 69 GPa.',
             '<b>F · Resiliencia (ER):</b> área bajo la zona elástica (triángulo). Energía elástica por unidad de volumen que el material absorbe y devuelve al descargarse: ER = ½ · σy · εy.',
-            '<b>G · Relación de Poisson (μ):</b> compara la deformación lateral con la longitudinal: μ = −εlateral / εlongitudinal. En metales ronda 0,25–0,35.',
             '<b>H · Ductilidad:</b> deformación plástica que soporta antes de romper. Se informa como % de alargamiento y % de estricción.',
           ],
+        },
+        {
+          t: 'note',
+          html: 'La propiedad G no entra en el examen: la lista salta de F a H y conserva las letras de la cátedra.',
         },
         {
           t: 'formula',
@@ -971,7 +974,7 @@ const u6 = {
         },
       ],
       keyPoints: [
-        'A fluencia · B fluencia 0,2 % · C resistencia máxima · D estricción · E módulo · F resiliencia · G Poisson · H ductilidad.',
+        'A fluencia · B fluencia 0,2 % · C resistencia máxima · D estricción · E módulo · F resiliencia · H ductilidad (G no entra).',
         'σut = Fmáx/A₀, no es la ruptura: después del máximo el área real cae.',
         'Resiliencia = triángulo elástico; tenacidad = área total.',
         'E es rigidez, no resistencia.',
@@ -1203,12 +1206,6 @@ const u6 = {
           html: '<b>Charpy golpea la cara opuesta a la entalla. Izod golpea del mismo lado de la entalla.</b> Decir que Charpy golpea del lado de la entalla es el error clásico.',
         },
         {
-          t: 'callout',
-          tone: 'trap',
-          title: 'Tenacidad al impacto ≠ tenacidad a la fractura',
-          html: 'La tenacidad al impacto es la energía absorbida en un golpe único (Charpy). La tenacidad a la fractura (KIC) es la resistencia a que una grieta preexistente se propague. Son conceptos distintos y el profesor los toma por separado.',
-        },
-        {
           t: 'diagram',
           id: 'impacto',
           label: 'Ver Charpy e Izod lado a lado (con el lado del golpe)',
@@ -1261,57 +1258,6 @@ const u6 = {
         'Aceros BCC no austeníticos: curva en S al bajar T.',
         'Temperatura de transición = límite de seguridad.',
         'FCC (Al, Cu, austeníticos): sin transición marcada → criogenia.',
-      ],
-    },
-
-    {
-      id: 'u6-fractura',
-      unit: 'u6',
-      title: 'Tenacidad a la fractura (KIC)',
-      kicker: 'Piezas con grietas',
-      minutes: 4,
-      goal: 'Aplicar K = f·σ·√(πa) y el criterio K ≥ KIC.',
-      blocks: [
-        {
-          t: 'p',
-          html: 'Ningún material es perfecto: todos tienen microfisuras, poros o inclusiones. La pregunta útil no es «¿resiste?» sino «¿cuánto aguanta con esa grieta?». La mecánica de la fractura responde con un número, <b>K</b>, que crece con el esfuerzo y con el tamaño del defecto. Cuando K llega al límite del material (KIC), la grieta se dispara.',
-        },
-        {
-          t: 'formula',
-          expr: 'K = f · σ · √(π · a)',
-          note: 'f = factor geométrico · σ = esfuerzo aplicado · a = tamaño de la grieta o defecto (en metros). K en MPa·√m.',
-        },
-        {
-          t: 'formula',
-          expr: 'Falla si  K ≥ KIC',
-          note: 'KIC es una propiedad del material. Es un criterio distinto al de fluencia.',
-        },
-        {
-          t: 'p',
-          html: 'Esto explica por qué una pieza puede romperse trabajando muy por debajo de su tensión de fluencia: no falló por exceso de carga en toda la sección, falló porque una grieta chica <b>concentró la tensión en su punta</b>.',
-        },
-        {
-          t: 'table',
-          head: ['Material', 'KIC típico (MPa·√m)', 'Comportamiento'],
-          rows: [
-            ['Acero estructural dulce', '50 – 150', 'Tenaz: tolera grietas grandes'],
-            ['Aluminio de alta resistencia', '20 – 40', 'Intermedio'],
-            ['Fundición gris', '10 – 20', 'Frágil'],
-            ['Alúmina / cerámico', '3 – 5', 'Muy frágil: grietas mínimas lo rompen'],
-          ],
-          caption: 'Valores orientativos para interpretar resultados. Lo que hay que saber es el criterio K ≥ KIC.',
-        },
-        {
-          t: 'callout',
-          tone: 'prof',
-          title: 'Qué busca el profesor',
-          html: 'Dejá claro que KIC se compara con <b>K</b>, no con σut, y que una pieza puede estar por debajo de σy y romperse igual si tiene una grieta grande.',
-        },
-      ],
-      keyPoints: [
-        'K = f·σ·√(πa); crece con el esfuerzo y con el tamaño de grieta.',
-        'Falla cuando K ≥ KIC.',
-        'KIC bajo = frágil (cerámicos); alto = tenaz (acero dulce).',
       ],
     },
 
@@ -1399,7 +1345,6 @@ const u6 = {
             'Poner la carga en kg en una fórmula que pide N (multiplicá por 9,8), o al revés en Brinell (ahí F va en kgf).',
             'Olvidar que <b>1 MPa = 1 N/mm²</b>: si las medidas están en cm, primero pasalas a mm.',
             'Confundir <b>resiliencia</b> (área elástica) con <b>tenacidad</b> (área total).',
-            'Confundir <b>tenacidad al impacto</b> con <b>tenacidad a la fractura KIC</b>.',
             'Decir que Charpy golpea del lado de la entalla: es al revés, golpea la cara opuesta. Izod sí golpea del mismo lado.',
             'Calcular la dureza Brinell con F en N en lugar de kgf.',
             "En fatiga, aplicar Marin sin aclarar que Se′ es de probeta pulida en flexión rotativa.",
@@ -1429,7 +1374,6 @@ const u6 = {
     { id: 'f6-06', group: 'Propiedades', name: 'Alargamiento', expr: '%Δl = (lf − l₀)/l₀ · 100', note: 'Ductilidad' },
     { id: 'f6-07', group: 'Propiedades', name: 'Estricción', expr: '% estricción = (A₀ − Af)/A₀ · 100', note: 'Af medida en el cuello' },
     { id: 'f6-08', group: 'Propiedades', name: 'Resiliencia', expr: 'ER = ½ · σy · εy', note: 'Área del triángulo elástico' },
-    { id: 'f6-09', group: 'Propiedades', name: 'Poisson', expr: 'μ = − εlateral / εlongitudinal', note: '0,25–0,35 en metales' },
     { id: 'f6-10', group: 'Flexión', name: 'Tensión de rotura en flexión', expr: 'σflex = 3FL / (2wh²)', note: 'F[N], L luz, w ancho, h altura [mm]' },
     { id: 'f6-11', group: 'Flexión', name: 'Módulo en flexión', expr: 'Eflex = L³F / (4wh³δ)', note: 'δ = deflexión central [mm]' },
     { id: 'f6-12', group: 'Flexión', name: 'Momento máximo 3 puntos', expr: 'Mmax = F · L / 4', note: 'Triangular, máximo en el centro' },
@@ -1437,14 +1381,13 @@ const u6 = {
     { id: 'f6-14', group: 'Dureza', name: 'Dureza → resistencia', expr: 'σut ≈ 3,45 · HB', note: 'Acero no austenítico' },
     { id: 'f6-15', group: 'Impacto', name: 'Energía absorbida', expr: 'E = m · g · (h₀ − hf)', note: 'g = 9,8 m/s² · resultado en J' },
     { id: 'f6-16', group: 'Impacto', name: 'Fractura por corte', expr: '% corte = (Atotal − A·B)/Atotal · 100', note: 'A·B = área de clivaje (brillante)' },
-    { id: 'f6-17', group: 'Fractura', name: 'Factor de intensidad de tensiones', expr: 'K = f · σ · √(πa)', note: 'Falla si K ≥ KIC · a en metros' },
     { id: 'f6-18', group: 'Fatiga', name: 'Límite en probeta pulida', expr: "Se′ = 0,5 · Sut", note: 'Sut ≤ 1400 MPa; si no, 700 MPa' },
     { id: 'f6-19', group: 'Fatiga', name: 'Coeficientes de Marin', expr: 'Se = ka·kb·kc·kd·ke·Se′', note: 'Componente real' },
     { id: 'f6-20', group: 'Tracción', name: 'Relación de probeta cilíndrica', expr: 'G = 4 · D', note: 'D = 12,5 mm → G = 50 mm' },
   ],
 
   cards: [
-    { id: 'c6-01', unit: 'u6', topic: 'traccion', front: '¿Qué es el ensayo de tracción?', back: 'Ensayo estático: carga axial creciente y lenta hasta romper una probeta normalizada, sujeta con mordazas en una máquina universal (INSTRON, WOLPERT). De un solo ensayo salen las propiedades A–H.' },
+    { id: 'c6-01', unit: 'u6', topic: 'traccion', front: '¿Qué es el ensayo de tracción?', back: 'Ensayo estático: carga axial creciente y lenta hasta romper una probeta normalizada, sujeta con mordazas en una máquina universal (INSTRON, WOLPERT). De un solo ensayo salen las propiedades de la curva σ–ε.' },
     { id: 'c6-02', unit: 'u6', topic: 'traccion', front: 'Área inicial de una probeta plana', back: 'A₀ = e · w (espesor × ancho de la sección reducida).', hint: 'Chapa / rectangular' },
     { id: 'c6-03', unit: 'u6', topic: 'traccion', front: 'Área inicial de una probeta cilíndrica', back: 'A₀ = π · d₀² / 4.', hint: 'Con d₀ = diámetro de la sección reducida' },
     { id: 'c6-04', unit: 'u6', topic: 'traccion', front: 'Relación normalizada G–D en probeta cilíndrica', back: 'G = 4·D. Estándar D = 12,5 mm → G = 50 mm. Subsize: 8,75 / 6,25 / 4,00 / 2,50 mm → 35 / 25 / 16 / 10 mm.' },
@@ -1458,7 +1401,6 @@ const u6 = {
     { id: 'c6-12', unit: 'u6', topic: 'propiedades', front: 'Módulo de Young: fórmula y significado', back: 'E = σ/ε: pendiente de la zona elástica. Mide la rigidez, no la resistencia. Acero ≈ 207 GPa; aluminio ≈ 69 GPa.' },
     { id: 'c6-13', unit: 'u6', topic: 'propiedades', front: 'Resiliencia', back: 'Área bajo la zona elástica (triángulo): ER = ½σyεy. Energía elástica por unidad de volumen que se absorbe y devuelve al descargar.' },
     { id: 'c6-14', unit: 'u6', topic: 'propiedades', front: 'Tenacidad vs. resiliencia', back: 'Tenacidad = área total bajo la curva hasta la ruptura (resistencia + ductilidad). Resiliencia = sólo el área elástica.' },
-    { id: 'c6-15', unit: 'u6', topic: 'propiedades', front: 'Relación de Poisson', back: 'μ = −εlateral/εlongitudinal. En metales ronda 0,25–0,35.' },
     { id: 'c6-16', unit: 'u6', topic: 'propiedades', front: 'Ductilidad: ¿cómo se informa?', back: 'Con % de alargamiento: (lf−l₀)/l₀·100, y % de estricción: (A₀−Af)/A₀·100. Por encima del 5 % el acero se considera dúctil.' },
     { id: 'c6-17', unit: 'u6', topic: 'propiedades', front: 'Método del offset 0,2 %', back: 'Cuando no hay quiebre claro, se traza una recta paralela a la zona elástica desplazada 0,2 % (ε = 0,002) y se lee el esfuerzo donde corta la curva: σ₀,₂.' },
     { id: 'c6-18', unit: 'u6', topic: 'propiedades', front: 'Cedencia superior e inferior', back: 'En aceros de bajo carbono: un pico (cedencia superior) y una meseta ondulante (cedencia inferior), por anclaje/liberación de dislocaciones por los átomos de carbono.' },
@@ -1487,8 +1429,6 @@ const u6 = {
     { id: 'c6-41', unit: 'u6', topic: 'impacto', front: 'Expansión lateral', back: 'Ensanchamiento por deformación plástica del lado opuesto a la entalla. Se mide con calibre, en mm o mils. Más dúctil → mayor expansión.' },
     { id: 'c6-42', unit: 'u6', topic: 'transicion', front: 'Curva de transición dúctil–frágil', back: 'Caída en S de la energía de impacto al bajar la temperatura, típica de aceros no austeníticos BCC: meseta superior dúctil, inferior frágil (clivaje) y temperatura de transición entre ambas.' },
     { id: 'c6-43', unit: 'u6', topic: 'transicion', front: '¿Qué materiales no tienen transición marcada?', back: 'Los FCC: aluminio, cobre y aceros inoxidables austeníticos. Conservan alta energía a baja temperatura; por eso se usan en servicios criogénicos.' },
-    { id: 'c6-44', unit: 'u6', topic: 'fractura', front: 'Factor de intensidad de tensiones', back: 'K = f·σ·√(πa): crece con el esfuerzo y con el tamaño de la grieta a. Falla cuando K ≥ KIC.' },
-    { id: 'c6-45', unit: 'u6', topic: 'fractura', front: '¿Por qué puede romper una pieza por debajo de σy?', back: 'Porque una grieta concentra la tensión en su punta y K alcanza KIC aunque el esfuerzo nominal sea menor que la fluencia.' },
     { id: 'c6-46', unit: 'u6', topic: 'fatiga', front: '¿Qué es la fatiga?', back: 'Falla por esfuerzos cíclicos menores que σy, sin deformación plástica visible. Es la causa más común de rotura en servicio (ejes, resortes, alas).' },
     { id: 'c6-47', unit: 'u6', topic: 'fatiga', front: 'Las 3 etapas de la fatiga', back: '1) Iniciación de una grieta superficial. 2) Propagación ciclo a ciclo (marcas de playa). 3) Fractura súbita cuando el área remanente no soporta la carga.' },
     { id: 'c6-48', unit: 'u6', topic: 'fatiga', front: 'Curva S–N: acero vs. aluminio', back: 'El acero tiene meseta horizontal entre 10⁶ y 10⁷ ciclos (límite de fatiga Se). El aluminio no tiene límite definido: su curva sigue bajando.' },
@@ -1575,16 +1515,9 @@ const u6 = {
       explain: 'La tenacidad combina resistencia y ductilidad: es toda el área bajo la curva. No confundirla con la resiliencia (sólo el triángulo elástico).',
     },
     {
-      id: 'q6-12', unit: 'u6', topic: 'propiedades', type: 'mcq',
-      q: 'La relación de Poisson mide:',
-      options: ['La deformación lateral comparada con la longitudinal', 'La dureza superficial', 'La energía absorbida al impactar', 'El alargamiento total antes de romper'],
-      correct: 0,
-      explain: 'μ = −εlateral/εlongitudinal. En metales vale aproximadamente 0,25–0,35.',
-    },
-    {
       id: 'q6-13', unit: 'u6', topic: 'propiedades', type: 'mcq',
       q: 'La ductilidad se informa con:',
-      options: ['% de alargamiento y % de estricción', 'σy y σut', 'El módulo E y Poisson', 'La energía absorbida en J'],
+      options: ['% de alargamiento y % de estricción', 'σy y σut', 'El módulo E y la resiliencia', 'La energía absorbida en J'],
       correct: 0,
       explain: '%Δl = (lf−l₀)/l₀·100 y % estricción = (A₀−Af)/A₀·100. Por encima del 5 % de alargamiento el acero se considera dúctil.',
     },
@@ -1731,7 +1664,7 @@ const u6 = {
     {
       id: 'q6-34', unit: 'u6', topic: 'impacto', type: 'mcq',
       q: '¿Cuáles son los tres resultados que entrega el ensayo de impacto?',
-      options: ['Energía absorbida, % de fractura por corte y expansión lateral', 'σy, σut y alargamiento', 'Dureza, módulo y Poisson', 'KIC, Se y Sut'],
+      options: ['Energía absorbida, % de fractura por corte y expansión lateral', 'σy, σut y alargamiento', 'Dureza, módulo y alargamiento', 'Longitud, ancho y espesor'],
       correct: 0,
       explain: 'La energía sale del péndulo; el % de corte se lee en la cara de fractura; la expansión lateral se mide con calibre en el lado opuesto a la entalla.',
     },
@@ -1757,13 +1690,6 @@ const u6 = {
       explain: 'Los aceros ferríticos BCC pierden tenacidad al impacto al bajar la temperatura. La temperatura de transición marca el límite de servicio.',
     },
     {
-      id: 'q6-38', unit: 'u6', topic: 'impacto', type: 'mcq',
-      q: 'La tenacidad al impacto se diferencia de KIC porque:',
-      options: ['La primera es la energía de un golpe único sobre probeta entallada; KIC mide la resistencia a propagar una grieta existente', 'Son exactamente lo mismo con distinto nombre', 'KIC se mide con el péndulo Charpy', 'La tenacidad al impacto se mide en MPa·√m'],
-      correct: 0,
-      explain: 'Son criterios distintos: energía absorbida (J) vs. factor de intensidad de tensiones crítico (MPa·√m). El profesor los toma por separado.',
-    },
-    {
       id: 'q6-39', unit: 'u6', topic: 'transicion', type: 'mcq',
       q: 'La curva de transición dúctil–frágil tiene forma de S porque:',
       options: ['Pasa de una meseta superior dúctil a una inferior frágil (clivaje) al bajar la temperatura', 'Aumenta indefinidamente con la temperatura', 'Es una recta de pendiente constante', 'Sólo se aplica a polímeros'],
@@ -1773,23 +1699,9 @@ const u6 = {
     {
       id: 'q6-40', unit: 'u6', topic: 'transicion', type: 'mcq',
       q: '¿Por qué los recipientes criogénicos se hacen de acero inoxidable austenítico?',
-      options: ['Porque su estructura FCC no presenta transición dúctil–frágil marcada', 'Porque su estructura BCC es más tenaz en frío', 'Porque tienen KIC muy bajo', 'Porque no se pueden soldar otros aceros'],
+      options: ['Porque su estructura FCC no presenta transición dúctil–frágil marcada', 'Porque su estructura BCC es más tenaz en frío', 'Porque su tenacidad al impacto es muy baja', 'Porque no se pueden soldar otros aceros'],
       correct: 0,
       explain: 'Los FCC (austeníticos, aluminio, cobre) mantienen alta energía de impacto a baja temperatura, a diferencia de los BCC.',
-    },
-    {
-      id: 'q6-41', unit: 'u6', topic: 'fractura', type: 'mcq',
-      q: 'El factor de intensidad de tensiones se calcula con:',
-      options: ['K = f·σ·√(πa)', 'K = σ/ε', 'K = F/A₀', 'K = m·g·(h₀−hf)'],
-      correct: 0,
-      explain: 'K crece con el esfuerzo aplicado y con el tamaño de la grieta a. Se compara con KIC: si K ≥ KIC, la grieta se propaga.',
-    },
-    {
-      id: 'q6-42', unit: 'u6', topic: 'fractura', type: 'mcq',
-      q: 'Una pieza de acero con una grieta grande puede romperse trabajando a 100 MPa aunque su σy sea 350 MPa porque:',
-      options: ['La grieta concentra la tensión en su punta y K alcanza KIC', 'La dureza disminuye con la grieta', 'El módulo de Young baja localmente', 'La probeta se fatiga en un solo ciclo'],
-      correct: 0,
-      explain: 'El criterio de fractura es K ≥ KIC, independiente de la fluencia global. La grieta concentra tensiones y dispara la propagación.',
     },
     {
       id: 'q6-43', unit: 'u6', topic: 'fatiga', type: 'mcq',
@@ -1822,7 +1734,7 @@ const u6 = {
     {
       id: 'q6-47', unit: 'u6', topic: 'fatiga', type: 'mcq',
       q: 'Los coeficientes de Marin (ka…ke) corrigen:',
-      options: ['Acabado superficial, tamaño, tipo de carga, temperatura y confiabilidad', 'Dureza, resistencia, módulo, Poisson y ductilidad', 'Energía, corte, expansión, KIC y Se', 'Longitud, ancho, espesor, radio y luz'],
+      options: ['Acabado superficial, tamaño, tipo de carga, temperatura y confiabilidad', 'Dureza, resistencia, módulo y ductilidad', 'Energía, corte, expansión, dureza y Se', 'Longitud, ancho, espesor, radio y luz'],
       correct: 0,
       explain: 'Se = ka·kb·kc·kd·ke·Se′ traslada el valor de probeta pulida a la pieza real. Una superficie rugosa o una pieza grande reducen Se.',
     },
@@ -1874,13 +1786,6 @@ const u6 = {
       answer: 50, tolerance: 0.5, answerUnit: '%',
       steps: ['Área total = 10 × 8 = 80 mm²', '% corte = (80 − 40)/80 × 100', '% corte = 50 %'],
       explain: 'El área brillante es clivaje (frágil); el resto es corte (dúctil). Con 50 % la probeta está en transición.',
-    },
-    {
-      id: 'q6-55', unit: 'u6', topic: 'fractura', type: 'num',
-      q: 'Placa con KIC = 55 MPa·√m, σ = 350 MPa y f = 1,12. ¿Cuál es el tamaño crítico de grieta ac? (mm)',
-      answer: 6.26, tolerance: 0.3, answerUnit: 'mm',
-      steps: ['K = f·σ·√(πa) = KIC', '√(πa) = 55/(1,12 × 350) = 0,1403', 'πa = 0,01968', 'a = 0,00626 m = 6,26 mm'],
-      explain: 'Despejá primero la raíz y después elevá al cuadrado. El resultado va en metros y luego se pasa a mm.',
     },
     {
       id: 'q6-56', unit: 'u6', topic: 'fatiga', type: 'num',
@@ -2991,7 +2896,6 @@ const ENSAYO_CATEGORIES = [
   { id: 'flexion', label: 'Flexión' },
   { id: 'dureza', label: 'Dureza' },
   { id: 'dinamico', label: 'Dinámico' },
-  { id: 'fractura', label: 'Fractura' },
   { id: 'ciclico', label: 'Cíclico' },
 ];
 
@@ -3003,21 +2907,21 @@ const ENSAYOS = [
     tag: 'Ensayo base',
     icon: 'arrow-right',
     summary: 'Estira una probeta normalizada con carga axial creciente y lenta hasta romperla. De acá salen casi todas las propiedades mecánicas.',
-    measures: 'Módulo E, fluencia σy, resistencia σut, ductilidad, resiliencia, Poisson y estricción.',
+    measures: 'Módulo E, fluencia σy, resistencia σut, ductilidad, resiliencia y estricción.',
     probeta: 'SA-370 plana (A₀ = e·w) o cilíndrica (A₀ = πd₀²/4, G = 4D). Zona reducida con radios R y longitud calibrada G.',
     equipo: 'Máquina universal de ensayos (INSTRON, WOLPERT) con mordazas y extensómetro.',
     steps: [
       'Medir la sección reducida para calcular A₀.',
       'Marcar la longitud calibrada l₀ y acoplar el extensómetro.',
       'Aplicar carga axial creciente y lenta, registrando F y Δl.',
-      'Construir la curva σ–ε y ubicar los puntos A–H.',
+      'Construir la curva σ–ε y ubicar los puntos característicos.',
     ],
     results: ['Curva σ–ε completa', 'σy y σ₀,₂', 'σut = Fmáx/A₀', 'Alargamiento y estricción', 'E = σ/ε'],
     formula: { expr: 'σ = F/A₀   ·   ε = Δl/l₀   ·   E = σ/ε', note: 'MPa = N/mm²' },
     units: 'σ en MPa; ε adimensional; E en MPa o GPa.',
     whenUse: 'Material dúctil y pieza que trabaja estirada. Es el ensayo de referencia para comparar materiales.',
     errors: ['Usar el área de las cabezas en vez de la sección reducida', 'Confundir σut con la tensión de rotura'],
-    examQ: { q: '¿Qué propiedades se obtienen de un solo ensayo de tracción?', a: 'Las ocho A–H: fluencia, fluencia 0,2 %, resistencia a la tracción, estricción, módulo de Young, resiliencia, Poisson y ductilidad. La curva se construye con σ = F/A₀ y ε = Δl/l₀.' },
+    examQ: { q: '¿Qué propiedades se obtienen de un solo ensayo de tracción?', a: 'Las propiedades de la curva: fluencia, fluencia 0,2 %, resistencia a la tracción, estricción, módulo de Young, resiliencia y ductilidad. La curva se construye con σ = F/A₀ y ε = Δl/l₀.' },
     diagram: 'curva-sigma-epsilon',
   },
   {
@@ -3182,7 +3086,7 @@ const ENSAYOS = [
     formula: { expr: 'E = m·g·(h₀ − hf)', note: 'g = 9,8 m/s²' },
     units: 'J (o ft·lbf); expansión en mm o mils.',
     whenUse: 'Evaluar el comportamiento ante golpe súbito, controlar transición dúctil–frágil y comparar aceros.',
-    errors: ['Golpear del lado de la entalla (es al revés)', 'Confundir energía absorbida con KIC'],
+    errors: ['Golpear del lado de la entalla (es al revés)', 'Mirar sólo la energía y no el % de corte ni la expansión lateral'],
     examQ: { q: 'Describí el ensayo Charpy y sus resultados.', a: 'Probeta 10×10×55 mm apoyada horizontalmente, entalla al centro y golpe en la cara opuesta. El péndulo cae desde h₀ y sube a hf: E = mg(h₀−hf). Entrega energía absorbida, % de corte y expansión lateral.' },
     diagram: 'impacto',
     highlight: true,
@@ -3210,28 +3114,6 @@ const ENSAYOS = [
     examQ: { q: 'Diferencia clave entre Charpy e Izod', a: 'Charpy: 10×10×55 mm, horizontal apoyada, golpe en la cara opuesta a la entalla. Izod: 10×10×75 mm, vertical empotrada en voladizo, golpe del mismo lado de la entalla en el extremo libre.' },
     diagram: 'impacto',
     highlight: true,
-  },
-  {
-    id: 'kic',
-    name: 'Tenacidad a la fractura (KIC)',
-    category: 'fractura',
-    tag: 'Piezas con grietas',
-    icon: 'alert',
-    summary: 'Mide la resistencia a que una grieta existente se propague. No es lo mismo que la tenacidad al impacto.',
-    measures: 'KIC, la tenacidad a la fractura del material (MPa·√m).',
-    probeta: 'Probeta con grieta o entalla afilada; geometría normalizada.',
-    equipo: 'Máquina de ensayo con medición de carga y crecimiento de grieta.',
-    steps: [
-      'Medir el tamaño de grieta a y el esfuerzo aplicado σ.',
-      'Calcular K = f·σ·√(πa) con el factor geométrico f.',
-      'Comparar con KIC: si K ≥ KIC, la grieta se propaga.',
-    ],
-    results: ['KIC del material', 'Tamaño crítico de grieta para un σ dado', 'Criterio de aceptación de defectos'],
-    formula: { expr: 'K = f·σ·√(πa)   ·   falla si K ≥ KIC', note: 'a en metros; K en MPa·√m' },
-    units: 'MPa·√m; a en m.',
-    whenUse: 'Piezas con defectos, inspección, diseño tolerante al daño.',
-    errors: ['Comparar KIC con σut', 'Olvidar pasar a a metros'],
-    examQ: { q: '¿Por qué una pieza puede romper por debajo de σy?', a: 'Porque una grieta concentra la tensión en su punta: K alcanza KIC aunque el esfuerzo nominal sea menor que la fluencia. El criterio de fractura es K ≥ KIC.' },
   },
   {
     id: 'fatiga',
@@ -3290,13 +3172,12 @@ const UNIT_LIST = [u6, u8];
 
 const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
-  propiedades: { label: 'Propiedades A–H', unit: 'u6' },
+  propiedades: { label: 'Propiedades de la curva', unit: 'u6' },
   rigidez: { label: 'Rigidez y temperatura', unit: 'u6' },
   flexion: { label: 'Flexión', unit: 'u6' },
   dureza: { label: 'Dureza', unit: 'u6' },
   impacto: { label: 'Impacto', unit: 'u6' },
   transicion: { label: 'Transición', unit: 'u6' },
-  fractura: { label: 'Fractura (KIC)', unit: 'u6' },
   fatiga: { label: 'Fatiga', unit: 'u6' },
   nucleacion: { label: 'Nucleación', unit: 'u8' },
   'radio-critico': { label: 'Radio crítico', unit: 'u8' },
@@ -3394,7 +3275,7 @@ const curvaSigmaEpsilon = {
   id: 'curva-sigma-epsilon',
   unit: 'u6',
   title: 'Curva esfuerzo–deformación',
-  subtitle: 'Las 8 propiedades A–H sobre un solo gráfico',
+  subtitle: 'Las propiedades A–H sobre un solo gráfico',
   key: 'curva',
   notes: [
     'Marcá siempre: pendiente E en la zona elástica, triángulo de resiliencia, cedencia, σut donde empieza la estricción y la recta offset al 0,2 %.',
@@ -5428,7 +5309,6 @@ const TOPIC_BY_ENSAYO = {
   shore: 'dureza',
   'impacto-charpy': 'impacto',
   'impacto-izod': 'impacto',
-  kic: 'fractura',
   fatiga: 'fatiga',
 };
 
@@ -5625,7 +5505,7 @@ function practiceView() {
     { href: '#/practica/quiz?scope=u6&n=12', icon: 'flask', title: 'Práctica Unidad 6', meta: 'Ensayos, impacto, dureza, fractura y fatiga', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u6').length}` },
     { href: '#/practica/quiz?scope=u8&n=12', icon: 'layers', title: 'Práctica Unidad 8', meta: 'Nucleación, grano y Chvorinov', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u8').length}` },
     { href: '#/practica/quiz?scope=weak&n=10', icon: 'target', title: 'Puntos débiles', meta: 'Sólo preguntas en las que fallaste la última vez', badge: `${weak}` },
-    { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, impacto, Brinell, flexión, KIC y fatiga', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
+    { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, impacto, Brinell, flexión y fatiga', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
     { href: '#/practica/quiz?scope=new&n=10', icon: 'sparkles', title: 'Preguntas nuevas', meta: 'Todavía no las respondiste', badge: `${newCount}` },
     { href: '#/practica/tarjetas?scope=mix&n=20', icon: 'layers', title: 'Tarjetas', meta: 'Memorizá definiciones y fórmulas con autoevaluación', badge: `${dueCards} para hoy` },
     { href: '#/practica/simuladores', icon: 'calculator', title: 'Simuladores', meta: 'Chvorinov, formas básicas, impacto y calculadoras', badge: '3' },
