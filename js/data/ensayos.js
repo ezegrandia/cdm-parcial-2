@@ -59,7 +59,6 @@ export const ENSAYOS = [
     whenUse: 'Cerámicos, vidrios, fundición gris y polímeros rígidos que se rompen en las mordazas de tracción.',
     errors: ['Usar el largo total de la barra en lugar de L', 'Pasar la carga en kg sin multiplicar por 9,8', 'Olvidar el cubo de h en Eflex'],
     examQ: { q: '¿Por qué se ensayan los frágiles en flexión?', a: 'Porque las mordazas de tracción trituran las cabezas y la desalineación rompe la pieza antes de medir. En flexión se apoya una viga y falla la cara traccionada, que es lo que se quiere caracterizar.' },
-    diagram: 'flexion',
   },
   {
     id: 'flexion-4',
@@ -82,7 +81,6 @@ export const ENSAYOS = [
     whenUse: 'Cerámicos con defectos distribuidos, cuando se busca un resultado más representativo que el de 3 puntos.',
     errors: ['Confundir los diagramas con los de 3 puntos', 'Ubicar las cargas en el centro'],
     examQ: { q: '¿Qué diferencia hay entre 3 y 4 puntos?', a: 'En 3 puntos el momento es triangular (máximo FL/4 sólo en el centro) y el cortante vale ±F/2. En 4 puntos el momento es constante en todo el tramo central L/2 y el cortante es cero: flexión pura, se ensaya más volumen.' },
-    diagram: 'flexion',
   },
   {
     id: 'brinell',
@@ -275,7 +273,6 @@ export const ENSAYOS = [
     whenUse: 'Ejes, resortes, alas, piezas con cargas repetidas o vibración.',
     errors: ['Aplicar Marin sin aclarar que Se′ es de probeta pulida', 'Suponer que el aluminio tiene límite de fatiga definido'],
     examQ: { q: 'Etapas de la fatiga y diferencia acero/aluminio', a: 'Iniciación superficial → propagación ciclo a ciclo → fractura súbita. El acero tiene meseta entre 10⁶ y 10⁷ ciclos (Se); el aluminio no tiene límite definido y su curva sigue bajando.' },
-    diagram: 'sn-wohler',
   },
 ];
 

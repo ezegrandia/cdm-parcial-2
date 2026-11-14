@@ -18,14 +18,8 @@ const TABS = [
 const TOPIC_BY_DIAGRAM = {
   'curva-sigma-epsilon': 'propiedades',
   impacto: 'impacto',
-  'cara-fractura': 'impacto',
-  flexion: 'flexion',
   transicion: 'transicion',
-  'sn-wohler': 'fatiga',
-  dureza: 'dureza',
   nucleacion: 'nucleacion',
-  'homogenea-heterogenea': 'homogenea',
-  mazarota: 'chvorinov',
   enfriamiento: 'enfriamiento',
 };
 

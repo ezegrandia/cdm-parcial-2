@@ -240,11 +240,6 @@ export const u6 = {
           title: 'Qué busca el profesor',
           html: 'Dibujá los diagramas de momento y cortante: es la parte que más puntúa de esta pregunta. En 4 puntos remarcá que V = 0 en el tramo central.',
         },
-        {
-          t: 'diagram',
-          id: 'flexion',
-          label: 'Ver los diagramas M y V (3 y 4 puntos)',
-        },
       ],
       keyPoints: [
         'Frágiles → flexión porque las mordazas los astillan.',
@@ -315,11 +310,6 @@ export const u6 = {
           tone: 'prof',
           title: 'Qué busca el profesor',
           html: 'Elegí <b>Knoop para capas delgadas</b> y <b>Shore para polímeros</b>: son las dos respuestas de aplicación que más pregunta. Y nombrá la norma SA-370 cuando expliques dureza → resistencia.',
-        },
-        {
-          t: 'diagram',
-          id: 'dureza',
-          label: 'Comparar las huellas de los 4 métodos',
         },
       ],
       keyPoints: [
@@ -397,11 +387,6 @@ export const u6 = {
           t: 'diagram',
           id: 'impacto',
           label: 'Ver Charpy e Izod lado a lado (con el lado del golpe)',
-        },
-        {
-          t: 'diagram',
-          id: 'cara-fractura',
-          label: 'Ver la cara de fractura y el % de corte',
         },
       ],
       keyPoints: [
@@ -560,11 +545,6 @@ export const u6 = {
           tone: 'prof',
           title: 'Qué busca el profesor',
           html: 'Las <b>3 etapas en orden</b> y el rango <b>10⁶–10⁷</b> son los dos datos que no pueden faltar. Si usás Marin, aclará que Se′ es de probeta pulida en flexión rotativa.',
-        },
-        {
-          t: 'diagram',
-          id: 'sn-wohler',
-          label: 'Ver la curva S–N: acero vs. aluminio',
         },
       ],
       keyPoints: [

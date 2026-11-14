@@ -271,4 +271,4 @@ const enfriamiento = {
   ],
 };
 
-export const U8_DIAGRAMS = [nucleacion, homogeneaHeterogenea, mazarota, enfriamiento];
+export const U8_DIAGRAMS = [nucleacion, enfriamiento];

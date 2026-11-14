@@ -501,9 +501,5 @@ const dureza = {
 export const U6_DIAGRAMS = [
   curvaSigmaEpsilon,
   impacto,
-  caraFractura,
-  flexion,
   transicion,
-  snWohler,
-  dureza,
 ];

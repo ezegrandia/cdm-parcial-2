@@ -159,11 +159,6 @@ export const u8 = {
           title: 'Qué busca el profesor',
           html: 'La respuesta tiene que decir que la <b>heterogénea necesita menos subenfriamiento</b> y explicar por qué: menor costo de superficie porque el sólido se apoya en una superficie existente.',
         },
-        {
-          t: 'diagram',
-          id: 'homogenea-heterogenea',
-          label: 'Ver ambos mecanismos lado a lado',
-        },
       ],
       keyPoints: [
         'Homogénea: todo el núcleo nace en el líquido, más ΔT.',
@@ -355,11 +350,6 @@ export const u8 = {
           tone: 'info',
           title: 'Aplicación: la mazarota',
           html: 'La mazarota es el depósito de metal líquido que alimenta la contracción de la pieza. Debe solidificar <b>después</b> que la pieza, por lo que se diseña más «compacta» (mayor V/A). Si solidifica antes, la pieza queda con un <b>rechupe</b> interno que la inspección por rayos X detecta.',
-        },
-        {
-          t: 'diagram',
-          id: 'mazarota',
-          label: 'Ver pieza con y sin mazarota',
         },
       ],
       keyPoints: [

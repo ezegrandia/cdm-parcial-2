@@ -1065,11 +1065,6 @@ const u6 = {
           title: 'Qué busca el profesor',
           html: 'Dibujá los diagramas de momento y cortante: es la parte que más puntúa de esta pregunta. En 4 puntos remarcá que V = 0 en el tramo central.',
         },
-        {
-          t: 'diagram',
-          id: 'flexion',
-          label: 'Ver los diagramas M y V (3 y 4 puntos)',
-        },
       ],
       keyPoints: [
         'Frágiles → flexión porque las mordazas los astillan.',
@@ -1140,11 +1135,6 @@ const u6 = {
           tone: 'prof',
           title: 'Qué busca el profesor',
           html: 'Elegí <b>Knoop para capas delgadas</b> y <b>Shore para polímeros</b>: son las dos respuestas de aplicación que más pregunta. Y nombrá la norma SA-370 cuando expliques dureza → resistencia.',
-        },
-        {
-          t: 'diagram',
-          id: 'dureza',
-          label: 'Comparar las huellas de los 4 métodos',
         },
       ],
       keyPoints: [
@@ -1222,11 +1212,6 @@ const u6 = {
           t: 'diagram',
           id: 'impacto',
           label: 'Ver Charpy e Izod lado a lado (con el lado del golpe)',
-        },
-        {
-          t: 'diagram',
-          id: 'cara-fractura',
-          label: 'Ver la cara de fractura y el % de corte',
         },
       ],
       keyPoints: [
@@ -1385,11 +1370,6 @@ const u6 = {
           tone: 'prof',
           title: 'Qué busca el profesor',
           html: 'Las <b>3 etapas en orden</b> y el rango <b>10⁶–10⁷</b> son los dos datos que no pueden faltar. Si usás Marin, aclará que Se′ es de probeta pulida en flexión rotativa.',
-        },
-        {
-          t: 'diagram',
-          id: 'sn-wohler',
-          label: 'Ver la curva S–N: acero vs. aluminio',
         },
       ],
       keyPoints: [
@@ -2121,11 +2101,6 @@ const u8 = {
           title: 'Qué busca el profesor',
           html: 'La respuesta tiene que decir que la <b>heterogénea necesita menos subenfriamiento</b> y explicar por qué: menor costo de superficie porque el sólido se apoya en una superficie existente.',
         },
-        {
-          t: 'diagram',
-          id: 'homogenea-heterogenea',
-          label: 'Ver ambos mecanismos lado a lado',
-        },
       ],
       keyPoints: [
         'Homogénea: todo el núcleo nace en el líquido, más ΔT.',
@@ -2317,11 +2292,6 @@ const u8 = {
           tone: 'info',
           title: 'Aplicación: la mazarota',
           html: 'La mazarota es el depósito de metal líquido que alimenta la contracción de la pieza. Debe solidificar <b>después</b> que la pieza, por lo que se diseña más «compacta» (mayor V/A). Si solidifica antes, la pieza queda con un <b>rechupe</b> interno que la inspección por rayos X detecta.',
-        },
-        {
-          t: 'diagram',
-          id: 'mazarota',
-          label: 'Ver pieza con y sin mazarota',
         },
       ],
       keyPoints: [
@@ -3071,7 +3041,6 @@ const ENSAYOS = [
     whenUse: 'Cerámicos, vidrios, fundición gris y polímeros rígidos que se rompen en las mordazas de tracción.',
     errors: ['Usar el largo total de la barra en lugar de L', 'Pasar la carga en kg sin multiplicar por 9,8', 'Olvidar el cubo de h en Eflex'],
     examQ: { q: '¿Por qué se ensayan los frágiles en flexión?', a: 'Porque las mordazas de tracción trituran las cabezas y la desalineación rompe la pieza antes de medir. En flexión se apoya una viga y falla la cara traccionada, que es lo que se quiere caracterizar.' },
-    diagram: 'flexion',
   },
   {
     id: 'flexion-4',
@@ -3094,7 +3063,6 @@ const ENSAYOS = [
     whenUse: 'Cerámicos con defectos distribuidos, cuando se busca un resultado más representativo que el de 3 puntos.',
     errors: ['Confundir los diagramas con los de 3 puntos', 'Ubicar las cargas en el centro'],
     examQ: { q: '¿Qué diferencia hay entre 3 y 4 puntos?', a: 'En 3 puntos el momento es triangular (máximo FL/4 sólo en el centro) y el cortante vale ±F/2. En 4 puntos el momento es constante en todo el tramo central L/2 y el cortante es cero: flexión pura, se ensaya más volumen.' },
-    diagram: 'flexion',
   },
   {
     id: 'brinell',
@@ -3287,7 +3255,6 @@ const ENSAYOS = [
     whenUse: 'Ejes, resortes, alas, piezas con cargas repetidas o vibración.',
     errors: ['Aplicar Marin sin aclarar que Se′ es de probeta pulida', 'Suponer que el aluminio tiene límite de fatiga definido'],
     examQ: { q: 'Etapas de la fatiga y diferencia acero/aluminio', a: 'Iniciación superficial → propagación ciclo a ciclo → fractura súbita. El acero tiene meseta entre 10⁶ y 10⁷ ciclos (Se); el aluminio no tiene límite definido y su curva sigue bajando.' },
-    diagram: 'sn-wohler',
   },
 ];
 
@@ -3913,11 +3880,7 @@ const dureza = {
 const U6_DIAGRAMS = [
   curvaSigmaEpsilon,
   impacto,
-  caraFractura,
-  flexion,
   transicion,
-  snWohler,
-  dureza,
 ];
 
   __CDM_MODULES__["diagrams/u6.js"] = { U6_DIAGRAMS };
@@ -4199,7 +4162,7 @@ const enfriamiento = {
   ],
 };
 
-const U8_DIAGRAMS = [nucleacion, homogeneaHeterogenea, mazarota, enfriamiento];
+const U8_DIAGRAMS = [nucleacion, enfriamiento];
 
   __CDM_MODULES__["diagrams/u8.js"] = { U8_DIAGRAMS };
 })();
@@ -4891,14 +4854,8 @@ const TABS = [
 const TOPIC_BY_DIAGRAM = {
   'curva-sigma-epsilon': 'propiedades',
   impacto: 'impacto',
-  'cara-fractura': 'impacto',
-  flexion: 'flexion',
   transicion: 'transicion',
-  'sn-wohler': 'fatiga',
-  dureza: 'dureza',
   nucleacion: 'nucleacion',
-  'homogenea-heterogenea': 'homogenea',
-  mazarota: 'chvorinov',
   enfriamiento: 'enfriamiento',
 };
 
