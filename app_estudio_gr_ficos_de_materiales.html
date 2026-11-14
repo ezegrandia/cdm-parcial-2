@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>LabMateriales · Estudio de Gráficos y Fórmulas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', ' system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            slate: {
+              850: '#131c2e',
+              925: '#0b1120',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      overscroll-behavior-y: contain;
+    }
+    /* Animaciones para resaltado de zonas y curvas en SVG */
+    @keyframes pulseGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.65));
+        opacity: 1;
+      }
+      50% {
+        filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.95));
+        opacity: 0.85;
+      }
+    }
+    @keyframes pinBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.16); }
+    }
+    .svg-highlight-active {
+      animation: pulseGlow 1.5s infinite ease-in-out;
+    }
+    .pin-node {
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .pin-node:hover {
+      transform: scale(1.12);
+    }
+    .pin-active {
+      animation: pinBounce 1.2s infinite ease-in-out;
+    }
+    /* Scrollbars sutiles */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.5);
+      border-radius: 9999px;
+    }
+    /* Patrón de rayado para Zona de Resiliencia */
+    .grid-bg {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-slate-925 text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- BARRA SUPERIOR COMPACTA -->
+  <header class="sticky top-0 z-30 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-3 py-2.5">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Logo y título -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-slate-950 font-extrabold text-lg">
+          ΔG
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold tracking-tight leading-tight flex items-center gap-2">
+            <span>Entrenador de Gráficos</span>
+            <span id="streakBadge" class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-mono font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30 rounded-full">
+              🔥 <span id="streakCount">0</span>
+            </span>
+          </h1>
+          <p class="text-[11px] text-slate-400">Nucleación · Chvorinov · Esfuerzo-Deformación</p>
+        </div>
+      </div>
+
+      <!-- Botones de utilidades -->
+      <div class="flex items-center gap-1.5">
+        <button id="btnResetProgress" title="Reiniciar gráfico actual" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 border border-slate-700 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Reiniciar</span>
+        </button>
+        <button id="btnGithubHelp" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-xs font-semibold text-cyan-300 border border-cyan-500/30 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span class="hidden sm:inline">Guardar /</span><span>GitHub</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SELECTOR DE MÓDULO (LOS 2 APUNTES) -->
+    <div class="max-w-5xl mx-auto mt-2.5 grid grid-cols-2 gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+      <button id="tabModule1" onclick="switchModule('nucleacion')" class="py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-cyan-500 text-slate-950 shadow">
+        <span>1. Nucleación + Chvorinov</span>
+        <span id="badgeMod1" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-950/25 text-slate-950">0/16</span>
+      </button>
+      <button id="tabModule2" onclick="switchModule('traccion')" class="py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 text-slate-300 hover:text-white">
+        <span>2. Esfuerzo - Deformación</span>
+        <span id="badgeMod2" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300">0/15</span>
+      </button>
+    </div>
+
+    <!-- SELECTOR DE MODO DE ESTUDIO -->
+    <div class="max-w-5xl mx-auto mt-2 flex items-center justify-between gap-1 overflow-x-auto pb-0.5">
+      <div class="flex items-center gap-1 w-full">
+        <button onclick="switchMode('tap')" id="modeBtn-tap" class="mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-800 text-cyan-300 border-cyan-500/50">
+          ⚡ Tap / Autocompletar
+        </button>
+        <button onclick="switchMode('type')" id="modeBtn-type" class="mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-900/60 text-slate-400 border-slate-800 hover:text-slate-200">
+          ⌨️ Escribir de Memoria
+        </button>
+        <button onclick="switchMode('cloze')" id="modeBtn-cloze" class="mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-900/60 text-slate-400 border-slate-800 hover:text-slate-200">
+          🧩 Huecos y Fórmulas
+        </button>
+        <button onclick="switchMode('study')" id="modeBtn-study" class="mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-900/60 text-slate-400 border-slate-800 hover:text-slate-200">
+          👁️ Ver Resuelto
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-2.5 sm:px-4 py-3 flex flex-col gap-3">
+
+    <!-- BARRA DE PROGRESO DEL GRÁFICO ACTUAL -->
+    <div id="graphProgressContainer" class="bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="text-xs font-semibold text-slate-300 truncate" id="progressLabel">Progreso del diagrama:</span>
+        <span id="progressCounter" class="text-xs font-mono font-bold text-cyan-400">0 / 16</span>
+      </div>
+      <div class="flex-1 max-w-xs bg-slate-800 h-2 rounded-full overflow-hidden">
+        <div id="progressBarFill" class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+      </div>
+      <button onclick="selectNextPendingPin()" id="btnNextPin" class="text-xs font-semibold text-amber-300 hover:text-amber-200 whitespace-nowrap flex items-center gap-1">
+        <span>Siguiente</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <!-- SECCIÓN DEL DIAGRAMA INTERACTIVO + CONTROLES (Para modos Tap, Type y Study) -->
+    <div id="diagramWorkspace" class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+
+      <!-- LIENZO SVG DEL GRÁFICO (7 columnas en desktop, 100% en móvil) -->
+      <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl grid-bg relative">
+        <!-- Encabezado flotante sobre el gráfico -->
+        <div class="flex items-center justify-between px-3 py-2 bg-slate-900/90 border-b border-slate-800/80 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span id="diagramTitleHeader" class="font-bold text-slate-200">Diagrama de Nucleación + Chvorinov</span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-400">
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span>Activo</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>Listo</span>
+          </div>
+        </div>
+
+        <!-- CONTENEDOR SVG: MÓDULO 1 (NUCLEACIÓN + CHVORINOV) -->
+        <div id="svgContainerNucleacion" class="w-full select-none">
+          <svg viewBox="0 0 700 620" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrowAxis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+              </marker>
+              <marker id="arrowPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+              </marker>
+              <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+              </marker>
+            </defs>
+
+            <!-- Zonas sombreadas a izquierda y derecha de r* -->
+            <path id="hl-nuc-8" d="M 100 250 Q 175 245, 220 175 Q 265 110, 320 110 L 320 250 Z" fill="rgba(244, 63, 94, 0.09)" stroke="none" />
+            <path id="hl-nuc-10" d="M 320 110 Q 375 110, 420 185 Q 442 222, 456 250 L 320 250 Z" fill="rgba(16, 185, 129, 0.09)" stroke="none" />
+
+            <!-- Eje Vertical (ΔG) -->
+            <g id="hl-nuc-1">
+              <line x1="100" y1="430" x2="100" y2="55" stroke="#94a3b8" stroke-width="2.5" marker-start="url(#arrowAxis)" marker-end="url(#arrowAxis)" />
+              <text x="86" y="80" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="end">positivo (+)</text>
+              <text x="88" y="255" fill="#cbd5e1" font-size="13" font-weight="700" text-anchor="end">0</text>
+              <text x="86" y="415" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="end">negativo (-)</text>
+            </g>
+
+            <!-- Eje Horizontal (radio r) -->
+            <g id="hl-nuc-2">
+              <line x1="100" y1="250" x2="620" y2="250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrowAxis)" />
+            </g>
+
+            <!-- Curva punteada superior: Cambio de energía libre de la superficie -->
+            <path id="hl-nuc-3" d="M 100 250 Q 210 215, 330 85 T 485 28" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="9,6" />
+
+            <!-- Flecha hacia explicación de fuerza en contra -->
+            <path id="hl-nuc-4" d="M 390 55 Q 435 22, 480 28" fill="none" stroke="#c084fc" stroke-width="1.8" marker-end="url(#arrowPurple)" />
+
+            <!-- Curva punteada inferior: Cambio de energía libre de volumen -->
+            <path id="hl-nuc-6" d="M 100 250 Q 225 262, 340 350 T 490 435" fill="none" stroke="#fb923c" stroke-width="3" stroke-dasharray="9,6" />
+
+            <!-- Curva sólida central: Energía libre total del sistema líq-sólido (ΔG) -->
+            <path id="hl-nuc-5" d="M 100 250 Q 175 245, 220 175 Q 265 110, 320 110 Q 375 110, 420 185 Q 455 245, 485 285" fill="none" stroke="#f8fafc" stroke-width="3.5" />
+
+            <!-- Línea vertical punteada en r* (Radio crítico) -->
+            <g id="hl-nuc-7">
+              <line x1="320" y1="110" x2="320" y2="335" stroke="#facc15" stroke-width="2.2" stroke-dasharray="6,6" />
+              <circle cx="320" cy="110" r="4.5" fill="#facc15" />
+            </g>
+
+            <!-- Flechas de zona de embriones -> Inestable y zona de núcleos -> Estable -->
+            <path id="hl-nuc-9" d="M 250 220 Q 185 295, 165 365" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrowPurple)" />
+            <path id="hl-nuc-11" d="M 375 215 Q 405 310, 485 322" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrowPurple)" />
+
+            <!-- RECUADRO REGLA DE CHVORINOV (Abajo a la derecha como en la hoja) -->
+            <g transform="translate(275, 445)">
+              <rect x="0" y="0" width="405" height="160" rx="12" fill="rgba(15, 23, 42, 0.85)" stroke="#475569" stroke-width="2" stroke-dasharray="8,6" />
+              <text x="45" y="26" fill="#38bdf8" font-size="14" font-weight="800" letter-spacing="1">REGLA DE CHVORINOV</text>
+              <line x1="45" y1="31" x2="205" y2="31" stroke="#38bdf8" stroke-width="1.5" />
+
+              <!-- Fórmula grande en el centro del recuadro -->
+              <g font-family="JetBrains Mono, monospace" font-weight="700">
+                <!-- ts -->
+                <rect id="hl-nuc-12" x="82" y="55" width="38" height="34" rx="6" fill="rgba(56, 189, 248, 0.12)" stroke="#38bdf8" stroke-width="1.5"/>
+                <text x="101" y="78" fill="#f8fafc" font-size="20" text-anchor="middle">ts</text>
+
+                <text x="133" y="78" fill="#94a3b8" font-size="20" text-anchor="middle">=</text>
+
+                <!-- B -->
+                <rect id="hl-nuc-13" x="148" y="55" width="32" height="34" rx="6" fill="rgba(250, 204, 21, 0.12)" stroke="#facc15" stroke-width="1.5"/>
+                <text x="164" y="78" fill="#f8fafc" font-size="20" text-anchor="middle">B</text>
+
+                <text x="191" y="78" fill="#94a3b8" font-size="20" text-anchor="middle">·</text>
+
+                <!-- Paréntesis ( V / A )^2 -->
+                <text x="207" y="80" fill="#cbd5e1" font-size="34" font-weight="400">(</text>
+                
+                <!-- V -->
+                <rect id="hl-nuc-14" x="222" y="42" width="32" height="28" rx="5" fill="rgba(16, 185, 129, 0.12)" stroke="#10b981" stroke-width="1.5"/>
+                <text x="238" y="62" fill="#f8fafc" font-size="17" text-anchor="middle">V</text>
+
+                <line x1="220" y1="74" x2="256" y2="74" stroke="#cbd5e1" stroke-width="2" />
+
+                <!-- A -->
+                <rect id="hl-nuc-15" x="222" y="79" width="32" height="28" rx="5" fill="rgba(244, 63, 94, 0.12)" stroke="#f43f5e" stroke-width="1.5"/>
+                <text x="238" y="99" fill="#f8fafc" font-size="17" text-anchor="middle">A</text>
+
+                <text x="262" y="80" fill="#cbd5e1" font-size="34" font-weight="400">)</text>
+
+                <!-- Exponente 2 -->
+                <rect id="hl-nuc-16" x="277" y="38" width="24" height="24" rx="5" fill="rgba(192, 132, 252, 0.15)" stroke="#c084fc" stroke-width="1.5"/>
+                <text x="289" y="55" fill="#f8fafc" font-size="15" text-anchor="middle">2</text>
+              </g>
+
+              <!-- Flechitas del recuadro Chvorinov -->
+              <path d="M 98 92 Q 90 115, 72 122" fill="none" stroke="#64748b" stroke-width="1.5" />
+              <path d="M 164 92 L 164 122" fill="none" stroke="#64748b" stroke-width="1.5" />
+              <path d="M 256 52 Q 290 42, 318 42" fill="none" stroke="#64748b" stroke-width="1.5" />
+              <path d="M 256 95 Q 290 108, 318 112" fill="none" stroke="#64748b" stroke-width="1.5" />
+            </g>
+
+            <!-- CAPA DE ETIQUETAS RESUELTAS Y PINES INTERACTIVOS (Renderizado dinámico por JS) -->
+            <g id="nucleacionLabelsLayer"></g>
+            <g id="nucleacionPinsLayer"></g>
+          </svg>
+        </div>
+
+        <!-- CONTENEDOR SVG: MÓDULO 2 (ESFUERZO - DEFORMACIÓN) -->
+        <div id="svgContainerTraccion" class="w-full select-none hidden">
+          <svg viewBox="0 0 700 620" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="resilienceHatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.45" />
+              </pattern>
+            </defs>
+
+            <!-- Área sombreada: Zona de Resiliencia (Triángulo bajo la zona elástica) -->
+            <polygon id="hl-trac-6" points="110,360 195,190 195,360" fill="url(#resilienceHatch)" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" />
+
+            <!-- Líneas verticales divisorias de zonas (punteadas) -->
+            <line x1="195" y1="190" x2="195" y2="360" stroke="#64748b" stroke-width="1.8" stroke-dasharray="5,5" />
+            <line x1="255" y1="195" x2="255" y2="360" stroke="#64748b" stroke-width="1.8" stroke-dasharray="5,5" />
+            <line x1="380" y1="95" x2="380" y2="360" stroke="#64748b" stroke-width="1.8" stroke-dasharray="5,5" />
+
+            <!-- Líneas horizontales guía desde el eje Y -->
+            <line x1="110" y1="190" x2="195" y2="190" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4" />
+            <line x1="110" y1="95" x2="380" y2="95" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4" />
+
+            <!-- Eje Vertical: Esfuerzo σ -->
+            <g id="hl-trac-1">
+              <line x1="110" y1="360" x2="110" y2="55" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrowAxis)" />
+            </g>
+
+            <!-- Eje Horizontal: ε Deformación -->
+            <g id="hl-trac-3">
+              <line x1="110" y1="360" x2="585" y2="360" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrowAxis)" />
+            </g>
+
+            <!-- Recta punteada paralela desplazada (0,2% Cedencia convencional) -->
+            <line id="hl-trac-8" x1="138" y1="360" x2="225" y2="186" stroke="#c084fc" stroke-width="2.5" stroke-dasharray="6,5" />
+
+            <!-- TRAMOS DE LA CURVA ESFUERZO-DEFORMACIÓN -->
+            <!-- Tramo 1: Pendiente recta elástica (Módulo de Young E) -->
+            <line id="hl-trac-5" x1="110" y1="360" x2="195" y2="190" stroke="#38bdf8" stroke-width="4" />
+
+            <!-- Tramo 2: Zona de fluencia (oscilación tras límite elástico) -->
+            <path id="hl-trac-9" d="M 195 190 L 203 202 L 211 188 L 219 201 L 227 189 L 236 202 C 245 204, 250 198, 255 190" fill="none" stroke="#facc15" stroke-width="3.5" />
+
+            <!-- Tramo 3: Endurecimiento por deformación hasta Resistencia a la Tracción -->
+            <path d="M 255 190 Q 305 95, 380 95" fill="none" stroke="#f8fafc" stroke-width="3.5" />
+
+            <!-- Tramo 4: Estricción (tramo descendente después del máximo) -->
+            <path id="hl-trac-11" d="M 380 95 Q 435 102, 480 175" fill="none" stroke="#fb923c" stroke-width="3.8" />
+
+            <!-- Puntos notables de la curva -->
+            <!-- Punto 7: Esfuerzo de fluencia o cedencia -->
+            <circle id="hl-trac-7" cx="195" cy="190" r="6" fill="#facc15" stroke="#0f172a" stroke-width="2" />
+            <!-- Punto 10: Resistencia a la tensión / tracción (Punto máximo) -->
+            <circle id="hl-trac-10" cx="380" cy="95" r="6" fill="#10b981" stroke="#0f172a" stroke-width="2" />
+            <!-- Punto 12: Esfuerzo de ruptura -->
+            <circle id="hl-trac-12" cx="480" cy="175" r="6" fill="#f43f5e" stroke="#0f172a" stroke-width="2" />
+
+            <!-- Llaves inferiores: Zona Elástica y Zona Plástica -->
+            <g id="hl-trac-13">
+              <line x1="110" y1="392" x2="195" y2="392" stroke="#38bdf8" stroke-width="2.5" />
+              <line x1="110" y1="386" x2="110" y2="398" stroke="#38bdf8" stroke-width="2.5" />
+              <line x1="195" y1="386" x2="195" y2="398" stroke="#38bdf8" stroke-width="2.5" />
+            </g>
+            <g id="hl-trac-14">
+              <line x1="195" y1="392" x2="480" y2="392" stroke="#facc15" stroke-width="2.5" />
+              <line x1="480" y1="386" x2="480" y2="398" stroke="#facc15" stroke-width="2.5" />
+            </g>
+
+            <!-- Recuadro Fórmula Esfuerzo (Arriba izquierda) -->
+            <g id="hl-trac-2" transform="translate(18, 16)">
+              <rect x="0" y="0" width="95" height="52" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="1.8" />
+              <text x="47" y="32" fill="#f8fafc" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700" text-anchor="middle">σ = F/Ao</text>
+            </g>
+
+            <!-- Recuadro Fórmula Deformación (Abajo derecha del eje X) -->
+            <g id="hl-trac-4" transform="translate(495, 385)">
+              <rect x="0" y="0" width="185" height="58" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="1.8" />
+              <text x="92" y="35" fill="#f8fafc" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" text-anchor="middle">ε = (l-lo)/lo = Δl/lo</text>
+            </g>
+
+            <!-- Mini-gráfico: En Aceros de bajo carbono (σ1 y σ2) abajo a la izquierda -->
+            <g id="hl-trac-15" transform="translate(20, 470)">
+              <rect x="0" y="0" width="245" height="132" rx="10" fill="rgba(15, 23, 42, 0.9)" stroke="#38bdf8" stroke-width="1.8" />
+              <text x="14" y="22" fill="#38bdf8" font-size="12" font-weight="700">En Aceros de bajo carbono:</text>
+              <!-- Curvita con pico superior σ1 y valle inferior σ2 -->
+              <path d="M 35 115 L 65 62 C 72 52, 78 65, 82 85 C 86 102, 95 95, 125 65" fill="none" stroke="#f8fafc" stroke-width="2.8" />
+              <circle cx="69" cy="60" r="4.5" fill="#facc15" />
+              <text x="65" y="50" fill="#facc15" font-family="JetBrains Mono" font-size="13" font-weight="700">σ₁</text>
+              <circle cx="85" cy="94" r="4.5" fill="#38bdf8" />
+              <text x="92" y="110" fill="#38bdf8" font-family="JetBrains Mono" font-size="13" font-weight="700">σ₂</text>
+            </g>
+
+            <!-- Recuadros de resumen en la parte inferior derecha (Módulo de Young y Resiliencia) -->
+            <g transform="translate(280, 470)">
+              <rect x="0" y="0" width="185" height="132" rx="10" fill="rgba(15, 23, 42, 0.85)" stroke="#475569" stroke-width="1.5" />
+              <text x="12" y="22" fill="#facc15" font-size="12" font-weight="700">Módulo de Young (E)</text>
+              <text x="12" y="42" fill="#cbd5e1" font-size="11">Mide la rigidez (Ley Hooke)</text>
+              <rect x="42" y="55" width="100" height="46" rx="6" fill="rgba(250, 204, 21, 0.1)" stroke="#facc15" stroke-width="1.5" />
+              <text x="92" y="84" fill="#f8fafc" font-family="JetBrains Mono" font-size="17" font-weight="700" text-anchor="middle">E = σ / ε</text>
+            </g>
+
+            <g transform="translate(480, 470)">
+              <rect x="0" y="0" width="200" height="132" rx="10" fill="rgba(15, 23, 42, 0.85)" stroke="#475569" stroke-width="1.5" />
+              <text x="12" y="22" fill="#c084fc" font-size="12" font-weight="700">Cedencia 0,2% y Resiliencia</text>
+              <text x="12" y="44" fill="#cbd5e1" font-size="11">• Sin quiebre claro: recta</text>
+              <text x="12" y="60" fill="#cbd5e1" font-size="11">  paralela desplazada 0,2%</text>
+              <text x="12" y="84" fill="#cbd5e1" font-size="11">• Resiliencia: triángulo</text>
+              <text x="12" y="100" fill="#cbd5e1" font-size="11">  absorbe o libera energía</text>
+            </g>
+
+            <!-- CAPA DE ETIQUETAS RESUELTAS Y PINES INTERACTIVOS -->
+            <g id="traccionLabelsLayer"></g>
+            <g id="traccionPinsLayer"></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PANEL DE CONTROL INTERACTIVO (5 columnas en desktop, debajo del gráfico en celular) -->
+      <div class="lg:col-span-5 flex flex-col gap-3">
+
+        <!-- TARJETA DEL PUNTO SELECCIONADO -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 sm:p-4 shadow-xl flex flex-col gap-3">
+          <!-- Cabecera del punto activo -->
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <div id="activePinBadge" class="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 font-mono font-extrabold text-base flex items-center justify-center shadow-md shadow-amber-400/20 shrink-0">
+                #1
+              </div>
+              <div>
+                <span id="activePinCategory" class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 block">Eje o Curva</span>
+                <h2 id="activePinPrompt" class="text-sm sm:text-base font-bold text-white leading-snug">
+                  ¿Qué representa este punto en el gráfico?
+                </h2>
+              </div>
+            </div>
+            <button onclick="showHintForActivePin()" id="btnHint" class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-semibold shrink-0 transition">
+              💡 Pista
+            </button>
+          </div>
+
+          <!-- Pista o explicación adicional cuando se responde -->
+          <div id="feedbackBanner" class="hidden rounded-xl p-3 text-xs border leading-relaxed"></div>
+
+          <!-- CONTROLES MODO 1: TAP / AUTOCOMPLETAR CON BANCO DE OPCIONES -->
+          <div id="controlsTapMode" class="flex flex-col gap-2.5">
+            <div class="relative">
+              <input
+                id="tapFilterInput"
+                type="text"
+                 autocomplete="off"
+                placeholder="🔍 Filtrar opciones (ej: superficie, crítico, fluencia...)"
+                class="w-full bg-slate-950 border border-slate-700 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 outline-none transition"
+              />
+              <button id="btnClearFilter" onclick="clearTapFilter()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs px-1.5 py-0.5 bg-slate-800 rounded">
+                ✕
+              </button>
+            </div>
+            <div class="text-[11px] text-slate-400 flex items-center justify-between">
+              <span>Tocá la respuesta correcta para el punto <strong id="tapTargetNumLabel" class="text-amber-300">#1</strong>:</span>
+              <button onclick="shuffleOptions()" class="text-cyan-400 hover:underline font-medium">🔀 Mezclar</button>
+            </div>
+            <!-- Lista de chips táctiles -->
+            <div id="tapOptionsList" class="grid grid-cols-1 gap-1.5 max-h-64 sm:max-h-72 overflow-y-auto pr-1"></div>
+          </div>
+
+          <!-- CONTROLES MODO 2: ESCRIBIR DE MEMORIA CON AUTOCOMPLETADO -->
+          <div id="controlsTypeMode" class="hidden flex flex-col gap-2.5">
+            <p class="text-xs text-slate-300">
+              Escribí el nombre o palabras clave del punto <strong id="typeTargetNumLabel" class="text-amber-300">#1</strong>. Aparecerán sugerencias de autocompletado:
+            </p>
+            <div class="relative">
+              <input
+                id="typeAnswerInput"
+                type="text"
+                autocomplete="off"
+                placeholder="Escribí acá (ej: radio crítico, zona de núcleos...)"
+                class="w-full bg-slate-950 border-2 border-slate-700 focus:border-cyan-400 rounded-xl px-3.5 py-3 text-sm text-white placeholder-slate-500 outline-none transition font-medium"
+              />
+              <!-- Dropdown de sugerencias de autocompletado -->
+              <div id="autocompleteDropdown" class="hidden mt-1.5 bg-slate-950 border border-slate-700 rounded-xl overflow-hidden shadow-2xl divide-y divide-slate-800/80 max-h-48 overflow-y-auto"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkTypedAnswer()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/20 transition">
+                Comprobar respuesta ↵
+              </button>
+              <button onclick="revealCurrentPin()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs border border-slate-700 transition">
+                Ver respuesta
+              </button>
+            </div>
+          </div>
+
+          <!-- CONTROLES MODO 4: MODO ESTUDIO (RESUMEN COMPLETO DEL PUNTO) -->
+          <div id="controlsStudyMode" class="hidden flex flex-col gap-2">
+            <div class="bg-slate-950/90 border border-cyan-500/30 rounded-xl p-3">
+              <div class="text-xs font-mono text-cyan-400 mb-0.5" id="studyPinTitle">Concepto</div>
+              <div class="text-sm sm:text-base font-bold text-white" id="studyPinFullAnswer">Respuesta</div>
+              <div class="text-xs text-slate-300 mt-1.5 leading-relaxed" id="studyPinDetail">Detalle</div>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              💡 Tocá cualquier número en el gráfico o en la lista de abajo para resaltar su curva/zona exacta.
+            </p>
+          </div>
+        </div>
+
+        <!-- LISTA RÁPIDA DE TODOS LOS PUNTOS DEL GRÁFICO -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+              Mapa de puntos del apunte
+            </h3>
+            <span class="text-[11px] text-slate-400">Tocá un N° para saltar</span>
+          </div>
+          <div id="pinQuickGrid" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN MODO 3: HUECOS Y FÓRMULAS (CLOZE TEST) -->
+    <div id="clozeWorkspace" class="hidden flex-col gap-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-800">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>🧩 Autocompletar Definiciones y Fórmulas</span>
+            </h2>
+            <p class="text-xs text-slate-400">
+              Tocá cada hueco <span class="text-cyan-300 font-mono">[ ___ ]</span> para elegir el término exacto de tu hoja de estudio.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="clozeScoreBadge" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold">
+              0 / 0 completados
+            </span>
+            <button onclick="resetClozeExercises()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 border border-slate-700">
+              Reiniciar huecos
+            </button>
+          </div>
+        </div>
+
+        <!-- Contenedor dinámico de tarjetas Cloze -->
+        <div id="clozeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL FLOTANTE PARA SELECCIONAR HUECO EN MODO CLOZE -->
+  <div id="clozePickerModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-slate-900 border-t sm:border border-slate-700 rounded-t-2xl sm:rounded-2xl w-full max-w-md p-4 shadow-2xl animate-fade-in">
+      <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-800">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400">Completar hueco</span>
+          <h3 id="clozeModalContext" class="text-sm font-bold text-white mt-0.5">Seleccioná la opción correcta:</h3>
+        </div>
+        <button onclick="closeClozeModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">✕</button>
+      </div>
+      <div id="clozeModalOptions" class="grid grid-cols-1 gap-2 max-h-72 overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE AYUDA PARA GITHUB PAGES Y DESCARGA -->
+  <div id="githubModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-5 shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold">🚀</div>
+          <h3 class="text-base font-bold text-white">Usar en tu Celular con GitHub Pages</h3>
+        </div>
+        <button onclick="toggleGithubModal(false)" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">✕</button>
+      </div>
+
+      <div class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
+        <p class="text-slate-200 font-medium">¡Este archivo es 100% autónomo! No necesita servidor ni imágenes externas.</p>
+        <ol class="list-decimal list-inside space-y-1.5 text-slate-300 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+          <li>Tocá el botón <strong>"Descargar index.html"</strong> acá abajo.</li>
+          <li>Entrá a <strong>github.com</strong> y creá un repositorio público nuevo (ej: <code class="text-cyan-300 font-mono">estudio-materiales</code>).</li>
+          <li>Subí el archivo <code class="text-cyan-300 font-mono">index.html</code> a ese repositorio.</li>
+          <li>Andá a <strong>Settings → Pages</strong> y en <em>Branch</em> elegí <strong>main</strong> y guardá.</li>
+          <li>En 1 minuto tendrás tu link web para abrirlo en el navegador del celular y agregarlo a tu pantalla de inicio.</li>
+        </ol>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 pt-1">
+        <button onclick="downloadSelfHtml()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span>Descargar index.html listo</span>
+        </button>
+        <button onclick="toggleGithubModal(false)" class="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL DE LA APLICACIÓN -->
+  <script>
+    /*************************************************************************
+     * BASE DE DATOS EXACTA DE LOS DOS APUNTES MANUSCRITOS DEL USUARIO
+     *************************************************************************/
+    const STUDY_DATA = {
+      nucleacion: {
+        id: 'nucleacion',
+        title: 'Diagrama de Nucleación + Chvorinov',
+        pins: [
+          {
+            num: 1,
+            x: 42, y: 245,
+            labelX: 38, labelY: 215,
+            category: 'Eje Vertical',
+            prompt: '¿Qué magnitud se ubica en el eje vertical (con valores positivos + arriba y negativos - abajo)?',
+            answer: 'Cambio de energía libre (ΔG)',
+            shortSvgLabel: 'Cambio de energía libre (ΔG)',
+            detail: 'El eje vertical representa el Cambio de energía libre (ΔG), dividido en semieje positivo (+) hacia arriba y negativo (-) hacia abajo del origen 0.',
+            keywords: ['cambio de energia libre', 'delta g', 'energia libre'],
+            highlightId: 'hl-nuc-1',
+            hint: 'Empieza con "Cambio de energía..." y su símbolo es (ΔG).'
+          },
+          {
+            num: 2,
+            x: 565, y: 278,
+            labelX: 550, labelY: 300,
+            category: 'Eje Horizontal',
+            prompt: '¿Qué variable se representa en el eje horizontal hacia la derecha?',
+            answer: 'Radio de la partícula, r',
+            shortSvgLabel: 'radio de la partícula, r',
+            detail: 'Mide el tamaño o radio (r) de la partícula sólida que se está formando dentro del líquido.',
+            keywords: ['radio de la particula', 'radio r', 'particula'],
+            highlightId: 'hl-nuc-2',
+            hint: 'Es la dimensión geométrica de la partícula que crece: "Radio de la..."'
+          },
+          {
+            num: 3,
+            x: 280, y: 120,
+            labelX: 255, labelY: 85,
+            category: 'Curva Punteada Superior',
+            prompt: '¿Cómo se llama la curva punteada superior que crece en el cuadrante positivo (+)?',
+            answer: 'Cambio de energía libre de la superficie',
+            shortSvgLabel: 'ΔG superficie (curva sup.)',
+            detail: 'Representa la energía necesaria para crear la nueva interfaz sólido-líquido (proporcional a r²). Siempre es positiva.',
+            keywords: ['cambio de energia libre de la superficie', 'energia libre de la superficie', 'superficie'],
+            highlightId: 'hl-nuc-3',
+            hint: 'Es el cambio de energía libre asociado a la frontera o exterior: "...de la superficie".'
+          },
+          {
+            num: 4,
+            x: 545, y: 42,
+            labelX: 545, labelY: 75,
+            category: 'Concepto Curva Superior',
+            prompt: '¿Qué efecto físico explica la nota de arriba a la derecha sobre la energía libre de superficie?',
+            answer: 'Fuerza en contra de la nucleación, tiende a interrumpir el proceso. Cuesta energía',
+            shortSvgLabel: 'Fuerza en contra (cuesta energía)',
+            detail: 'Textual de tu hoja: "Fuerza en contra de la nucleación, tiende a interrumpir el proceso. Cuesta energía".',
+            keywords: ['fuerza en contra de la nucleacion', 'interrumpir el proceso', 'cuesta energia'],
+            highlightId: 'hl-nuc-4',
+            hint: 'Es una "Fuerza en contra de la...", tiende a interrumpir el proceso y cuesta energía.'
+          },
+          {
+            num: 5,
+            x: 428, y: 170,
+            labelX: 535, labelY: 145,
+            category: 'Curva Sólida Principal',
+            prompt: '¿Qué representa la curva continua central que sube hasta un máximo y luego cae?',
+            answer: 'Energía libre total del sistema líq-sólido (ΔG)',
+            shortSvgLabel: 'Energía libre total líq-sólido (ΔG)',
+            detail: 'Es la suma algebraica del término de superficie (+) y el término de volumen (-).',
+            keywords: ['energia libre total del sistema', 'energia libre total', 'sistema liq-solido'],
+            highlightId: 'hl-nuc-5',
+            hint: 'Es la suma de ambas contribuciones: "Energía libre total del sistema..."'
+          },
+          {
+            num: 6,
+            x: 345, y: 355,
+            labelX: 345, labelY: 392,
+            category: 'Curva Punteada Inferior',
+            prompt: '¿Cómo se llama la curva punteada inferior que desciende hacia valores negativos (-)?',
+            answer: 'Cambio de energía libre de volumen',
+            shortSvgLabel: 'Cambio energía libre de volumen',
+            detail: 'Energía liberada al formarse el volumen sólido (proporcional a -r³). Favorece la solidificación.',
+            keywords: ['cambio de energia libre de volumen', 'energia libre de volumen', 'volumen'],
+            highlightId: 'hl-nuc-6',
+            hint: 'A diferencia de la de superficie, esta depende del interior tridimensional: "...de volumen".'
+          },
+          {
+            num: 7,
+            x: 320, y: 280,
+            labelX: 320, labelY: 312,
+            category: 'Valor Límite en el Pico',
+            prompt: '¿Qué representa la línea vertical punteada ubicada exactamente en el pico máximo de la curva ΔG?',
+            answer: 'r* (Radio crítico)',
+            shortSvgLabel: 'r* Radio crítico',
+            detail: 'Es el tamaño mínimo que debe alcanzar una partícula para ser estable y no refundirse.',
+            keywords: ['radio critico', 'r*', 'r estrella'],
+            highlightId: 'hl-nuc-7',
+            hint: 'Se simboliza con r* y se denomina "Radio..."'
+          },
+          {
+            num: 8,
+            x: 265, y: 205,
+            labelX: 262, labelY: 175,
+            category: 'Región Izquierda (r < r*)',
+            prompt: '¿Cómo se llaman las partículas en la zona ubicada a la izquierda de r*?',
+            answer: 'Zona de embriones',
+            shortSvgLabel: 'Zona embriones',
+            detail: 'Antes de alcanzar el radio crítico r*, las agrupaciones de átomos se llaman embriones.',
+            keywords: ['zona de embriones', 'embriones'],
+            highlightId: 'hl-nuc-8',
+            hint: 'Todavía no son núcleos estables; están en la "Zona de..."'
+          },
+          {
+            num: 9,
+            x: 162, y: 392,
+            labelX: 162, labelY: 432,
+            category: 'Comportamiento para r < r*',
+            prompt: '¿Qué ocurre con las partículas en la zona de embriones (r < r*)?',
+            answer: 'Inestable: se vuelve a fundir en el líquido (r < r*)',
+            shortSvgLabel: 'Inestable: se funde (r < r*)',
+            detail: 'Como reducir su radio disminuye ΔG, el embrión es inestable y se redisuelve en el líquido.',
+            keywords: ['inestable', 'se vuelve a fundir', 'r < r*'],
+            highlightId: 'hl-nuc-9',
+            hint: '¿Es estable o inestable? Se vuelve a fundir en el líquido y cumple r < r*.'
+          },
+          {
+            num: 10,
+            x: 372, y: 205,
+            labelX: 375, labelY: 175,
+            category: 'Región Derecha (r > r*)',
+            prompt: '¿Cómo se llama la zona ubicada a la derecha del radio crítico r*?',
+            answer: 'Zona de núcleos',
+            shortSvgLabel: 'Zona núcleos',
+            detail: 'Una vez superado r*, las partículas pasan a ser núcleos estables.',
+            keywords: ['zona de nucleos', 'nucleos'],
+            highlightId: 'hl-nuc-10',
+            hint: 'A la izquierda son embriones y a la derecha es la "Zona de..."'
+          },
+          {
+            num: 11,
+            x: 545, y: 325,
+            labelX: 545, labelY: 365,
+            category: 'Comportamiento para r > r*',
+            prompt: '¿Qué ocurre con las partículas en la zona de núcleos (r > r*)?',
+            answer: 'Estable: los sólidos crecen de manera constante y rápida (r > r*)',
+            shortSvgLabel: 'Estable: crecen rápido (r > r*)',
+            detail: 'Al crecer disminuye la energía libre ΔG, por lo que el crecimiento del sólido es espontáneo, constante y rápido.',
+            keywords: ['estable', 'los solidos crecen', 'r > r*'],
+            highlightId: 'hl-nuc-11',
+            hint: 'Es "Estable: los sólidos crecen de manera..." y cumple r > r*.'
+          },
+          {
+            num: 12,
+            x: 345, y: 582,
+            labelX: 345, labelY: 604,
+            category: 'Chvorinov · Variable ts',
+            prompt: 'En la fórmula de Chvorinov ts = B · (V/A)², ¿qué significa "ts"?',
+            answer: 'Tiempo de solidificación (ts)',
+            shortSvgLabel: 'ts: Tiempo solidificación',
+            detail: 'Tiempo total que tarda la pieza fundida en solidificarse dentro del molde.',
+            keywords: ['tiempo de solidificacion', 'ts', 'tiempo'],
+            highlightId: 'hl-nuc-12',
+            hint: 'La "t" es de tiempo y la "s" de solidificación.'
+          },
+          {
+            num: 13,
+            x: 440, y: 582,
+            labelX: 440, labelY: 604,
+            category: 'Chvorinov · Variable B',
+            prompt: 'En la regla de Chvorinov, ¿qué representa la letra "B"?',
+            answer: 'Constante del molde (B)',
+            shortSvgLabel: 'B: Constante del molde',
+            detail: 'Depende de las propiedades térmicas del material del molde y del metal líquido.',
+            keywords: ['constante del molde', 'constante b'],
+            highlightId: 'hl-nuc-13',
+            hint: 'Es una constante que depende de dónde se vuelca el metal: "Constante del..."'
+          },
+          {
+            num: 14,
+            x: 612, y: 486,
+            labelX: 612, labelY: 465,
+            category: 'Chvorinov · Numerador V',
+            prompt: 'En el cociente (V / A)² de Chvorinov, ¿qué es "V"?',
+            answer: 'Volumen de la pieza (V)',
+            shortSvgLabel: 'V: Volumen de la pieza',
+            detail: 'Representa la cantidad de calor que contiene la pieza colada.',
+            keywords: ['volumen de la pieza', 'volumen'],
+            highlightId: 'hl-nuc-14',
+            hint: 'Es el "Volumen de la..."'
+          },
+          {
+            num: 15,
+            x: 612, y: 562,
+            labelX: 612, labelY: 590,
+            category: 'Chvorinov · Denominador A',
+            prompt: 'En el cociente (V / A)² de Chvorinov, ¿qué es "A"?',
+            answer: 'Área del molde (A)',
+            shortSvgLabel: 'A: Área del molde',
+            detail: 'Superficie de contacto a través de la cual se disipa el calor hacia el molde.',
+            keywords: ['area del molde', 'superficie del molde', 'area'],
+            highlightId: 'hl-nuc-15',
+            hint: 'Es la superficie que evacúa calor: "Área del..."'
+          },
+          {
+            num: 16,
+            x: 565, y: 468,
+            labelX: 565, labelY: 445,
+            category: 'Chvorinov · Exponente',
+            prompt: '¿A qué exponente está elevada la relación (V / A) en la fórmula de Chvorinov?',
+            answer: 'Exponente 2 (al cuadrado): ts = B · (V / A)²',
+            shortSvgLabel: 'Exponente 2 (al cuadrado)',
+            detail: 'El módulo de enfriamiento (V/A) va elevado al cuadrado (2).',
+            keywords: ['2', 'al cuadrado', 'exponente 2'],
+            highlightId: 'hl-nuc-16',
+            hint: 'Es un número par muy común en leyes de difusión térmica.'
+          }
+        ]
+      },
+
+      traccion: {
+        id: 'traccion',
+        title: 'Diagrama Esfuerzo - Deformación',
+        pins: [
+          {
+            num: 1,
+            x: 82, y: 95,
+            labelX: 62, labelY: 125,
+            category: 'Eje Vertical',
+            prompt: '¿Qué magnitud se grafica en el eje vertical y cuál es su letra griega?',
+            answer: 'Esfuerzo (σ)',
+            shortSvgLabel: 'Esfuerzo (σ)',
+            detail: 'El eje vertical representa el Esfuerzo ingenieril o tensión mecánica (σ).',
+            keywords: ['esfuerzo', 'sigma', 'tension'],
+            highlightId: 'hl-trac-1',
+            hint: 'Se simboliza con la letra griega sigma (σ).'
+          },
+          {
+            num: 2,
+            x: 65, y: 42,
+            labelX: 65, labelY: 80,
+            category: 'Fórmula del Esfuerzo',
+            prompt: '¿Cuál es la fórmula del esfuerzo (σ) recuadrada arriba a la izquierda?',
+            answer: 'σ = F / Ao (Fuerza sobre Área inicial)',
+            shortSvgLabel: 'σ = F / Ao',
+            detail: 'Esfuerzo es igual a la carga o fuerza aplicada (F) dividida por el área de la sección transversal original (Ao).',
+            keywords: ['f / ao', 'f/ao', 'fuerza sobre area'],
+            highlightId: 'hl-trac-2',
+            hint: 'Relaciona la fuerza F con el área inicial Ao.'
+          },
+          {
+            num: 3,
+            x: 545, y: 342,
+            labelX: 535, labelY: 320,
+            category: 'Eje Horizontal',
+            prompt: '¿Qué magnitud se representa en el eje horizontal y cuál es su símbolo?',
+            answer: 'Deformación (ε)',
+            shortSvgLabel: 'ε Deformación',
+            detail: 'Representa la deformación unitaria longitudinal (ε, épsilon).',
+            keywords: ['deformacion', 'epsilon'],
+            highlightId: 'hl-trac-3',
+            hint: 'Se simboliza con la letra griega épsilon (ε).'
+          },
+          {
+            num: 4,
+            x: 585, y: 415,
+            labelX: 585, labelY: 455,
+            category: 'Fórmula de Deformación',
+            prompt: '¿Cuál es la fórmula de la deformación unitaria (ε) en función de la longitud?',
+            answer: 'ε = (l - lo) / lo = Δl / lo',
+            shortSvgLabel: 'ε = (l - lo)/lo = Δl/lo',
+            detail: 'Es la variación de longitud (longitud final menos longitud inicial) dividida por la longitud inicial lo.',
+            keywords: ['delta l / lo', '(l - lo) / lo', 'variacion de longitud'],
+            highlightId: 'hl-trac-4',
+            hint: 'Resta la longitud final e inicial (l - lo) y divide por lo.'
+          },
+          {
+            num: 5,
+            x: 152, y: 275,
+            labelX: 118, labelY: 255,
+            category: 'Pendiente Recta Inicial',
+            prompt: '¿Cómo se llama la pendiente de la recta en la zona elástica que mide la rigidez?',
+            answer: 'Módulo de Young (E) - Mide la rigidez (E = σ / ε, Ley de Hooke)',
+            shortSvgLabel: 'Módulo de Young (E)',
+            detail: 'En el tramo lineal se cumple la Ley de Hooke: E = σ / ε. Cuanto mayor es la pendiente, más rígido es el material.',
+            keywords: ['modulo de young', 'ley de hooke', 'rigidez'],
+            highlightId: 'hl-trac-5',
+            hint: 'Lleva el apellido de un científico (Young) y mide la rigidez.'
+          },
+          {
+            num: 6,
+            x: 172, y: 332,
+            labelX: 150, labelY: 350,
+            category: 'Área Sombreada Triangular',
+            prompt: '¿Qué representa el triángulo rayado debajo de la recta elástica?',
+            answer: 'Zona de Resiliencia (energía elástica que se absorbe o libera)',
+            shortSvgLabel: 'Zona de Resiliencia',
+            detail: 'Es el área triangular bajo la región elástica: capacidad del material de absorber energía elástica al deformarse y liberarla al descargar.',
+            keywords: ['zona de resiliencia', 'resiliencia', 'triangulo'],
+            highlightId: 'hl-trac-6',
+            hint: 'Es la capacidad de absorber energía elástica: "Zona de R..."'
+          },
+          {
+            num: 7,
+            x: 195, y: 190,
+            labelX: 165, labelY: 155,
+            category: 'Fin de la Recta Elástica',
+            prompt: '¿Cómo se llama el punto donde termina la recta inicial y qué ocurre a partir de él?',
+            answer: 'Esfuerzo de fluencia o cedencia (a partir de este punto deforma permanentemente)',
+            shortSvgLabel: 'Esf. fluencia / cedencia',
+            detail: 'Marca el límite entre el comportamiento elástico y el plástico. A partir de este punto el material se deforma permanentemente.',
+            keywords: ['esfuerzo de fluencia', 'cedencia', 'deforma permanentemente'],
+            highlightId: 'hl-trac-7',
+            hint: 'Se llama Esfuerzo de fluencia o cedencia.'
+          },
+          {
+            num: 8,
+            x: 225, y: 165,
+            labelX: 255, labelY: 132,
+            category: 'Recta Punteada Paralela',
+            prompt: '¿Qué determina la recta punteada trazada paralela a la zona elástica al 0,2%?',
+            answer: 'Esfuerzo de cedencia convencional (0,2%)',
+            shortSvgLabel: 'Esf. cedencia convencional (0,2%)',
+            detail: 'Cuando no hay un quiebre claro, se traza una recta paralela a la zona elástica desplazada un 0,2% de deformación.',
+            keywords: ['cedencia convencional', '0,2%', '0.2%'],
+            highlightId: 'hl-trac-8',
+            hint: 'Se usa cuando no hay quiebre claro, desplazando 0,2%: "Esfuerzo de cedencia..."'
+          },
+          {
+            num: 9,
+            x: 225, y: 218,
+            labelX: 225, labelY: 248,
+            category: 'Tramo Oscilante (Serrado)',
+            prompt: '¿Cómo se denomina la región ondulada/oscilante justo después del punto de cedencia?',
+            answer: 'Zona de fluencia',
+            shortSvgLabel: 'Zona de fluencia',
+            detail: 'El material se deforma plásticamente de forma apreciable casi sin incremento de esfuerzo.',
+            keywords: ['zona de fluencia', 'fluencia'],
+            highlightId: 'hl-trac-9',
+            hint: 'Es la "Zona de..." donde el material fluye plásticamente.'
+          },
+          {
+            num: 10,
+            x: 380, y: 95,
+            labelX: 380, labelY: 62,
+            category: 'Punto Máximo de la Curva',
+            prompt: '¿Cómo se llama el punto más alto de toda la curva y qué indica?',
+            answer: 'Resistencia a la tensión / tracción (fuerza máxima antes de la estricción)',
+            shortSvgLabel: 'Resistencia a la tracción (Máx)',
+            detail: 'Es el esfuerzo máximo del ensayo. Justo en este punto máximo comienza el encuellamiento o estricción.',
+            keywords: ['resistencia a la tension', 'resistencia a la traccion', 'fuerza maxima'],
+            highlightId: 'hl-trac-10',
+            hint: 'Es la "Resistencia a la tensión / tracción", punto máximo antes de la estricción.'
+          },
+          {
+            num: 11,
+            x: 435, y: 132,
+            labelX: 525, labelY: 115,
+            category: 'Tramo Descendente',
+            prompt: '¿Qué fenómeno ocurre en el tramo que baja desde el máximo hasta la ruptura?',
+            answer: 'Estricción (encuellamiento, deformación y adelgazamiento localizado, el área recae)',
+            shortSvgLabel: 'Estricción (encuellamiento)',
+            detail: 'Se forma un cuello localizado en la probeta: disminuye drásticamente la sección transversal (el área recae).',
+            keywords: ['estriccion', 'encuellamiento', 'adelgazamiento localizado'],
+            highlightId: 'hl-trac-11',
+            hint: 'Se conoce como "Estricción" o encuellamiento.'
+          },
+          {
+            num: 12,
+            x: 480, y: 175,
+            labelX: 550, labelY: 195,
+            category: 'Punto Final de la Curva',
+            prompt: '¿Qué representa el último punto donde termina abruptamente la curva?',
+            answer: 'Esfuerzo de ruptura (fractura del material)',
+            shortSvgLabel: 'Esfuerzo de ruptura (fractura)',
+            detail: 'Es el esfuerzo en el instante en que la probeta finalmente se rompe o fractura.',
+            keywords: ['esfuerzo de ruptura', 'fractura del material', 'ruptura'],
+            highlightId: 'hl-trac-12',
+            hint: 'Es el momento en que la pieza se parte: "Esfuerzo de..."'
+          },
+          {
+            num: 13,
+            x: 152, y: 405,
+            labelX: 152, labelY: 438,
+            category: 'Primera Llave Inferior',
+            prompt: '¿Qué abarca la primera llave debajo del eje X y qué pasa si se retira la carga?',
+            answer: 'Zona elástica (se deforma pero si se retira la carga vuelve al lugar original)',
+            shortSvgLabel: 'Zona elástica (reversible)',
+            detail: 'En la zona elástica la deformación es reversible: al quitar la fuerza la pieza recupera su longitud inicial lo.',
+            keywords: ['zona elastica', 'vuelve al lugar original', 'elastica'],
+            highlightId: 'hl-trac-13',
+            hint: 'Es la "Zona..." donde la deformación NO es permanente.'
+          },
+          {
+            num: 14,
+            x: 335, y: 405,
+            labelX: 335, labelY: 438,
+            category: 'Segunda Llave Inferior',
+            prompt: '¿Qué abarca la segunda llave más ancha debajo del eje X y qué efecto deja?',
+            answer: 'Zona plástica (deformación permanente)',
+            shortSvgLabel: 'Zona plástica (permanente)',
+            detail: 'Comprende desde el límite de fluencia hasta la ruptura; deja una deformación permanente en el material.',
+            keywords: ['zona plastica', 'deformacion permanente', 'plastica'],
+            highlightId: 'hl-trac-14',
+            hint: 'Es la "Zona..." donde el material queda con deformación permanente.'
+          },
+          {
+            num: 15,
+            x: 145, y: 540,
+            labelX: 165, labelY: 575,
+            category: 'Recuadro Aceros Bajo Carbono',
+            prompt: 'En los aceros de bajo carbono, ¿qué representan los dos picos σ1 y σ2?',
+            answer: 'Esfuerzo de cedencia superior (σ1) e inferior (σ2) (2 puntos)',
+            shortSvgLabel: 'Esf. cedencia sup (σ₁) e inf (σ₂)',
+            detail: 'Los aceros de bajo carbono presentan una caída abrupta al inicio de la fluencia con 2 puntos: cedencia superior (σ1) e inferior (σ2).',
+            keywords: ['cedencia superior e inferior', 'sigma 1', 'dos puntos', '2 puntos'],
+            highlightId: 'hl-trac-15',
+            hint: 'Hay esfuerzo de cedencia superior (σ1) e inferior (σ2).'
+          }
+        ]
+      }
+    };
+
+    /*************************************************************************
+     * EJERCICIOS CLOZE (LLENAR HUECOS DE FÓRMULAS Y DEFINICIONES)
+     *************************************************************************/
+    const CLOZE_CARDS = [
+      {
+        module: 'nucleacion',
+        title: '1. Regla de Chvorinov (Fórmula y Variables)',
+        badge: 'Nucleación',
+        segments: [
+          'La regla de Chvorinov expresa que el tiempo de solidificación es ',
+          { blankId: 'c1', answer: 'ts = B · (V / A)²', options: ['ts = B · (V / A)²', 'ts = B · (A / V)²', 'ts = V / (B · A)', 'ts = B² · (V / A)'] },
+          ', donde ',
+          { blankId: 'c2', answer: 'ts', options: ['ts', 'B', 'r*', 'ΔG'] },
+          ' es el tiempo de solidificación, ',
+          { blankId: 'c3', answer: 'B', options: ['B', 'V', 'A', 'E'] },
+          ' es la constante del molde, ',
+          { blankId: 'c4', answer: 'V', options: ['V (Volumen de la pieza)', 'A (Área del molde)', 'Velocidad de colada'] },
+          ' es el volumen de la pieza y ',
+          { blankId: 'c5', answer: 'A', options: ['A (Área del molde)', 'V (Volumen)', 'Altura del molde'] },
+          ' es el área del molde.'
+        ]
+      },
+      {
+        module: 'nucleacion',
+        title: '2. Embriones vs. Núcleos y Radio Crítico (r*)',
+        badge: 'Nucleación',
+        segments: [
+          'La curva superior punteada es el cambio de energía libre de ',
+          { blankId: 'c6', answer: 'la superficie', options: ['la superficie', 'volumen', 'tracción'] },
+          ', que actúa como una fuerza ',
+          { blankId: 'c7', answer: 'en contra de la nucleación', options: ['en contra de la nucleación', 'a favor de la nucleación', 'elástica'] },
+          ' (cuesta energía). Cuando ',
+          { blankId: 'c8', answer: 'r < r*', options: ['r < r*', 'r > r*', 'r = 0'] },
+          ', estamos en la zona de ',
+          { blankId: 'c9', answer: 'embriones (inestable)', options: ['embriones (inestable)', 'núcleos (estable)', 'fluencia'] },
+          ' y se vuelve a fundir en el líquido. Cuando ',
+          { blankId: 'c10', answer: 'r > r*', options: ['r > r*', 'r < r*', 'ΔG > 0'] },
+          ', estamos en la zona de ',
+          { blankId: 'c11', answer: 'núcleos (estable)', options: ['núcleos (estable)', 'embriones (inestable)', 'estricción'] },
+          ' y los sólidos crecen de manera constante y rápida.'
+        ]
+      },
+      {
+        module: 'traccion',
+        title: '3. Fórmulas de Esfuerzo (σ), Deformación (ε) y Ley de Hooke',
+        badge: 'Tracción',
+        segments: [
+          'El esfuerzo se calcula con la fórmula ',
+          { blankId: 'c12', answer: 'σ = F / Ao', options: ['σ = F / Ao', 'σ = Ao / F', 'σ = F · Δl'] },
+          ' y la deformación unitaria es ',
+          { blankId: 'c13', answer: 'ε = (l - lo) / lo = Δl / lo', options: ['ε = (l - lo) / lo = Δl / lo', 'ε = lo / Δl', 'ε = F / Ao'] },
+          '. En la zona elástica, el Módulo de Young (E) mide la ',
+          { blankId: 'c14', answer: 'rigidez', options: ['rigidez', 'estricción', 'fractura'] },
+          ' del material mediante la ',
+          { blankId: 'c15', answer: 'E = σ / ε (Ley de Hooke)', options: ['E = σ / ε (Ley de Hooke)', 'E = ε / σ', 'E = F · Ao'] },
+          '.'
+        ]
+      },
+      {
+        module: 'traccion',
+        title: '4. Cedencia Convencional (0,2%), Resiliencia y Aceros',
+        badge: 'Tracción',
+        segments: [
+          'Cuando no hay un quiebre claro, se traza una recta ',
+          { blankId: 'c16', answer: 'paralela a la zona elástica', options: ['paralela a la zona elástica', 'perpendicular al eje Y', 'horizontal desde la ruptura'] },
+          ', desplazada un ',
+          { blankId: 'c17', answer: '0,2%', options: ['0,2%', '2,0%', '5,0%'] },
+          '. La ',
+          { blankId: 'c18', answer: 'Resiliencia', options: ['Resiliencia', 'Estricción', 'Fluencia'] },
+          ' es la zona de energía elástica (triángulo gráfico) donde se ',
+          { blankId: 'c19', answer: 'absorbe o libera energía', options: ['absorbe o libera energía', 'deforma permanentemente', 'reduce el área'] },
+          '. En aceros de bajo carbono hay esfuerzo de cedencia ',
+          { blankId: 'c20', answer: 'superior (σ1) e inferior (σ2)', options: ['superior (σ1) e inferior (σ2)', 'de volumen y superficie', 'elástico y de rotura'] },
+          ' (2 puntos).'
+        ]
+      }
+    ];
+
+    /*************************************************************************
+     * ESTADO DE LA APLICACIÓN Y PERSISTENCIA EN LOCALSTORAGE
+     *************************************************************************/
+    const STORAGE_KEY = 'lab_materiales_progress_v1';
+
+    let appState = {
+      currentModule: 'nucleacion', // 'nucleacion' | 'traccion'
+      currentMode: 'tap',          // 'tap' | 'type' | 'cloze' | 'study'
+      activePinNum: 1,
+      streak: 0,
+      solvedPins: {
+        nucleacion: [], // números de pines resueltos
+        traccion: []
+      },
+      clozeAnswers: {}, // blankId -> respuesta elegida
+      shuffledOrder: []
+    };
+
+    function loadSavedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed.solvedPins) appState.solvedPins = parsed.solvedPins;
+          if (parsed.streak !== undefined) appState.streak = parsed.streak;
+          if (parsed.clozeAnswers) appState.clozeAnswers = parsed.clozeAnswers;
+        }
+      } catch (e) {
+        console.warn('No se pudo leer localStorage:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          solvedPins: appState.solvedPins,
+          streak: appState.streak,
+          clozeAnswers: appState.clozeAnswers
+        }));
+      } catch (e) {
+        console.warn('No se pudo guardar en localStorage:', e);
+      }
+    }
+
+    /*************************************************************************
+     * FUNCIONES DE RENDERIZADO DEL DIAGRAMA SVG Y PINES
+     *************************************************************************/
+    function getCurrentModuleData() {
+      return STUDY_DATA[appState.currentModule];
+    }
+
+    function getActivePinObject() {
+      const mod = getCurrentModuleData();
+      return mod.pins.find(p => p.num === appState.activePinNum) || mod.pins[0];
+    }
+
+    function switchModule(moduleId) {
+      appState.currentModule = moduleId;
+      // Seleccionar el primer pin pendiente de ese módulo (o el 1 si todos están resueltos)
+      const solved = appState.solvedPins[moduleId] || [];
+      const firstPending = STUDY_DATA[moduleId].pins.find(p => !solved.includes(p.num));
+      appState.activePinNum = firstPending ? firstPending.num : 1;
+
+      // Actualizar pestañas superiores
+      const tab1 = document.getElementById('tabModule1');
+      const tab2 = document.getElementById('tabModule2');
+      if (moduleId === 'nucleacion') {
+        tab1.className = 'py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-cyan-500 text-slate-950 shadow';
+        tab2.className = 'py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 text-slate-300 hover:text-white';
+        document.getElementById('svgContainerNucleacion').classList.remove('hidden');
+        document.getElementById('svgContainerTraccion').classList.add('hidden');
+      } else {
+        tab2.className = 'py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-cyan-500 text-slate-950 shadow';
+        tab1.className = 'py-2 px-2.5 rounded-lg text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 text-slate-300 hover:text-white';
+        document.getElementById('svgContainerTraccion').classList.remove('hidden');
+        document.getElementById('svgContainerNucleacion').classList.add('hidden');
+      }
+
+      document.getElementById('diagramTitleHeader').textContent = STUDY_DATA[moduleId].title;
+      hideFeedbackBanner();
+      shuffleOptions();
+      renderAll();
+    }
+
+    function switchMode(mode) {
+      appState.currentMode = mode;
+      const modes = ['tap', 'type', 'cloze', 'study'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`modeBtn-${m}`);
+        if (m === mode) {
+          btn.className = 'mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-800 text-cyan-300 border-cyan-500/50 shadow-sm';
+        } else {
+          btn.className = 'mode-btn flex-1 py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition whitespace-nowrap bg-slate-900/60 text-slate-400 border-slate-800 hover:text-slate-200';
+        }
+      });
+
+      const diagramWorkspace = document.getElementById('diagramWorkspace');
+      const clozeWorkspace = document.getElementById('clozeWorkspace');
+      const progressBox = document.getElementById('graphProgressContainer');
+
+      if (mode === 'cloze') {
+        diagramWorkspace.classList.add('hidden');
+        progressBox.classList.add('hidden');
+        clozeWorkspace.classList.remove('hidden');
+        clozeWorkspace.classList.add('flex');
+        renderClozeWorkspace();
+      } else {
+        clozeWorkspace.classList.add('hidden');
+        clozeWorkspace.classList.remove('flex');
+        diagramWorkspace.classList.remove('hidden');
+        progressBox.classList.remove('hidden');
+
+        document.getElementById('controlsTapMode').classList.toggle('hidden', mode !== 'tap');
+        document.getElementById('controlsTypeMode').classList.toggle('hidden', mode !== 'type');
+        document.getElementById('controlsStudyMode').classList.toggle('hidden', mode !== 'study');
+        document.getElementById('btnHint').classList.toggle('hidden', mode === 'study');
+
+        hideFeedbackBanner();
+        renderAll();
+        if (mode === 'type') {
+          setTimeout(() => {
+            const inp = document.getElementById('typeAnswerInput');
+            if (inp) inp.focus();
+          }, 80);
+        }
+      }
+    }
+
+    function selectPin(num) {
+      appState.activePinNum = num;
+      hideFeedbackBanner();
+      const typeInput = document.getElementById('typeAnswerInput');
+      if (typeInput) typeInput.value = '';
+      document.getElementById('autocompleteDropdown').classList.add('hidden');
+      renderAll();
+    }
+
+    function selectNextPendingPin() {
+      const mod = getCurrentModuleData();
+      const solved = appState.solvedPins[mod.id] || [];
+      const currentIdx = mod.pins.findIndex(p => p.num === appState.activePinNum);
+      for (let i = 1; i <= mod.pins.length; i++) {
+        const candidate = mod.pins[(currentIdx + i) % mod.pins.length];
+        if (!solved.includes(candidate.num)) {
+          selectPin(candidate.num);
+          return;
+        }
+      }
+      // Si ya están todos resueltos, avanza al siguiente correlativo
+      const next = mod.pins[(currentIdx + 1) % mod.pins.length];
+      selectPin(next.num);
+    }
+
+    function renderSvgPinsAndLabels() {
+      const mod = getCurrentModuleData();
+      const solved = appState.solvedPins[mod.id] || [];
+      const isStudy = appState.currentMode === 'study';
+
+      const pinsLayerId = mod.id === 'nucleacion' ? 'nucleacionPinsLayer' : 'traccionPinsLayer';
+      const labelsLayerId = mod.id === 'nucleacion' ? 'nucleacionLabelsLayer' : 'traccionLabelsLayer';
+
+      const pinsLayer = document.getElementById(pinsLayerId);
+      const labelsLayer = document.getElementById(labelsLayerId);
+      pinsLayer.innerHTML = '';
+      labelsLayer.innerHTML = '';
+
+      // Quitar resaltado previo de todos los elementos SVG
+      document.querySelectorAll('.svg-highlight-active').forEach(el => {
+        el.classList.remove('svg-highlight-active');
+      });
+
+      // Resaltar la curva o zona correspondiente al pin activo
+      const activePin = getActivePinObject();
+      if (activePin && activePin.highlightId) {
+        const hlEl = document.getElementById(activePin.highlightId);
+        if (hlEl) hlEl.classList.add('svg-highlight-active');
+      }
+
+      mod.pins.forEach(pin => {
+        const isSolved = solved.includes(pin.num);
+        const isActive = pin.num === appState.activePinNum;
+
+        // Mostrar etiqueta flotante en el gráfico si ya fue resuelto o si estamos en Modo Estudio
+        if (isSolved || isStudy) {
+          const gLabel = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          const textStr = pin.shortSvgLabel;
+          const approxWidth = Math.max(85, textStr.length * 6.4 + 16);
+          const lx = Math.min(Math.max(pin.labelX, approxWidth / 2 + 6), 694 - approxWidth / 2);
+          const ly = pin.labelY;
+
+          // Línea conectora sutil entre el pin y su cartelito
+          const connector = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          connector.setAttribute('x1', pin.x);
+          connector.setAttribute('y1', pin.y);
+          connector.setAttribute('x2', lx);
+          connector.setAttribute('y2', ly);
+          connector.setAttribute('stroke', isActive ? '#facc15' : '#10b981');
+          connector.setAttribute('stroke-width', '1.3');
+          connector.setAttribute('stroke-dasharray', '3,2');
+          gLabel.appendChild(connector);
+
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', lx - approxWidth / 2);
+          rect.setAttribute('y', ly - 11);
+          rect.setAttribute('width', approxWidth);
+          rect.setAttribute('height', 21);
+          rect.setAttribute('rx', '6');
+          rect.setAttribute('fill', isActive ? '#422006' : '#064e3b');
+          rect.setAttribute('stroke', isActive ? '#facc15' : '#10b981');
+          rect.setAttribute('stroke-width', isActive ? '1.8' : '1.2');
+          gLabel.appendChild(rect);
+
+          const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          txt.setAttribute('x', lx);
+          txt.setAttribute('y', ly + 3.5);
+          txt.setAttribute('fill', isActive ? '#fef08a' : '#a7f3d0');
+          txt.setAttribute('font-size', '10.5');
+          txt.setAttribute('font-weight', '700');
+          txt.setAttribute('text-anchor', 'middle');
+          txt.textContent = textStr;
+          gLabel.appendChild(txt);
+
+          labelsLayer.appendChild(gLabel);
+        }
+
+        // Crear el nodo circular interactivo (Pin)
+        const gPin = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        gPin.setAttribute('class', `pin-node ${isActive ? 'pin-active' : ''}`);
+        gPin.addEventListener('click', () => selectPin(pin.num));
+
+        // Halo exterior para el pin seleccionado
+        if (isActive) {
+          const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          halo.setAttribute('cx', pin.x);
+          halo.setAttribute('cy', pin.y);
+          halo.setAttribute('r', '19');
+          halo.setAttribute('fill', 'rgba(250, 204, 21, 0.25)');
+          halo.setAttribute('stroke', '#facc15');
+          halo.setAttribute('stroke-width', '1.5');
+          gPin.appendChild(halo);
+        }
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', pin.x);
+        circle.setAttribute('cy', pin.y);
+        circle.setAttribute('r', isActive ? '14' : '12.5');
+
+        if (isActive) {
+          circle.setAttribute('fill', '#facc15');
+          circle.setAttribute('stroke', '#0f172a');
+        } else if (isSolved) {
+          circle.setAttribute('fill', '#10b981');
+          circle.setAttribute('stroke', '#052e16');
+        } else {
+          circle.setAttribute('fill', '#1e293b');
+          circle.setAttribute('stroke', '#38bdf8');
+        }
+        circle.setAttribute('stroke-width', '2.2');
+        gPin.appendChild(circle);
+
+        const numTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        numTxt.setAttribute('x', pin.x);
+        numTxt.setAttribute('y', pin.y + 4);
+        numTxt.setAttribute('text-anchor', 'middle');
+        numTxt.setAttribute('font-family', 'JetBrains Mono, monospace');
+        numTxt.setAttribute('font-size', '11.5');
+        numTxt.setAttribute('font-weight', '800');
+        numTxt.setAttribute('fill', (isActive || isSolved) ? '#0f172a' : '#f8fafc');
+        numTxt.textContent = pin.num;
+        gPin.appendChild(numTxt);
+
+        pinsLayer.appendChild(gPin);
+      });
+    }
+
+    /*************************************************************************
+     * RENDERIZADO DE CONTROLES LATERALES Y MODOS DE RESPUESTA
+     *************************************************************************/
+    function shuffleOptions() {
+      const mod = getCurrentModuleData();
+      const nums = mod.pins.map(p => p.num);
+      for (let i = nums.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [nums[i], nums[j]] = [nums[j], nums[i]];
+      }
+      appState.shuffledOrder = nums;
+      renderTapOptions();
+    }
+
+    function normalizeText(str) {
+      return (str || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9*<>Δσγε/+\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function renderTapOptions() {
+      const mod = getCurrentModuleData();
+      const solved = appState.solvedPins[mod.id] || [];
+      const filterVal = normalizeText(document.getElementById('tapFilterInput').value);
+      document.getElementById('btnClearFilter').classList.toggle('hidden', !filterVal);
+
+      if (!appState.shuffledOrder || appState.shuffledOrder.length !== mod.pins.length) {
+        appState.shuffledOrder = mod.pins.map(p => p.num);
+      }
+
+      const container = document.getElementById('tapOptionsList');
+      container.innerHTML = '';
+
+      // Mostrar primero las opciones pendientes (y al final las ya resueltas)
+      const orderedPins = appState.shuffledOrder
+        .map(num => mod.pins.find(p => p.num === num))
+        .filter(Boolean)
+        .filter(pin => {
+          if (!filterVal) return true;
+          return normalizeText(pin.answer + ' ' + pin.category).includes(filterVal);
+        })
+        .sort((a, b) => {
+          const aSolved = solved.includes(a.num) ? 1 : 0;
+          const bSolved = solved.includes(b.num) ? 1 : 0;
+          return aSolved - bSolved;
+        });
+
+      if (orderedPins.length === 0) {
+        container.innerHTML = `<div class="text-xs text-slate-400 py-4 text-center">No hay conceptos que coincidan con tu filtro.</div>`;
+        return;
+      }
+
+      orderedPins.forEach(pin => {
+        const isAlreadyUsed = solved.includes(pin.num);
+        const btn = document.createElement('button');
+        btn.className = `w-full text-left px-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition flex items-center justify-between gap-2 ${
+          isAlreadyUsed
+            ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300/70'
+            : 'bg-slate-950/90 hover:bg-slate-800 border-slate-800 hover:border-cyan-500/50 text-slate-100 active:scale-[0.99]'
+        }`;
+
+        btn.innerHTML = `
+          <span class="leading-snug">${pin.answer}</span>
+          <span class="shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded ${
+            isAlreadyUsed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-400'
+          }">${isAlreadyUsed ? '✓ #' + pin.num : 'Elegir'}</span>
+        `;
+
+        btn.addEventListener('click', () => handleOptionSelected(pin.num));
+        container.appendChild(btn);
+      });
+    }
+
+    function clearTapFilter() {
+      const inp = document.getElementById('tapFilterInput');
+      inp.value = '';
+      renderTapOptions();
+    }
+
+    function handleOptionSelected(chosenPinNum) {
+      const mod = getCurrentModuleData();
+      const activePin = getActivePinObject();
+
+      if (chosenPinNum === activePin.num) {
+        markPinAsSolved(activePin);
+      } else {
+        appState.streak = 0;
+        saveState();
+        updateHeaderBadges();
+        showFeedbackBanner(
+          false,
+          `Esa opción corresponde a otro punto del gráfico. ¡Intentá de nuevo o tocá "💡 Pista"!`
+        );
+      }
+    }
+
+    function markPinAsSolved(pin) {
+      const mod = getCurrentModuleData();
+      const solved = appState.solvedPins[mod.id];
+      if (!solved.includes(pin.num)) {
+        solved.push(pin.num);
+      }
+      appState.streak += 1;
+      saveState();
+
+      showFeedbackBanner(
+        true,
+        `<strong>¡Correcto! (#${pin.num}) ${pin.answer}</strong><br/><span class="text-slate-300">${pin.detail}</span>`
+      );
+
+      // Limpiar filtro si había
+      document.getElementById('tapFilterInput').value = '';
+      renderAll();
+
+      // Avanzar automáticamente al siguiente pendiente tras 1.1 seg si quedan puntos
+      if (solved.length < mod.pins.length) {
+        setTimeout(() => {
+          if (appState.activePinNum === pin.num) {
+            selectNextPendingPin();
+          }
+        }, 1150);
+      }
+    }
+
+    function showFeedbackBanner(isSuccess, htmlContent) {
+      const banner = document.getElementById('feedbackBanner');
+      banner.classList.remove('hidden');
+      if (isSuccess) {
+        banner.className = 'rounded-xl p-3 text-xs border leading-relaxed bg-emerald-500/15 border-emerald-500/40 text-emerald-200';
+      } else {
+        banner.className = 'rounded-xl p-3 text-xs border leading-relaxed bg-rose-500/15 border-rose-500/40 text-rose-200';
+      }
+      banner.innerHTML = htmlContent;
+    }
+
+    function hideFeedbackBanner() {
+      const banner = document.getElementById('feedbackBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    function showHintForActivePin() {
+      const pin = getActivePinObject();
+      showFeedbackBanner(
+        false,
+        `<strong>💡 Pista para el punto #${pin.num}:</strong> ${pin.hint}`
+      );
+      const banner = document.getElementById('feedbackBanner');
+      banner.className = 'rounded-xl p-3 text-xs border leading-relaxed bg-amber-500/15 border-amber-500/40 text-amber-200';
+    }
+
+    function revealCurrentPin() {
+      const pin = getActivePinObject();
+      markPinAsSolved(pin);
+    }
+
+    /*************************************************************************
+     * MODO ESCRIBIR CON AUTOCOMPLETADO INTELIGENTE
+     *************************************************************************/
+    function setupTypeModeAutocomplete() {
+      const input = document.getElementById('typeAnswerInput');
+      const dropdown = document.getElementById('autocompleteDropdown');
+
+      input.addEventListener('input', () => {
+        const val = normalizeText(input.value);
+        if (!val || val.length < 1) {
+          dropdown.classList.add('hidden');
+          return;
+        }
+        const mod = getCurrentModuleData();
+        const matches = mod.pins.filter(p =>
+          normalizeText(p.answer).includes(val) ||
+          p.keywords.some(k => normalizeText(k).includes(val))
+        );
+
+        if (matches.length === 0) {
+          dropdown.classList.add('hidden');
+          return;
+        }
+
+        dropdown.innerHTML = '';
+        matches.slice(0, 5).forEach(m => {
+          const item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-slate-200 hover:bg-cyan-500/20 hover:text-cyan-200 transition flex items-center justify-between';
+          item.innerHTML = `<span>${m.answer}</span><span class="text-[10px] font-mono text-cyan-400">Autocompletar ↵</span>`;
+          item.addEventListener('click', () => {
+            input.value = m.answer;
+            dropdown.classList.add('hidden');
+            handleOptionSelected(m.num);
+          });
+          dropdown.appendChild(item);
+        });
+        dropdown.classList.remove('hidden');
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkTypedAnswer();
+        }
+      });
+    }
+
+    function checkTypedAnswer() {
+      const input = document.getElementById('typeAnswerInput');
+      const userVal = normalizeText(input.value);
+      if (!userVal) return;
+
+      const pin = getActivePinObject();
+      const normAnswer = normalizeText(pin.answer);
+
+      const isKeywordMatch = pin.keywords.some(kw => {
+        const normKw = normalizeText(kw);
+        return userVal.includes(normKw) || (userVal.length >= 4 && normKw.includes(userVal));
+      });
+
+      if (userVal === normAnswer || isKeywordMatch) {
+        input.value = '';
+        document.getElementById('autocompleteDropdown').classList.add('hidden');
+        markPinAsSolved(pin);
+      } else {
+        appState.streak = 0;
+        saveState();
+        updateHeaderBadges();
+        showFeedbackBanner(
+          false,
+          `No coincide del todo con el punto <strong>#${pin.num}</strong>. Probá escribir una palabra clave o elegí una sugerencia del autocompletado.`
+        );
+      }
+    }
+
+    /*************************************************************************
+     * MODO 3: HUECOS Y FÓRMULAS (CLOZE TEST)
+     *************************************************************************/
+    let activeBlankContext = null;
+
+    function renderClozeWorkspace() {
+      const container = document.getElementById('clozeCardsContainer');
+      container.innerHTML = '';
+
+      let totalBlanks = 0;
+      let correctBlanks = 0;
+
+      CLOZE_CARDS.forEach(card => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'bg-slate-950/90 border border-slate-800 rounded-xl p-4 flex flex-col gap-2.5';
+
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between gap-2 border-b border-slate-800/80 pb-2';
+        header.innerHTML = `
+          <h3 class="text-xs sm:text-sm font-bold text-cyan-300">${card.title}</h3>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-slate-300">${card.badge}</span>
+        `;
+        cardEl.appendChild(header);
+
+        const p = document.createElement('p');
+        p.className = 'text-xs sm:text-sm text-slate-200 leading-8';
+
+        card.segments.forEach(seg => {
+          if (typeof seg === 'string') {
+            const span = document.createElement('span');
+            span.textContent = seg;
+            p.appendChild(span);
+          } else {
+            totalBlanks++;
+            const userChosen = appState.clozeAnswers[seg.blankId];
+            const isCorrect = userChosen === seg.answer;
+            if (isCorrect) correctBlanks++;
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            if (isCorrect) {
+              btn.className = 'mx-1 px-2.5 py-0.5 rounded-lg font-mono font-bold text-xs sm:text-sm bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 transition';
+              btn.textContent = `✓ ${userChosen}`;
+            } else if (userChosen) {
+              btn.className = 'mx-1 px-2.5 py-0.5 rounded-lg font-mono font-bold text-xs sm:text-sm bg-rose-500/20 border border-rose-500/50 text-rose-300 transition';
+              btn.textContent = `✗ ${userChosen}`;
+            } else {
+              btn.className = 'mx-1 px-2.5 py-0.5 rounded-lg font-mono font-bold text-xs sm:text-sm bg-cyan-500/15 hover:bg-cyan-500/25 border border-dashed border-cyan-400 text-cyan-300 transition';
+              btn.textContent = '[ Completar... ]';
+            }
+
+            btn.addEventListener('click', () => openClozeModal(seg, card.title));
+            p.appendChild(btn);
+          }
+        });
+
+        cardEl.appendChild(p);
+        container.appendChild(cardEl);
+      });
+
+      document.getElementById('clozeScoreBadge').textContent = `${correctBlanks} / ${totalBlanks} completados`;
+    }
+
+    function openClozeModal(blankObj, cardTitle) {
+      activeBlankContext = blankObj;
+      document.getElementById('clozeModalContext').textContent = cardTitle;
+      const list = document.getElementById('clozeModalOptions');
+      list.innerHTML = '';
+
+      // Mezclar opciones del hueco
+      const opts = [...blankObj.options].sort(() => Math.random() - 0.5);
+      opts.forEach(opt => {
+        const b = document.createElement('button');
+        b.className = 'w-full text-left px-4 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-xs sm:text-sm font-mono font-semibold text-white transition';
+        b.textContent = opt;
+        b.addEventListener('click', () => {
+          appState.clozeAnswers[blankObj.blankId] = opt;
+          if (opt === blankObj.answer) {
+            appState.streak += 1;
+          } else {
+            appState.streak = 0;
+          }
+          saveState();
+          updateHeaderBadges();
+          closeClozeModal();
+          renderClozeWorkspace();
+        });
+        list.appendChild(b);
+      });
+
+      document.getElementById('clozePickerModal').classList.remove('hidden');
+    }
+
+    function closeClozeModal() {
+      document.getElementById('clozePickerModal').classList.add('hidden');
+    }
+
+    function resetClozeExercises() {
+      appState.clozeAnswers = {};
+      saveState();
+      renderClozeWorkspace();
+    }
+
+    /*************************************************************************
+     * ACTUALIZACIÓN GENERAL DE LA UI
+     *************************************************************************/
+    function updateHeaderBadges() {
+      document.getElementById('streakCount').textContent = appState.streak;
+      const s1 = (appState.solvedPins.nucleacion || []).length;
+      const t1 = STUDY_DATA.nucleacion.pins.length;
+      const s2 = (appState.solvedPins.traccion || []).length;
+      const t2 = STUDY_DATA.traccion.pins.length;
+
+      document.getElementById('badgeMod1').textContent = `${s1}/${t1}`;
+      document.getElementById('badgeMod2').textContent = `${s2}/${t2}`;
+    }
+
+    function renderAll() {
+      updateHeaderBadges();
+      renderSvgPinsAndLabels();
+
+      const mod = getCurrentModuleData();
+      const solved = appState.solvedPins[mod.id] || [];
+      const activePin = getActivePinObject();
+
+      // Barra de progreso
+      const pct = Math.round((solved.length / mod.pins.length) * 100);
+      document.getElementById('progressCounter').textContent = `${solved.length} / ${mod.pins.length} (${pct}%)`;
+      document.getElementById('progressBarFill').style.width = `${pct}%`;
+
+      // Tarjeta del punto activo
+      const isPinSolved = solved.includes(activePin.num);
+      const badgeEl = document.getElementById('activePinBadge');
+      badgeEl.textContent = `#${activePin.num}`;
+      badgeEl.className = `w-9 h-9 rounded-xl font-mono font-extrabold text-base flex items-center justify-center shadow-md shrink-0 ${
+        isPinSolved ? 'bg-emerald-400 text-slate-950 shadow-emerald-400/20' : 'bg-amber-400 text-slate-950 shadow-amber-400/20'
+      }`;
+
+      document.getElementById('activePinCategory').textContent = activePin.category;
+      document.getElementById('activePinPrompt').textContent = activePin.prompt;
+      document.getElementById('tapTargetNumLabel').textContent = `#${activePin.num}`;
+      document.getElementById('typeTargetNumLabel').textContent = `#${activePin.num}`;
+
+      // Datos para Modo Estudio
+      document.getElementById('studyPinTitle').textContent = `Punto #${activePin.num} · ${activePin.category}`;
+      document.getElementById('studyPinFullAnswer').textContent = activePin.answer;
+      document.getElementById('studyPinDetail').textContent = activePin.detail;
+
+      // Renderizar lista de opciones en modo Tap
+      renderTapOptions();
+
+      // Renderizar grilla rápida de números de pines
+      const quickGrid = document.getElementById('pinQuickGrid');
+      quickGrid.innerHTML = '';
+      mod.pins.forEach(p => {
+        const isSolved = solved.includes(p.num);
+        const isActive = p.num === appState.activePinNum;
+        const b = document.createElement('button');
+        b.className = `w-8 h-8 rounded-lg font-mono text-xs font-bold border transition flex items-center justify-center ${
+          isActive
+            ? 'bg-amber-400 text-slate-950 border-amber-300 scale-105 shadow'
+            : isSolved
+            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+            : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-600'
+        }`;
+        b.textContent = p.num;
+        b.title = p.shortSvgLabel;
+        b.addEventListener('click', () => selectPin(p.num));
+        quickGrid.appendChild(b);
+      });
+    }
+
+    /*************************************************************************
+     * UTILIDADES: REINICIAR Y DESCARGAR ARCHIVO HTML PARA GITHUB PAGES
+     *************************************************************************/
+    function resetCurrentModule() {
+      const mod = getCurrentModuleData();
+      appState.solvedPins[mod.id] = [];
+      appState.activePinNum = 1;
+      saveState();
+      hideFeedbackBanner();
+      shuffleOptions();
+      renderAll();
+    }
+
+    function toggleGithubModal(show) {
+      document.getElementById('githubModal').classList.toggle('hidden', !show);
+    }
+
+    function downloadSelfHtml() {
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedState();
+      setupTypeModeAutocomplete();
+
+      document.getElementById('tapFilterInput').addEventListener('input', renderTapOptions);
+      document.getElementById('btnResetProgress').addEventListener('click', resetCurrentModule);
+      document.getElementById('btnGithubHelp').addEventListener('click', () => toggleGithubModal(true));
+
+      shuffleOptions();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

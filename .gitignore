@@ -1,0 +1,17 @@
+# Capturas y temporales de desarrollo
+shots/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Archivos de análisis del PDF (no forman parte de la app)
+_pdf_dump.txt
+_extract.py
+_crop.py
+_previews.py
+tools/tmp-*.mjs
+
+# Utilidades temporales de verificación
+tools/_*
+_*.py

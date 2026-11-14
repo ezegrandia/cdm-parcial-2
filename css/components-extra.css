@@ -1,0 +1,281 @@
+/* ============================================================
+   components-extra.css — ajustes finos y componentes nuevos
+   ============================================================ */
+
+/* ---------- shell / appbar ---------- */
+
+.icon-btn[hidden] { display: none; }
+.appbar__back[hidden] { display: none; }
+
+.appbar__brand[role="button"] { cursor: pointer; }
+.appbar__brand[role="button"]:active { opacity: 0.8; }
+
+.is-subpage .brand-mark { display: none; }
+.is-subpage .appbar__titles h1 { font-size: 0.9rem; }
+
+@media (max-width: 380px) {
+  .appbar__titles p { max-width: 150px; }
+  .streak-chip { padding: 0 7px; }
+}
+
+/* ---------- página / títulos ---------- */
+
+.page-head__action { flex: none; align-self: flex-start; }
+
+.lesson-title {
+  font-size: 1.42rem;
+  line-height: 1.16;
+  letter-spacing: -0.032em;
+}
+
+.lesson-body > * + * { margin-top: 12px; }
+
+.unit-card__meta { flex-wrap: wrap; row-gap: 4px; }
+.unit-card__meta span { white-space: nowrap; }
+
+.chip:hover,
+.mini-link:hover,
+.badge:hover { text-decoration: none; }
+
+.row-card__chev {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.hero__foot { flex-wrap: wrap; row-gap: 4px; column-gap: 14px; }
+
+.segmented a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.segmented a[aria-selected="true"] {
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: 0 6px 14px -12px #000;
+}
+
+.fcard__head .btn { flex: none; }
+
+/* ---------- acción del quiz ---------- */
+
+.action-dock__inner .btn--ghost { flex: 0 0 auto; }
+
+body.is-focus .appbar__back { display: none; }
+
+.numeric-row .btn { min-width: 54px; padding: 0; }
+
+/* ---------- estadísticas semanales ---------- */
+
+.week-chart {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  height: 112px;
+}
+
+.week-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.week-track {
+  width: 100%;
+  max-width: 28px;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 7px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.week-bar {
+  width: 100%;
+  min-height: 3px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  transition: height 0.35s ease;
+}
+
+.week-bar.is-today { background: linear-gradient(180deg, var(--green), var(--accent)); }
+
+.week-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+.week-count {
+  height: 10px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.week-label.is-today { color: var(--accent); font-weight: 700; }
+
+.box-chart {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  height: 96px;
+}
+
+.box-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.box-col .week-track { max-width: 24px; }
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 13px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+
+.mini-stats > div {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.mini-stats b {
+  display: block;
+  margin-bottom: 1px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-transform: none;
+}
+
+/* ---------- formularios inline ---------- */
+
+.range-field { display: flex; flex-direction: column; gap: 0; }
+
+.input[disabled] {
+  opacity: 0.65;
+  background: var(--surface-2);
+}
+
+textarea.input {
+  min-height: 120px;
+  padding: 10px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* ---------- focos accesibles en SVG ---------- */
+
+.d-pin:focus { outline: none; }
+.d-pin:focus-visible .d-pin__circle { stroke: var(--accent); stroke-width: 3.2; }
+
+/* ---------- detalles finales ---------- */
+
+.card .section__title { letter-spacing: 0.07em; }
+
+.result-hero .ring-wrap__cap { font-size: 0.56rem; }
+
+.hero__ring .ring-wrap__cap { font-size: 0.5rem; }
+
+.quiz-top .icon-btn { flex: none; }
+
+.flash-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 22px; }
+
+.sheet__body .options { margin-top: 0; }
+
+.sheet__body .opt { background: var(--bg-soft); }
+
+.pins-list .pin-chip span { max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.diagram-frame .d-label__box { fill: var(--bg-soft); }
+
+.lesson-body ul.ticks li { line-height: 1.5; }
+.card .ticks { gap: 6px; }
+.card .ticks li { line-height: 1.45; }
+
+/* Tablas como fichas en el celular */
+@media (max-width: 560px) {
+  .table-wrap {
+    border: 0;
+    background: transparent;
+    overflow: visible;
+  }
+
+  table.data {
+    display: block;
+    min-width: 0;
+  }
+
+  table.data thead { display: none; }
+  table.data tbody { display: grid; gap: 8px; }
+
+  table.data tr {
+    display: grid;
+    gap: 3px;
+    padding: 10px 11px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table.data td {
+    display: block;
+    padding: 0;
+    border: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  table.data td:first-child {
+    margin-bottom: 2px;
+    font-size: 0.86rem;
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  table.data td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  table.data td:first-child::before { content: none; }
+}
+
+@media (min-width: 720px) {
+  .lesson-title { font-size: 1.6rem; }
+  .week-chart { height: 130px; }
+}
