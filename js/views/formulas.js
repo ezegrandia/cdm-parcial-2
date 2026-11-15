@@ -14,6 +14,8 @@ const TABS = [
 ];
 
 // Los grupos se derivan del contenido, en el orden en que aparecen las fórmulas.
+const FORMULA_UNITS = UNIT_LIST.filter((unit) => unit.formulas.length > 0);
+
 const GROUP_ORDER = [...new Set(ALL_FORMULAS.map((formula) => `${formula.unit}|${formula.group}`))]
   .map((key) => {
     const [unit, name] = key.split('|');
@@ -38,7 +40,7 @@ export function formulasView() {
     </div>
     <div class="chip-row" data-controls>
       <button class="chip" type="button" data-unit="todas" aria-pressed="true">Todas</button>
-      ${UNIT_LIST.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
+      ${FORMULA_UNITS.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
       <button class="chip" type="button" data-mask aria-pressed="false">${icon('bulb', 'icon--xs')} <span>Ocultar todas</span></button>
     </div>
     <div id="formulaList" class="stack"></div>

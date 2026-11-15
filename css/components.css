@@ -1655,3 +1655,52 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); margin-bottom:
   .options--long { grid-template-columns: 1fr; }
   .flash-card, .flash-inner { min-height: 300px; }
 }
+
+/* ---------- fórmulas con fracciones apiladas ---------- */
+.formula__expr,
+.fcard__expr { text-align: center; line-height: 1.75; }
+
+.frac {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0.18em;
+  line-height: 1.15;
+  text-align: center;
+  max-width: 100%;
+}
+
+.frac__num,
+.frac__den {
+  display: block;
+  padding: 0 0.28em;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+}
+
+.frac__num {
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 0.12em;
+}
+
+.frac__den { padding-top: 0.12em; }
+
+.formula-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.fline {
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 380px) {
+  .formula__expr { font-size: 0.95rem; }
+  .fcard__expr { font-size: 0.92rem; }
+}

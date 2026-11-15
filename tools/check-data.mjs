@@ -58,7 +58,7 @@ UNIT_LIST.forEach((unit) => {
 
 ENSAYOS.forEach((ensayo) => {
   unique(ensayo.id, 'ensayo');
-  if (!ensayo.measures || !ensayo.probeta || !ensayo.formula) errors.push(`Ensayo incompleto: ${ensayo.id}`);
+  if (!ensayo.measures || !ensayo.probeta) errors.push(`Ensayo incompleto: ${ensayo.id}`);
   if (ensayo.diagram && !ALL_DIAGRAMS.some((diagram) => diagram.id === ensayo.diagram)) {
     errors.push(`Diagrama inexistente en ensayo ${ensayo.id}: ${ensayo.diagram}`);
   }

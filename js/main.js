@@ -14,7 +14,7 @@ import { ensayosView, ensayoView } from './views/ensayos.js';
 import { practiceView } from './views/practice.js';
 import { quizView } from './views/quiz.js';
 import { flashcardsView } from './views/flashcards.js';
-import { labHubView, chvorinovView, impactoView, calculadorasView } from './views/lab.js';
+import { labHubView, chvorinovView } from './views/lab.js';
 import { palancaView } from './views/palanca.js';
 import { progressView } from './views/progress.js';
 
@@ -33,8 +33,6 @@ addRoute('/practica/quiz', quizView);
 addRoute('/practica/tarjetas', flashcardsView);
 addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
-addRoute('/practica/simuladores/impacto', impactoView);
-addRoute('/practica/simuladores/calculadoras', calculadorasView);
 addRoute('/practica/simuladores/palanca', palancaView);
 addRoute('/progreso', progressView);
 

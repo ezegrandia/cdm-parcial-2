@@ -4,6 +4,9 @@
    apuntes manuscritos del usuario.
    ============================================================ */
 
+const frac = (num, den) => `<span class="frac"><span class="frac__num">${num}</span><span class="frac__den">${den}</span></span>`;
+const lines = (...items) => `<span class="formula-lines">${items.map((item) => `<span class="fline">${item}</span>`).join('')}</span>`;
+
 export const u8 = {
   id: 'u8',
   number: 8,
@@ -43,7 +46,7 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'ΔG = (4/3)·π·r³·ΔGv + 4·π·r²·σ',
+          expr: 'ΔG = (4/3)·π·r³·ΔGv + 4·π·r²·σ', html: 'ΔG = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>π·r³·ΔGv + 4·π·r²·σ',
           note: 'Energía libre total de un núcleo esférico de radio r. ΔGv = energía libre de volumen; σ = energía libre de superficie.',
         },
         {
@@ -103,7 +106,7 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'r* = 2·σ·Tm / (ΔHf · ΔT)     con ΔT = Tm − T',
+          expr: 'r* = 2·σ·Tm / (ΔHf · ΔT)     con ΔT = Tm − T', html: '<span class="formula-lines"><span class="fline">r* = <span class="frac"><span class="frac__num">2·σ·Tm</span><span class="frac__den">ΔHf · ΔT</span></span></span><span class="fline">con ΔT = Tm − T</span></span>',
           note: 'σ = energía libre de superficie · ΔHf = calor latente de fusión · Tm = temperatura de solidificación · ΔT = subenfriamiento.',
         },
         {
@@ -231,7 +234,7 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'Rapidez de enfriamiento = ΔT / Δt',
+          expr: 'Rapidez de enfriamiento = ΔT / Δt', html: 'Rapidez de enfriamiento = <span class="frac"><span class="frac__num">ΔT</span><span class="frac__den">Δt</span></span>',
           note: 'Es la pendiente de la curva. Cuanto más empinada, más rápido se enfría el metal.',
         },
         {
@@ -313,7 +316,7 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'ts = B · (V/A)ⁿ     con n ≈ 2  →  ts = B · V²/A²',
+          expr: 'ts = B · (V/A)ⁿ     con n ≈ 2  →  ts = B · V²/A²', html: '<span class="formula-lines"><span class="fline">ts = B · (<span class="frac"><span class="frac__num">V</span><span class="frac__den">A</span></span>)ⁿ</span><span class="fline">con n ≈ 2</span><span class="fline">ts = B · <span class="frac"><span class="frac__num">V²</span><span class="frac__den">A²</span></span></span></span>',
           note: 'ts = tiempo de solidificación · V = volumen de la fundición (calor a eliminar) · A = área de la superficie del molde por la que se extrae el calor · B = constante del molde.',
         },
         {
@@ -374,7 +377,7 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'CUBO (lado a):  V = a³      A = 6a²      V/A = a/6',
+          expr: 'CUBO (lado a):  V = a³      A = 6a²      V/A = a/6', html: '<span class="formula-lines"><span class="fline"><b>CUBO (lado a)</b></span><span class="fline">V = a³</span><span class="fline">A = 6a²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">a</span><span class="frac__den">6</span></span></span></span>',
           note: 'El caso más simple y el más probable en el examen.',
         },
         {
@@ -384,24 +387,30 @@ export const u8 = {
         },
         {
           t: 'formula',
-          expr: 'CILINDRO (D, h):  V = π·r²·h      A = 2πr² + 2πrh      (r = D/2)',
-          note: 'No olvidar las DOS tapas: 2πr². La superficie lateral es 2πrh (perímetro × altura).',
+          expr: 'CILINDRO (r y D):  V = πr²h = (π/4)D²h      A = 2πr² + 2πrh = (π/2)D² + πDh',
+          html: lines(
+            '<b>CILINDRO (r y D)</b>',
+            `V = πr²h = ${frac('π','4')}D²h`,
+            `A = 2πr² + 2πrh = ${frac('π','2')}D² + πDh`,
+            `V/A = ${frac('r·h','2(r+h)')} = ${frac('D·h','2(D+2h)')}`,
+          ),
+          note: 'No olvidar las DOS tapas: 2πr² = (π/2)D². La superficie lateral es 2πrh = πDh.',
         },
         {
           t: 'formula',
-          expr: 'ESFERA (D):  V = (4/3)·π·r³      A = 4πr²      V/A = r/3',
+          expr: 'ESFERA (D):  V = (4/3)·π·r³      A = 4πr²      V/A = r/3', html: '<span class="formula-lines"><span class="fline"><b>ESFERA (D)</b></span><span class="fline">V = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³</span><span class="fline">A = 4πr²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">r</span><span class="frac__den">3</span></span></span></span>',
           note: 'La que más tarda a igual volumen: máxima V/A.',
         },
         {
           t: 'table',
           head: ['Figura', 'V', 'A', 'V/A'],
           rows: [
-            ['Cubo', 'a³', '6a²', 'a/6'],
-            ['Prisma', 'a·b·c', '2(ab+bc+ac)', 'abc / [2(ab+bc+ac)]'],
-            ['Cilindro', 'πr²h', '2πr² + 2πrh', 'r·h / [2(r+h)]'],
-            ['Esfera', '(4/3)πr³', '4πr²', 'r/3'],
+            ['Cubo', 'a³', '6a²', frac('a','6')],
+            ['Prisma', 'a·b·c', '2(ab+bc+ac)', frac('abc','2(ab+bc+ac)')],
+            ['Cilindro', 'πr²h<br><small>= ' + frac('π','4') + 'D²h</small>', '2πr² + 2πrh<br><small>= ' + frac('π','2') + 'D² + πDh</small>', frac('r·h','2(r+h)') + ' = ' + frac('D·h','2(D+2h)')],
+            ['Esfera', frac('4','3') + 'πr³', '4πr²', frac('r','3')],
           ],
-          caption: 'Para el cilindro, V/A = πr²h / [2πr(r+h)] = r·h/(2(r+h)). Sirve para chequear el resultado sin calculadora.',
+          caption: 'Cilindro: V = πr²h = (π/4)D²h; A = 2πr² + 2πrh = (π/2)D² + πDh; V/A = r·h/[2(r+h)] = D·h/[2(D+2h)]. Sirve para chequear el resultado sin calculadora.',
         },
         {
           t: 'callout',
@@ -430,7 +439,7 @@ export const u8 = {
       keyPoints: [
         'Cubo: a³ y 6a²; V/A = a/6.',
         'Prisma: abc y 2(ab+bc+ac).',
-        'Cilindro: πr²h y 2πr² + 2πrh (dos tapas).',
+        'Cilindro: V = πr²h = (π/4)D²h; A = 2πr² + 2πrh = (π/2)D² + πDh (dos tapas).',
         'Esfera: 4/3πr³ y 4πr²; V/A = r/3.',
       ],
     },
@@ -540,20 +549,20 @@ export const u8 = {
   ],
 
   formulas: [
-    { id: 'f8-01', group: 'Nucleación', name: 'Energía libre total', expr: 'ΔG = (4/3)πr³ΔGv + 4πr²σ', note: 'Volumen (a favor) + superficie (en contra)', tone: 'u8' },
-    { id: 'f8-02', group: 'Nucleación', name: 'Radio crítico', expr: 'r* = 2σTm / (ΔHf · ΔT)', note: 'ΔT = Tm − T (subenfriamiento). Página 8: no entra formalmente.', tone: 'u8' },
-    { id: 'f8-11', group: 'Enfriamiento', name: 'Rapidez de enfriamiento', expr: 'ΔT / Δt', note: 'Pendiente de la curva T–t en cada tramo', tone: 'u8' },
+    { id: 'f8-01', group: 'Nucleación', name: 'Energía libre total', expr: 'ΔG = (4/3)πr³ΔGv + 4πr²σ', html: 'ΔG = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³ΔGv + 4πr²σ', note: 'Volumen (a favor) + superficie (en contra)', tone: 'u8' },
+    { id: 'f8-02', group: 'Nucleación', name: 'Radio crítico', expr: 'r* = 2σTm / (ΔHf · ΔT)', html: 'r* = <span class="frac"><span class="frac__num">2σTm</span><span class="frac__den">ΔHf · ΔT</span></span>', note: 'ΔT = Tm − T (subenfriamiento). Página 8: no entra formalmente.', tone: 'u8' },
+    { id: 'f8-11', group: 'Enfriamiento', name: 'Rapidez de enfriamiento', expr: 'ΔT / Δt', html: '<span class="frac"><span class="frac__num">ΔT</span><span class="frac__den">Δt</span></span>', note: 'Pendiente de la curva T–t en cada tramo', tone: 'u8' },
     { id: 'f8-12', group: 'Enfriamiento', name: 'Tiempo de solidificación local', expr: 't_local = t_fin − t_inicio', note: 'Duración de la meseta: sólo calor latente', tone: 'u8' },
     { id: 'f8-13', group: 'Enfriamiento', name: 'Tiempo de solidificación total', expr: 't_total = t_fin − t_vaciado', note: 'Incluye calor específico del líquido sobrecalentado + latente', tone: 'u8' },
     { id: 'f8-14', group: 'Enfriamiento', name: 'Calor sensible', expr: 'Q = m · c · ΔT', note: 'Calor específico: cambia la temperatura', tone: 'u8' },
     { id: 'f8-15', group: 'Enfriamiento', name: 'Calor latente de fusión', expr: 'Q = m · Lf', note: 'Cambio de estado a temperatura constante (meseta)', tone: 'u8' },
-    { id: 'f8-03', group: 'Chvorinov', name: 'Regla de Chvorinov', expr: 'ts = B · (V/A)ⁿ', note: 'n ≈ 2 · B en min/cm² o min/mm²', tone: 'u8' },
-    { id: 'f8-04', group: 'Chvorinov', name: 'Forma usual', expr: 'ts = B · V² / A²', note: 'La más usada en los ejercicios', tone: 'u8' },
-    { id: 'f8-05', group: 'Comparación', name: 'Dos piezas, mismo molde', expr: 'ts1/ts2 = ((V/A)₁/(V/A)₂)²', note: 'Misma B: no hace falta calcular ts', tone: 'u8' },
-    { id: 'f8-06', group: 'Formas', name: 'Cubo', expr: 'V = a³ · A = 6a² · V/A = a/6', note: 'El caso más simple', tone: 'u8' },
+    { id: 'f8-03', group: 'Chvorinov', name: 'Regla de Chvorinov', expr: 'ts = B · (V/A)ⁿ', html: 'ts = B · (<span class="frac"><span class="frac__num">V</span><span class="frac__den">A</span></span>)ⁿ', note: 'n ≈ 2 · B en min/cm² o min/mm²', tone: 'u8' },
+    { id: 'f8-04', group: 'Chvorinov', name: 'Forma usual', expr: 'ts = B · V² / A²', html: 'ts = B · <span class="frac"><span class="frac__num">V²</span><span class="frac__den">A²</span></span>', note: 'La más usada en los ejercicios', tone: 'u8' },
+    { id: 'f8-05', group: 'Comparación', name: 'Dos piezas, mismo molde', expr: 'ts1/ts2 = ((V/A)₁/(V/A)₂)²', html: '<span class="frac"><span class="frac__num">ts₁</span><span class="frac__den">ts₂</span></span> = (<span class="frac"><span class="frac__num">(V/A)₁</span><span class="frac__den">(V/A)₂</span></span>)²', note: 'Misma B: no hace falta calcular ts', tone: 'u8' },
+    { id: 'f8-06', group: 'Formas', name: 'Cubo', expr: 'V = a³ · A = 6a² · V/A = a/6', html: '<span class="formula-lines"><span class="fline">V = a³</span><span class="fline">A = 6a²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">a</span><span class="frac__den">6</span></span></span></span>', note: 'El caso más simple', tone: 'u8' },
     { id: 'f8-07', group: 'Formas', name: 'Prisma', expr: 'V = a·b·c · A = 2(ab+bc+ac)', note: 'Seis caras en tres pares', tone: 'u8' },
-    { id: 'f8-08', group: 'Formas', name: 'Cilindro', expr: 'V = πr²h · A = 2πr² + 2πrh', note: 'r = D/2 · incluye las dos tapas', tone: 'u8' },
-    { id: 'f8-09', group: 'Formas', name: 'Esfera', expr: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3', note: 'Máximo V/A a igual volumen', tone: 'u8' },
+    { id: 'f8-08', group: 'Formas', name: 'Cilindro (r y D)', expr: 'V = πr²h = (π/4)D²h · A = 2πr² + 2πrh = (π/2)D² + πDh · V/A = r·h/[2(r+h)] = D·h/[2(D+2h)]', html: lines(`V = πr²h = ${frac('π','4')}D²h`, `A = 2πr² + 2πrh = ${frac('π','2')}D² + πDh`, `V/A = ${frac('r·h','2(r+h)')} = ${frac('D·h','2(D+2h)')}`), note: 'r = D/2 · incluye las dos tapas', tone: 'u8' },
+    { id: 'f8-09', group: 'Formas', name: 'Esfera', expr: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3', html: '<span class="formula-lines"><span class="fline">V = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³</span><span class="fline">A = 4πr²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">r</span><span class="frac__den">3</span></span></span></span>', note: 'Máximo V/A a igual volumen', tone: 'u8' },
     { id: 'f8-10', group: 'Aplicación', name: 'Mazarota', expr: '(V/A)mazarota > (V/A)pieza', note: 'Solidifica última y alimenta el rechupe', tone: 'u8' },
   ],
 
@@ -583,7 +592,7 @@ export const u8 = {
     { id: 'c8-23', unit: 'u8', topic: 'chvorinov', front: 'Error de unidades en Chvorinov', back: 'Si B está en min/cm², V/A debe estar en cm. Si las medidas están en mm, pasá V y A a cm antes de dividir: un error acá cambia el resultado por 100.' },
     { id: 'c8-24', unit: 'u8', topic: 'formas', front: 'V, A y V/A del cubo', back: 'V = a³ · A = 6a² · V/A = a/6.' },
     { id: 'c8-25', unit: 'u8', topic: 'formas', front: 'V y A del prisma', back: 'V = a·b·c · A = 2(ab + bc + ac): tres pares de caras iguales.' },
-    { id: 'c8-26', unit: 'u8', topic: 'formas', front: 'V y A del cilindro', back: 'V = πr²h · A = 2πr² + 2πrh. No olvidar las dos tapas (2πr²). r = D/2.' },
+    { id: 'c8-26', unit: 'u8', topic: 'formas', front: 'V y A del cilindro', back: 'Con radio: V = πr²h y A = 2πr² + 2πrh. Con diámetro: V = (π/4)D²h y A = (π/2)D² + πDh. No olvidar las dos tapas. r = D/2.' },
     { id: 'c8-27', unit: 'u8', topic: 'formas', front: 'V, A y V/A de la esfera', back: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3. Tiene el máximo V/A a igual volumen.' },
     { id: 'c8-28', unit: 'u8', topic: 'formas', front: 'Relación de tiempos entre dos piezas', back: 'ts1/ts2 = ((V/A)₁/(V/A)₂)², si se cuelan en el mismo molde (misma B).' },
     { id: 'c8-29', unit: 'u8', topic: 'formas', front: '¿Qué superficie tiene más rápido enfriamiento?', back: 'La que tiene más área por unidad de volumen: la placa delgada. A igual volumen, el orden de ts es placa < cubo < esfera.' },

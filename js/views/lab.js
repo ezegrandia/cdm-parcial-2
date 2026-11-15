@@ -1,5 +1,5 @@
 /* ============================================================
-   views/lab.js — simuladores: Chvorinov, impacto y calculadoras
+   views/lab.js — simuladores: Chvorinov y palanca
    ============================================================ */
 
 import { SHAPES, shapeById, shapeDefaults, compareEqualVolume } from '../data/shapes.js';
@@ -22,20 +22,6 @@ export function labHubView() {
       title: 'Regla de la palanca',
       meta: 'Calculá %L y %S con CL, CA y CS. Incluye masa de cada fase y retos rápidos.',
       badge: 'Unidad 9',
-    },
-    {
-      href: '#/practica/simuladores/impacto',
-      icon: 'zap',
-      title: 'Impacto y energía',
-      meta: 'Péndulo con h₀ y hf, energía absorbida, % de fractura por corte y expansión lateral.',
-      badge: 'Unidad 6',
-    },
-    {
-      href: '#/practica/simuladores/calculadoras',
-      icon: 'target',
-      title: 'Calculadoras rápidas',
-      meta: 'Brinell, flexión y fatiga con Marin: verificá tus resultados del TP.',
-      badge: 'U6',
     },
   ];
 
@@ -261,9 +247,9 @@ export function chvorinovView() {
       `ts = ${formatNumber(state.B, 2)} × (${formatNumber(VA, 3)})² = ${formatNumber(ts, 2)} min`;
 
     formulasBox.innerHTML = `
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.v}</div><div class="formula__note">Volumen de la figura (calor a extraer).</div></div>
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.a}</div><div class="formula__note">Área total del molde (superficie de extracción).</div></div>
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.va}</div><div class="formula__note">Relación que entra en Chvorinov.</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.v || shape.formulas.v}</div><div class="formula__note">Volumen de la figura (calor a extraer).</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.a || shape.formulas.a}</div><div class="formula__note">Área total del molde (superficie de extracción).</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.va || shape.formulas.va}</div><div class="formula__note">Relación que entra en Chvorinov.</div></div>
     `;
 
     const cubeEquivalent = Math.cbrt(V);
@@ -635,7 +621,7 @@ export function calculadorasView() {
     ${pageHead({
       eyebrow: 'Herramientas',
       title: 'Calculadoras',
-      sub: 'Verificá tus cuentas del TP. La fórmula siempre va escrita antes de reemplazar.',
+      sub: 'Calculá la dureza Brinell y estimá la resistencia del acero. La fórmula va escrita antes de reemplazar.',
     })}
 
     <div class="card" data-calc="brinell">
@@ -647,41 +633,6 @@ export function calculadorasView() {
         <div class="field"><label class="field__label">Huella d</label><div class="input-group"><input class="input" data-in="d" type="text" inputmode="decimal" value="6.25"><span class="input-group__unit">mm</span></div></div>
       </div>
       <div class="lab-result" style="margin-top:12px"><div class="lab-result__label">Dureza</div><div class="lab-result__value" data-out>—</div><div class="tiny muted" data-note></div></div>
-    </div>
-
-    <div class="card" data-calc="flexion">
-      <div class="row row--between"><h3 style="font-size:0.95rem">Flexión en 3 puntos</h3><span class="badge">MPa</span></div>
-      <p class="card__sub">σflex = 3FL/(2wh²) · Eflex = L³F/(4wh³δ)</p>
-      <div class="lab-row" style="margin-top:12px">
-        <div class="field"><label class="field__label">Carga F</label><div class="input-group"><input class="input" data-in="F" type="text" inputmode="decimal" value="1200"><span class="input-group__unit">N</span></div></div>
-        <div class="field"><label class="field__label">Luz L</label><div class="input-group"><input class="input" data-in="L" type="text" inputmode="decimal" value="400"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Ancho w</label><div class="input-group"><input class="input" data-in="w" type="text" inputmode="decimal" value="23.5"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Altura h</label><div class="input-group"><input class="input" data-in="h" type="text" inputmode="decimal" value="4.5"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Deflexión δ</label><div class="input-group"><input class="input" data-in="delta" type="text" inputmode="decimal" value="10.2"><span class="input-group__unit">mm</span></div></div>
-      </div>
-      <div class="grid grid--2" style="margin-top:12px">
-        <div class="lab-result"><div class="lab-result__label">σflex</div><div class="lab-result__value" data-out="sigma">—</div></div>
-        <div class="lab-result" style="border-color:var(--line)"><div class="lab-result__label">Eflex</div><div class="lab-result__value" data-out="E" style="color:var(--violet);font-size:1.15rem">—</div></div>
-      </div>
-      <p class="tiny muted" style="margin-top:8px" data-note>Ojo con h al cubo y con δ en mm. El resultado del TP es alto: verificá que δ sea la deflexión central medida.</p>
-    </div>
-
-    <div class="card" data-calc="fatiga">
-      <div class="row row--between"><h3 style="font-size:0.95rem">Fatiga y Marin</h3><span class="badge">MPa</span></div>
-      <p class="card__sub">Se′ = 0,5·Sut (Sut ≤ 1400) · Se = ka·kb·kc·kd·ke·Se′</p>
-      <div class="lab-row" style="margin-top:12px">
-        <div class="field"><label class="field__label">Sut</label><div class="input-group"><input class="input" data-in="Sut" type="text" inputmode="decimal" value="900"><span class="input-group__unit">MPa</span></div></div>
-        <div class="field"><label class="field__label">ka · acabado</label><input class="input" data-in="ka" type="text" inputmode="decimal" value="0.85"></div>
-        <div class="field"><label class="field__label">kb · tamaño</label><input class="input" data-in="kb" type="text" inputmode="decimal" value="0.90"></div>
-        <div class="field"><label class="field__label">kc · carga</label><input class="input" data-in="kc" type="text" inputmode="decimal" value="1"></div>
-        <div class="field"><label class="field__label">kd · temperatura</label><input class="input" data-in="kd" type="text" inputmode="decimal" value="1"></div>
-        <div class="field"><label class="field__label">ke · confiabilidad</label><input class="input" data-in="ke" type="text" inputmode="decimal" value="0.897"></div>
-      </div>
-      <div class="grid grid--2" style="margin-top:12px">
-        <div class="lab-result"><div class="lab-result__label">Se′</div><div class="lab-result__value" data-out="sep" style="font-size:1.15rem">—</div></div>
-        <div class="lab-result" style="border-color:var(--line)"><div class="lab-result__label">Se corregido</div><div class="lab-result__value" data-out="se" style="color:var(--violet);font-size:1.15rem">—</div></div>
-      </div>
-      <p class="tiny muted" style="margin-top:8px" data-note></p>
     </div>
 
     <div class="note">Estas calculadoras son de verificación: en el parcial tenés que escribir la fórmula, reemplazar y aclarar las unidades del resultado.</div>
@@ -714,35 +665,10 @@ export function calculadorasView() {
     note.textContent = `σut ≈ 3,45 · HB = ${formatNumber(3.45 * hb, 0)} MPa (sólo aceros no austeníticos).`;
   });
 
-  bindCalc('[data-calc="flexion"]', (data, card) => {
-    const { F, L, w, h, delta } = data;
-    const sigma = (3 * F * L) / (2 * w * h * h);
-    const eflex = (L ** 3 * F) / (4 * w * h ** 3 * delta);
-    card.querySelector('[data-out="sigma"]').innerHTML = Number.isFinite(sigma)
-      ? `${formatNumber(sigma, 1)} <span class="lab-result__unit">MPa</span>` : '—';
-    card.querySelector('[data-out="E"]').innerHTML = Number.isFinite(eflex)
-      ? `${formatNumber(eflex, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-  });
-
-  bindCalc('[data-calc="fatiga"]', (data, card) => {
-    const { Sut, ka, kb, kc, kd, ke } = data;
-    const sep = Sut > 1400 ? 700 : 0.5 * Sut;
-    const k = ka * kb * kc * kd * ke;
-    const se = sep * k;
-    const note = card.querySelector('[data-note]');
-    card.querySelector('[data-out="sep"]').innerHTML = Number.isFinite(sep)
-      ? `${formatNumber(sep, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-    card.querySelector('[data-out="se"]').innerHTML = Number.isFinite(se)
-      ? `${formatNumber(se, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-    note.textContent = Sut > 1400
-      ? 'Sut > 1400 MPa: se adopta Se′ = 700 MPa. Producto de factores: ' + formatNumber(k, 4)
-      : 'Producto de factores de Marin: ' + formatNumber(k, 4) + ' (Se′ de probeta pulida en flexión rotativa).';
-  });
-
   return {
     el,
     title: 'Calculadoras',
-    sub: 'Brinell · flexión · fatiga',
+    sub: 'Dureza Brinell',
     nav: 'practica',
     back: '/practica/simuladores',
   };

@@ -131,10 +131,10 @@ export function ensayoView({ params }) {
     <section class="section">
       <div class="section__head"><div class="section__title">Resultados</div></div>
       <div class="row row--wrap">${ensayo.results.map((result) => `<span class="chip">${result}</span>`).join('')}</div>
-      <div class="formula" style="margin-top:6px">
-        <div class="formula__expr">${ensayo.formula.expr}</div>
+      ${ensayo.formula ? `<div class="formula" style="margin-top:6px">
+        <div class="formula__expr">${ensayo.formula.html || ensayo.formula.expr}</div>
         <div class="formula__note">${ensayo.formula.note}</div>
-      </div>
+      </div>` : ''}
       <p class="tiny muted">Unidades: ${ensayo.units}</p>
     </section>
 

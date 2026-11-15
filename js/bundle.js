@@ -844,13 +844,13 @@ const u6 = {
   priority: [
     'Tracción: probetas SA-370, curva σ–ε y propiedades de la curva.',
     'Fluencia convencional 0,2 % (offset) y cedencia superior/inferior.',
-    'Flexión en 3 y 4 puntos para materiales frágiles.',
+    'Flexión en 3 y 4 puntos: concepto y diferencia (sin cálculos).',
     'Dureza: Brinell, Rockwell, Vickers, Knoop y Shore.',
     'Impacto: péndulo, energía absorbida, % de fractura por corte y expansión lateral.',
     'Charpy vs. Izod (medidas, colocación y lado del golpe).',
-    'Transición dúctil–frágil y fatiga.',
+    'Transición dúctil–frágil y fatiga: sólo conceptos (S–N y Marin no entran).',
   ],
-  notPriority: 'Nada: el profesor indicó que la unidad 6 entra completa.',
+  notPriority: 'Cálculos de tracción, Brinell, flexión, impacto y fatiga: no entran. La unidad se evalúa de forma conceptual.',
 
   lessons: [
     {
@@ -874,16 +874,11 @@ const u6 = {
         {
           t: 'ul',
           items: [
-            '<b>Probeta plana / rectangular:</b> G = longitud calibrada (50 o 200 mm), W = ancho de la sección reducida, T o e = espesor, R = radio de empalme. Área: <span class="formula-inline">A₀ = e · w</span>.',
-            '<b>Probeta cilíndrica:</b> cumple la ley de semejanza <span class="formula-inline">G = 4·D</span>. Estándar D = 12,5 mm → G = 50,0 mm. Subsize: D = 8,75 / 6,25 / 4,00 / 2,50 mm → G = 35 / 25 / 16 / 10 mm.',
+            '<b>Probeta plana / rectangular:</b> G = longitud calibrada (50 o 200 mm), W = ancho de la sección reducida, T o e = espesor, R = radio de empalme. La sección se identifica por su ancho y espesor.',
+            '<b>Probeta cilíndrica:</b> la longitud calibrada guarda una relación fija con el diámetro. Estándar: D = 12,5 mm y G = 50,0 mm; las probetas subsize reducen ambos en la misma proporción.',
             'El <b>radio R</b> evita que la tensión se concentre en el cambio brusco de sección y rompa antes de medir nada.',
             'Si la probeta tiene cambios bruscos de sección, la tensión se concentra en esos rincones: por eso existen radios y dimensiones normalizadas (todos los laboratorios ensayan igual y los números se pueden comparar).',
           ],
-        },
-        {
-          t: 'formula',
-          expr: 'A₀ (plana) = e · w    ·    A₀ (cilíndrica) = π · d₀² / 4',
-          note: 'Área original, antes de cargar. En mm² si las medidas van en mm.',
         },
         {
           t: 'callout',
@@ -895,7 +890,7 @@ const u6 = {
           t: 'callout',
           tone: 'tip',
           title: 'Por qué importa la forma',
-          html: 'La zona calibrada concentra la deformación y las mordazas no la dañan. Todo el cálculo (σ, ε, E) se hace con la sección de esa zona, no con las cabezas.',
+          html: 'La zona calibrada concentra la deformación y las mordazas no la dañan. La medición se hace sobre la sección de esa zona, no con las cabezas.',
         },
         {
           t: 'diagram',
@@ -905,8 +900,8 @@ const u6 = {
       ],
       keyPoints: [
         'Ensayo estático, carga axial lenta y creciente hasta rotura.',
-        'A₀ = e·w en chapa; A₀ = πd₀²/4 en cilíndrica.',
-        'G = 4D: la probeta cilíndrica es proporcional, no arbitraria.',
+        'La sección reducida es la zona de medición; su forma depende de si la probeta es plana o cilíndrica.',
+        'La probeta cilíndrica mantiene una proporción fija entre longitud calibrada y diámetro.',
         'El extensómetro mide el alargamiento en la zona elástica.',
       ],
     },
@@ -928,32 +923,17 @@ const u6 = {
           t: 'ol',
           items: [
             '<b>A · Esfuerzo de fluencia o cedencia (σy):</b> divide el comportamiento elástico del plástico. Si se supera, queda deformación permanente.',
-            '<b>B · Fluencia convencional al 0,2 %:</b> cuando la curva no tiene un quiebre claro (aluminio, aceros de alta resistencia, cobre) se traza una recta <b>paralela a la zona elástica</b> desplazada 0,2 % (ε = 0,002) desde el origen. El esfuerzo donde corta la curva es σ₀,₂.',
-            '<b>C · Resistencia a la tracción (σut):</b> esfuerzo calculado con la fuerza máxima del ensayo: σut = Fmáx / A₀. Es el punto más alto de la curva, pero <b>no es el punto de rotura</b>.',
+            '<b>B · Fluencia convencional al 0,2 %:</b> cuando la curva no tiene un quiebre claro (aluminio, aceros de alta resistencia, cobre) se traza una recta <b>paralela a la zona elástica</b> desplazada 0,2 % desde el origen. El esfuerzo donde corta la curva es σ₀,₂.',
+            '<b>C · Resistencia a la tracción (σut):</b> es el esfuerzo máximo de la curva, calculado con la fuerza máxima y la sección inicial. Es el punto más alto, pero <b>no es el punto de rotura</b>.',
             '<b>D · Estricción o encuellamiento (necking):</b> al llegar a σut la deformación deja de ser uniforme y se concentra en un «cuello». Como el área real cae, la fuerza baja: la curva desciende hasta la ruptura.',
-            '<b>E · Módulo de Young (E):</b> pendiente de la zona lineal elástica: E = σ/ε. Mide la rigidez y depende de la energía de enlace entre átomos. Acero ≈ 207 GPa, aluminio ≈ 69 GPa.',
-            '<b>F · Resiliencia (ER):</b> área bajo la zona elástica (triángulo). Energía elástica por unidad de volumen que el material absorbe y devuelve al descargarse: ER = ½ · σy · εy.',
+            '<b>E · Módulo de Young (E):</b> pendiente de la zona lineal elástica. Mide la rigidez y depende de la energía de enlace entre átomos. Acero ≈ 207 GPa, aluminio ≈ 69 GPa.',
+            '<b>F · Resiliencia (ER):</b> área bajo la zona elástica (triángulo). Energía elástica por unidad de volumen que el material absorbe y devuelve al descargarse.',
             '<b>H · Ductilidad:</b> deformación plástica que soporta antes de romper. Se informa como % de alargamiento y % de estricción.',
           ],
         },
         {
           t: 'note',
           html: 'La propiedad G no entra en el examen: la lista salta de F a H y conserva las letras de la cátedra.',
-        },
-        {
-          t: 'formula',
-          expr: 'σ = F / A₀      ε = Δl / l₀      E = σ / ε',
-          note: 'σ en MPa (1 MPa = 1 N/mm²), ε adimensional, E en MPa o GPa.',
-        },
-        {
-          t: 'formula',
-          expr: '% alargamiento = (lf − l₀)/l₀ · 100      % estricción = (A₀ − Af)/A₀ · 100',
-          note: 'Af se mide en el cuello, después de romper. Por encima del 5 % de alargamiento el acero se considera dúctil.',
-        },
-        {
-          t: 'formula',
-          expr: 'ER = ½ · σy · εy',
-          note: 'Área del triángulo elástico: energía absorbida por unidad de volumen.',
         },
         {
           t: 'callout',
@@ -975,7 +955,7 @@ const u6 = {
       ],
       keyPoints: [
         'A fluencia · B fluencia 0,2 % · C resistencia máxima · D estricción · E módulo · F resiliencia · H ductilidad (G no entra).',
-        'σut = Fmáx/A₀, no es la ruptura: después del máximo el área real cae.',
+        'σut es el esfuerzo máximo, no la ruptura: después del máximo el área real cae.',
         'Resiliencia = triángulo elástico; tenacidad = área total.',
         'E es rigidez, no resistencia.',
       ],
@@ -996,11 +976,6 @@ const u6 = {
         {
           t: 'p',
           html: 'En el gráfico de cátedra, bajo un mismo esfuerzo de 30.000 psi el acero se deforma sólo 0,001 plg/plg (E ≈ 30×10⁶ psi) mientras que el aluminio se deforma 0,003 plg/plg (E ≈ 10×10⁶ psi): <b>el acero es tres veces más rígido</b>.',
-        },
-        {
-          t: 'formula',
-          expr: 'Eacero ≈ 207 GPa  ·  Ealuminio ≈ 69 GPa  →  Eacero ≈ 3 · Ealuminio',
-          note: 'Consecuencia práctica: una pieza de aluminio de la misma sección se flexiona el triple bajo la misma carga, aunque su resistencia sea parecida.',
         },
         {
           t: 'table',
@@ -1030,10 +1005,10 @@ const u6 = {
     {
       id: 'u6-flexion',
       unit: 'u6',
-      title: 'Flexión en 3 y 4 puntos',
+      title: 'Flexión en 3 y 4 puntos (concepto)',
       kicker: 'Materiales frágiles',
-      minutes: 4,
-      goal: 'Justificar el ensayo y dibujar momento y cortante en 3 y 4 puntos.',
+      minutes: 3,
+      goal: 'Explicar por qué se usa en frágiles y la diferencia conceptual entre 3 y 4 puntos, sin cálculos.',
       blocks: [
         {
           t: 'p',
@@ -1042,38 +1017,28 @@ const u6 = {
         {
           t: 'ul',
           items: [
-            '<b>3 puntos:</b> una carga F en el centro (L/2). Momento flector <b>triangular</b>, máximo sólo en el centro: Mmax = F·L/4. Cortante constante: +F/2 a la izquierda y −F/2 a la derecha.',
-            '<b>4 puntos:</b> dos cargas a L/4 de cada apoyo. Momento <b>trapecial</b>, constante y máximo en todo el tramo central L/2. Cortante V = 0 en el tramo central → <b>flexión pura</b>. Se ensaya un volumen mayor de material: ideal para cerámicos con defectos distribuidos.',
+            '<b>3 puntos:</b> una carga en el centro. El momento flector es <b>triangular</b> y tiene su máximo justo en el centro; el cortante cambia de signo al pasar por la carga.',
+            '<b>4 puntos:</b> dos cargas ubicadas a un cuarto de la luz desde cada apoyo. El momento es <b>constante en todo el tramo central</b> y el cortante es <b>cero</b>: eso es <b>flexión pura</b>. Se ensaya un volumen mayor de material, ideal para cerámicos con defectos distribuidos.',
           ],
         },
         {
-          t: 'formula',
-          expr: 'σflex = 3 · F · L / (2 · w · h²)',
-          note: 'F en N, L = luz entre apoyos en mm, w = ancho y h = altura en mm → MPa.',
-        },
-        {
-          t: 'formula',
-          expr: 'Eflex = L³ · F / (4 · w · h³ · δ)',
-          note: 'δ = deflexión central en mm. Ojo: en el denominador h va al cubo.',
-        },
-        {
           t: 'callout',
-          tone: 'trap',
-          title: 'El error más común',
-          html: 'Usar el <b>largo total de la barra</b> en lugar de la <b>luz entre apoyos L</b>. En el TP la barra mide 0,5 m pero L = 400 mm: si usás 500 mm el resultado se va 25 %. Y si la carga viene en kg, pasala a N multiplicando por 9,8.',
+          tone: 'info',
+          title: 'Sin cuentas en el parcial',
+          html: 'Para esta unidad alcanza con explicar <b>por qué se ensaya en flexión</b> y <b>qué cambia entre 3 y 4 puntos</b>. No se piden σflex ni Eflex: no hace falta reemplazar fórmulas.',
         },
         {
           t: 'callout',
           tone: 'prof',
           title: 'Qué busca el profesor',
-          html: 'Dibujá los diagramas de momento y cortante: es la parte que más puntúa de esta pregunta. En 4 puntos remarcá que V = 0 en el tramo central.',
+          html: 'La justificación del ensayo en frágiles y la diferencia conceptual: en 3 puntos el momento se concentra en el centro; en 4 puntos hay un tramo central con momento constante y cortante nulo (flexión pura).',
         },
       ],
       keyPoints: [
-        'Frágiles → flexión porque las mordazas los astillan.',
-        '3 puntos: M triangular, Mmax = FL/4, V = ±F/2.',
-        '4 puntos: M constante en L/2, V = 0 (flexión pura).',
-        'Usar la luz L, nunca el largo total de la barra.',
+        'Frágiles → flexión porque las mordazas de tracción los dañan.',
+        '3 puntos: una carga al centro, momento triangular.',
+        '4 puntos: dos cargas, momento constante en el tramo central y V = 0 (flexión pura).',
+        'En este parcial se evalúa el concepto, no el cálculo de σflex/Eflex.',
       ],
     },
 
@@ -1101,11 +1066,6 @@ const u6 = {
           ],
         },
         {
-          t: 'formula',
-          expr: 'HBW = 2F / [ π·D·(D − √(D² − d²)) ]',
-          note: 'F en kgf, D y d en mm. Primero resolvé la raíz, después el paréntesis y recién al final dividí.',
-        },
-        {
           t: 'table',
           head: ['Ensayo', 'Penetrador', 'Carga', 'Aplicación típica'],
           rows: [
@@ -1123,15 +1083,10 @@ const u6 = {
           caption: 'Tabla de cátedra. Si dudás, memorizá: Brinell = diámetro de huella; Rockwell = profundidad; Vickers/Knoop = diagonales al microscopio; Shore = polímeros.',
         },
         {
-          t: 'formula',
-          expr: 'σut [MPa] ≈ 3,45 · HB',
-          note: 'Sólo válida para aceros no austeníticos. En inoxidables austeníticos la correlación no se cumple.',
-        },
-        {
           t: 'callout',
           tone: 'trap',
           title: 'Cuidado con las unidades',
-          html: 'En Brinell la carga va en <b>kgf</b>, no en N. Si usás F en N el resultado se va por 9,8. Además, si las medidas están en cm, pasalas a mm antes de aplicar la fórmula.',
+          html: 'En este parcial Brinell se pregunta por el método: esfera, carga y huella. No se reemplaza la fórmula; identificá el ensayo y qué se mide.',
         },
         {
           t: 'callout',
@@ -1144,7 +1099,7 @@ const u6 = {
         'Brinell: esfera 10 mm, 3000/500 kgf, se mide d.',
         'Rockwell: mide profundidad, es automático y rápido.',
         'Vickers: pirámide cuadrada, dos diagonales. Knoop: rombo, diagonal larga.',
-        'σut ≈ 3,45 HB sólo en aceros no austeníticos.',
+        'La dureza permite estimar la resistencia en aceros no austeníticos; no se calcula en el parcial.',
       ],
     },
 
@@ -1160,11 +1115,6 @@ const u6 = {
           t: 'p',
           html: 'La tracción estira despacio; el impacto <b>golpea de golpe</b>. Muchos materiales que se portan bien estirando se rompen como vidrio ante un golpe rápido, sobre todo si están fríos. ' +
             'El ensayo mide <b>cuánta energía se lleva la probeta al romperse</b>: un péndulo cae desde una altura conocida y, después de romperla, llega a una altura menor. Esa diferencia de energía es la tenacidad al impacto.',
-        },
-        {
-          t: 'formula',
-          expr: 'Eabsorbida = m · g · (h₀ − hf)',
-          note: 'g = 9,8 m/s². Resultado en J (o ft·lbf). Es un ensayo dinámico: golpe súbito a alta velocidad.',
         },
         {
           t: 'p',
@@ -1189,7 +1139,7 @@ const u6 = {
           t: 'ol',
           items: [
             '<b>Energía absorbida en la fractura</b>, en J o ft·lbf.',
-            '<b>Porcentaje de fractura por cizallamiento (corte):</b> se observa la cara rota. El área de corte es el marco periférico opaco y fibroso (fractura dúctil); el área de clivaje es el recuadro central A × B, brillante y cristalino (fractura frágil). % corte = (área total − A·B) / área total × 100. Si A o B valen 0, la fractura es 100 % dúctil.',
+            '<b>Porcentaje de fractura por cizallamiento (corte):</b> se observa la cara rota. El área de corte es el marco periférico opaco y fibroso (fractura dúctil); el área de clivaje es el recuadro central brillante y cristalino (fractura frágil). El % de corte es la proporción de la cara que falló por cizallamiento; si no hay zona de clivaje, la fractura es 100 % dúctil.',
             '<b>Expansión lateral opuesta a la entalla</b> (mm o mils): ensanchamiento por deformación plástica del lado que golpea el martillo. Más dúctil → mayor expansión.',
           ],
         },
@@ -1212,7 +1162,7 @@ const u6 = {
         },
       ],
       keyPoints: [
-        'Ensayo dinámico: E = m·g·(h₀ − hf).',
+        'Ensayo dinámico: la energía absorbida se lee por la diferencia de altura del péndulo.',
         '3 resultados: energía, % de corte y expansión lateral.',
         'Charpy: 10×10×55, horizontal apoyada, golpe opuesto a la entalla.',
         'Izod: 10×10×75, vertical empotrada, golpe del mismo lado de la entalla.',
@@ -1264,10 +1214,10 @@ const u6 = {
     {
       id: 'u6-fatiga',
       unit: 'u6',
-      title: 'Fatiga: etapas, curva S–N y Marin',
+      title: 'Fatiga: conceptos básicos',
       kicker: 'Cargas repetidas',
-      minutes: 4,
-      goal: 'Describir las 3 etapas y estimar el límite de fatiga de una pieza.',
+      minutes: 3,
+      goal: 'Explicar qué es la fatiga, sus 3 etapas y por qué es peligrosa, sin cálculos.',
       blocks: [
         {
           t: 'p',
@@ -1283,27 +1233,13 @@ const u6 = {
         },
         {
           t: 'p',
-          html: 'En la curva <b>S–N (Wöhler)</b>, los aceros y el titanio presentan una meseta horizontal entre <b>10⁶ y 10⁷ ciclos</b>: el <b>límite de fatiga Se</b>. Por debajo de ese nivel el material soporta ciclos «infinitos». Los no ferrosos (aluminio, latón, magnesio) y los plásticos reforzados <b>no tienen límite definido</b>: su curva sigue bajando y se informa una resistencia a la fatiga para un número fijo de ciclos (por ejemplo 10⁸).',
+          html: 'Es peligrosa porque la pieza <b>no avisa</b>: no se deforma visiblemente antes de romper y el esfuerzo aplicado puede estar por debajo de σy. La grieta suele iniciarse en la <b>superficie</b>, por eso el acabado, las entallas y los cambios de sección importan tanto.',
         },
         {
-          t: 'formula',
-          expr: "Se′ = 0,5 · Sut   (si Sut ≤ 1400 MPa)",
-          note: 'Si Sut > 1400 MPa se adopta Se′ = 700 MPa (100 kpsi). Es el límite de una probeta pulida ensayada en flexión rotativa.',
-        },
-        {
-          t: 'formula',
-          expr: 'Se = ka · kb · kc · kd · ke · Se′',
-          note: 'Coeficientes de Marin: ka acabado superficial · kb tamaño · kc tipo de carga · kd temperatura · ke confiabilidad.',
-        },
-        {
-          t: 'ul',
-          items: [
-            '<b>ka (acabado):</b> una superficie rugosa (forjada o mecanizada) inicia grietas mucho más fácil que una pulida.',
-            '<b>kb (tamaño):</b> a mayor tamaño, menor Se por mayor probabilidad estadística de contener defectos.',
-            '<b>kc (carga):</b> corrige respecto de la flexión rotativa, que es el ensayo estándar.',
-            '<b>kd (temperatura):</b> a alta temperatura cae la resistencia a la fatiga.',
-            '<b>ke (confiabilidad):</b> los ensayos base tienen 50 % de confiabilidad; se ajusta para diseños más exigentes.',
-          ],
+          t: 'callout',
+          tone: 'info',
+          title: 'S–N y Marin no entran',
+          html: 'Las curvas <b>S–N (Wöhler)</b> y los <b>coeficientes de Marin</b> quedaron fuera del parcial. De fatiga sólo se pide la <b>idea general y las 3 etapas</b>.',
         },
         {
           t: 'callout',
@@ -1315,14 +1251,14 @@ const u6 = {
           t: 'callout',
           tone: 'prof',
           title: 'Qué busca el profesor',
-          html: 'Las <b>3 etapas en orden</b> y el rango <b>10⁶–10⁷</b> son los dos datos que no pueden faltar. Si usás Marin, aclará que Se′ es de probeta pulida en flexión rotativa.',
+          html: 'Las <b>3 etapas en orden</b>, la definición (σ < σy, sin deformación visible) y por qué es peligrosa. No hace falta estimar Se ni aplicar Marin.',
         },
       ],
       keyPoints: [
         'σ < σy, sin deformación visible, falla por repetición.',
         '3 etapas: iniciación → propagación → fractura súbita.',
-        'Acero: meseta 10⁶–10⁷ (Se). Aluminio: sin límite definido.',
-        "Se′ = 0,5 Sut; Se = ka·kb·kc·kd·ke·Se′.",
+        'La grieta nace en la superficie y avanza ciclo a ciclo.',
+        'S–N y Marin no entran; sólo la teoría general.',
       ],
     },
 
@@ -1336,91 +1272,62 @@ const u6 = {
       blocks: [
         {
           t: 'p',
-          html: 'La mayoría de los puntos que se pierden no son por no saber el concepto, sino por unidades, por usar el dato equivocado o por no dibujar. Esta es la lista de control antes de entregar.',
+          html: 'La mayoría de los puntos se pierden por no distinguir conceptos, confundir un ensayo con otro o no dibujar. Esta es la lista de control antes de entregar.',
         },
         {
           t: 'ul',
           items: [
-            'Usar el <b>largo total</b> de la barra en flexión en vez de la <b>luz entre apoyos</b>.',
-            'Poner la carga en kg en una fórmula que pide N (multiplicá por 9,8), o al revés en Brinell (ahí F va en kgf).',
-            'Olvidar que <b>1 MPa = 1 N/mm²</b>: si las medidas están en cm, primero pasalas a mm.',
             'Confundir <b>resiliencia</b> (área elástica) con <b>tenacidad</b> (área total).',
             'Decir que Charpy golpea del lado de la entalla: es al revés, golpea la cara opuesta. Izod sí golpea del mismo lado.',
-            'Calcular la dureza Brinell con F en N en lugar de kgf.',
-            "En fatiga, aplicar Marin sin aclarar que Se′ es de probeta pulida en flexión rotativa.",
+            'Confundir σut (esfuerzo máximo) con la tensión de rotura.',
           ],
         },
         {
           t: 'callout',
           tone: 'tip',
           title: 'Checklist de 60 segundos',
-          html: '¿Pasé todas las longitudes a mm y las fuerzas a N (o kgf donde corresponde)? · ¿Escribí la fórmula antes de reemplazar y aclaré las unidades del resultado? · En flexión, ¿usé L (luz) y no el largo? · En Brinell, ¿resolví primero la raíz y después el paréntesis? · Si piden dibujar, ¿marqué ejes, unidades, puntos y zonas? · Si piden comparar, ¿nombré Charpy vs. Izod con medidas y lado del golpe?',
+          html: '¿Nombré los puntos de la curva? · ¿Diferencié Charpy de Izod? · ¿Expliqué qué mide cada ensayo? · Si piden comparar, ¿aclaré el montaje y el lado del golpe?',
         },
       ],
       keyPoints: [
-        'Unidades: mm, N, kgf, MPa, J.',
-        'Dibujar siempre ejes, puntos y zonas.',
-        'Charpy opuesto · Izod mismo lado.',
+        'Cada ensayo mide algo distinto: no mezclar propiedades.',
+        'Nombrar las etapas, zonas o métodos sin fórmulas.',
+        'Charpy opuesto a la entalla · Izod del mismo lado.',
       ],
     },
   ],
 
-  formulas: [
-    { id: 'f6-01', group: 'Tracción', name: 'Tensión', expr: 'σ = F / A₀', note: 'MPa = N/mm² · A₀ es el área original' },
-    { id: 'f6-02', group: 'Tracción', name: 'Deformación unitaria', expr: 'ε = Δl / l₀', note: 'Adimensional (mm/mm)' },
-    { id: 'f6-03', group: 'Tracción', name: 'Área probeta plana', expr: 'A₀ = e · w', note: 'espesor × ancho' },
-    { id: 'f6-04', group: 'Tracción', name: 'Área probeta cilíndrica', expr: 'A₀ = π · d₀² / 4', note: 'd₀ en mm' },
-    { id: 'f6-05', group: 'Propiedades', name: 'Módulo de Young', expr: 'E = σ / ε', note: 'Pendiente de la zona elástica; rigidez' },
-    { id: 'f6-06', group: 'Propiedades', name: 'Alargamiento', expr: '%Δl = (lf − l₀)/l₀ · 100', note: 'Ductilidad' },
-    { id: 'f6-07', group: 'Propiedades', name: 'Estricción', expr: '% estricción = (A₀ − Af)/A₀ · 100', note: 'Af medida en el cuello' },
-    { id: 'f6-08', group: 'Propiedades', name: 'Resiliencia', expr: 'ER = ½ · σy · εy', note: 'Área del triángulo elástico' },
-    { id: 'f6-10', group: 'Flexión', name: 'Tensión de rotura en flexión', expr: 'σflex = 3FL / (2wh²)', note: 'F[N], L luz, w ancho, h altura [mm]' },
-    { id: 'f6-11', group: 'Flexión', name: 'Módulo en flexión', expr: 'Eflex = L³F / (4wh³δ)', note: 'δ = deflexión central [mm]' },
-    { id: 'f6-12', group: 'Flexión', name: 'Momento máximo 3 puntos', expr: 'Mmax = F · L / 4', note: 'Triangular, máximo en el centro' },
-    { id: 'f6-13', group: 'Dureza', name: 'Brinell', expr: 'HBW = 2F / [πD(D − √(D² − d²))]', note: 'F en kgf · D y d en mm' },
-    { id: 'f6-14', group: 'Dureza', name: 'Dureza → resistencia', expr: 'σut ≈ 3,45 · HB', note: 'Acero no austenítico' },
-    { id: 'f6-15', group: 'Impacto', name: 'Energía absorbida', expr: 'E = m · g · (h₀ − hf)', note: 'g = 9,8 m/s² · resultado en J' },
-    { id: 'f6-16', group: 'Impacto', name: 'Fractura por corte', expr: '% corte = (Atotal − A·B)/Atotal · 100', note: 'A·B = área de clivaje (brillante)' },
-    { id: 'f6-18', group: 'Fatiga', name: 'Límite en probeta pulida', expr: "Se′ = 0,5 · Sut", note: 'Sut ≤ 1400 MPa; si no, 700 MPa' },
-    { id: 'f6-19', group: 'Fatiga', name: 'Coeficientes de Marin', expr: 'Se = ka·kb·kc·kd·ke·Se′', note: 'Componente real' },
-    { id: 'f6-20', group: 'Tracción', name: 'Relación de probeta cilíndrica', expr: 'G = 4 · D', note: 'D = 12,5 mm → G = 50 mm' },
-  ],
+  formulas: [],
 
   cards: [
     { id: 'c6-01', unit: 'u6', topic: 'traccion', front: '¿Qué es el ensayo de tracción?', back: 'Ensayo estático: carga axial creciente y lenta hasta romper una probeta normalizada, sujeta con mordazas en una máquina universal (INSTRON, WOLPERT). De un solo ensayo salen las propiedades de la curva σ–ε.' },
-    { id: 'c6-02', unit: 'u6', topic: 'traccion', front: 'Área inicial de una probeta plana', back: 'A₀ = e · w (espesor × ancho de la sección reducida).', hint: 'Chapa / rectangular' },
-    { id: 'c6-03', unit: 'u6', topic: 'traccion', front: 'Área inicial de una probeta cilíndrica', back: 'A₀ = π · d₀² / 4.', hint: 'Con d₀ = diámetro de la sección reducida' },
-    { id: 'c6-04', unit: 'u6', topic: 'traccion', front: 'Relación normalizada G–D en probeta cilíndrica', back: 'G = 4·D. Estándar D = 12,5 mm → G = 50 mm. Subsize: 8,75 / 6,25 / 4,00 / 2,50 mm → 35 / 25 / 16 / 10 mm.' },
     { id: 'c6-05', unit: 'u6', topic: 'traccion', front: '¿Para qué sirve el extensómetro?', back: 'Para medir con precisión el alargamiento de la zona calibrada, sobre todo en la zona elástica.' },
     { id: 'c6-06', unit: 'u6', topic: 'traccion', front: '¿Qué evita el radio R de la probeta?', back: 'La concentración de tensiones en el cambio de sección; si no existiera, la probeta rompería antes de medir.' },
     { id: 'c6-07', unit: 'u6', topic: 'traccion', front: 'Orientación de probeta en laminados', back: 'Longitudinal (paralela a la laminación) o transversal. La longitudinal suele tener más resistencia y ductilidad por el fibrado.' },
-    { id: 'c6-08', unit: 'u6', topic: 'propiedades', front: 'Fórmulas de esfuerzo y deformación', back: 'σ = F/A₀ (MPa = N/mm²) y ε = Δl/l₀ = (l − l₀)/l₀ (adimensional).' },
+    { id: 'c6-08', unit: 'u6', topic: 'propiedades', front: 'Esfuerzo y deformación: definición', back: 'σ es la fuerza por unidad de área; ε es el cambio de longitud relativo y es adimensional.' },
     { id: 'c6-09', unit: 'u6', topic: 'propiedades', front: '¿Qué divide la zona elástica de la plástica?', back: 'El esfuerzo de fluencia o cedencia σy. Al superarlo queda deformación permanente.' },
-    { id: 'c6-10', unit: 'u6', topic: 'propiedades', front: 'Resistencia a la tracción σut', back: 'σut = Fmáx/A₀. Es el esfuerzo máximo de la curva, pero NO es el de ruptura: después de σut empieza la estricción y el área real cae.' },
+    { id: 'c6-10', unit: 'u6', topic: 'propiedades', front: 'Resistencia a la tracción σut', back: 'σut es el esfuerzo máximo de la curva, pero NO es el de ruptura: después de σut empieza la estricción y el área real cae.' },
     { id: 'c6-11', unit: 'u6', topic: 'propiedades', front: '¿Cuándo comienza la estricción?', back: 'Exactamente en σut (el punto máximo). La deformación se localiza, se forma el cuello y la curva desciende hasta la ruptura.' },
-    { id: 'c6-12', unit: 'u6', topic: 'propiedades', front: 'Módulo de Young: fórmula y significado', back: 'E = σ/ε: pendiente de la zona elástica. Mide la rigidez, no la resistencia. Acero ≈ 207 GPa; aluminio ≈ 69 GPa.' },
-    { id: 'c6-13', unit: 'u6', topic: 'propiedades', front: 'Resiliencia', back: 'Área bajo la zona elástica (triángulo): ER = ½σyεy. Energía elástica por unidad de volumen que se absorbe y devuelve al descargar.' },
+    { id: 'c6-12', unit: 'u6', topic: 'propiedades', front: 'Módulo de Young: significado', back: 'E es la pendiente de la zona elástica: mide la rigidez, no la resistencia. Acero ≈ 207 GPa; aluminio ≈ 69 GPa.' },
+    { id: 'c6-13', unit: 'u6', topic: 'propiedades', front: 'Resiliencia', back: 'Resiliencia = área bajo la zona elástica: energía elástica por unidad de volumen que se absorbe y devuelve al descargar.' },
     { id: 'c6-14', unit: 'u6', topic: 'propiedades', front: 'Tenacidad vs. resiliencia', back: 'Tenacidad = área total bajo la curva hasta la ruptura (resistencia + ductilidad). Resiliencia = sólo el área elástica.' },
-    { id: 'c6-16', unit: 'u6', topic: 'propiedades', front: 'Ductilidad: ¿cómo se informa?', back: 'Con % de alargamiento: (lf−l₀)/l₀·100, y % de estricción: (A₀−Af)/A₀·100. Por encima del 5 % el acero se considera dúctil.' },
-    { id: 'c6-17', unit: 'u6', topic: 'propiedades', front: 'Método del offset 0,2 %', back: 'Cuando no hay quiebre claro, se traza una recta paralela a la zona elástica desplazada 0,2 % (ε = 0,002) y se lee el esfuerzo donde corta la curva: σ₀,₂.' },
+    { id: 'c6-16', unit: 'u6', topic: 'propiedades', front: 'Ductilidad: ¿cómo se informa?', back: 'Se informa con % de alargamiento y % de estricción. Por encima del 5 % de alargamiento el acero se considera dúctil.' },
+    { id: 'c6-17', unit: 'u6', topic: 'propiedades', front: 'Método del offset 0,2 %', back: 'Cuando no hay quiebre claro, se traza una recta paralela a la zona elástica desplazada 0,2 % y se lee el esfuerzo donde corta la curva: σ₀,₂.' },
     { id: 'c6-18', unit: 'u6', topic: 'propiedades', front: 'Cedencia superior e inferior', back: 'En aceros de bajo carbono: un pico (cedencia superior) y una meseta ondulante (cedencia inferior), por anclaje/liberación de dislocaciones por los átomos de carbono.' },
     { id: 'c6-19', unit: 'u6', topic: 'rigidez', front: '¿Por qué el acero es más rígido que el aluminio?', back: 'E depende de la energía de enlace entre átomos: acero ≈ 207 GPa vs. aluminio ≈ 69 GPa (3×). A igual esfuerzo, el aluminio se deforma el triple.' },
     { id: 'c6-20', unit: 'u6', topic: 'rigidez', front: 'Efecto de la temperatura en tracción', back: 'Bajan σy, σut y E (la curva se acuesta) y sube la deformación a rotura (más dúctil). La pendiente inicial sí cambia: baja E.' },
     { id: 'c6-21', unit: 'u6', topic: 'rigidez', front: '¿De qué depende E?', back: 'De la energía de enlace entre los átomos. NO del tratamiento térmico ni del tamaño de grano.' },
     { id: 'c6-22', unit: 'u6', topic: 'flexion', front: '¿Por qué los frágiles se ensayan en flexión?', back: 'Porque las mordazas de tracción trituran sus cabezas y cualquier desalineación los rompe antes de medir. Se ensaya una viga apoyada.' },
-    { id: 'c6-23', unit: 'u6', topic: 'flexion', front: 'Flexión en 3 puntos: momento y cortante', back: 'Una carga en L/2: momento triangular con Mmax = FL/4 en el centro; cortante constante ±F/2.' },
+    { id: 'c6-23', unit: 'u6', topic: 'flexion', front: 'Flexión en 3 puntos: momento y cortante', back: 'Una carga en el centro: momento triangular con el máximo en el centro; el cortante cambia de signo al pasar por la carga.' },
     { id: 'c6-24', unit: 'u6', topic: 'flexion', front: 'Flexión en 4 puntos: momento y cortante', back: 'Dos cargas a L/4: momento trapecial, constante en todo el tramo central L/2; cortante V = 0 → flexión pura. Se ensaya más volumen de material.' },
-    { id: 'c6-25', unit: 'u6', topic: 'flexion', front: 'Fórmulas de flexión', back: 'σflex = 3FL/(2wh²) y Eflex = L³F/(4wh³δ). L es la luz entre apoyos, no el largo total.' },
     { id: 'c6-26', unit: 'u6', topic: 'dureza', front: 'Definición de dureza', back: 'Resistencia de la superficie a la penetración por un objeto duro (deformación plástica localizada). Ensayo rápido, barato y casi no daña la pieza.' },
     { id: 'c6-27', unit: 'u6', topic: 'dureza', front: 'Brinell: penetrador, cargas y qué se mide', back: 'Esfera de 10 mm (acero duro o carburo). 3000 kgf para hierros/aceros, 500 kgf para no ferrosos. Se mide el diámetro d de la huella con microscopio. Huella grande: no sirve en piezas delgadas.' },
-    { id: 'c6-28', unit: 'u6', topic: 'dureza', front: 'Fórmula de Brinell', back: 'HBW = 2F / [πD(D − √(D² − d²))], con F en kgf y D, d en mm. Resolvé primero la raíz y después el paréntesis.' },
     { id: 'c6-29', unit: 'u6', topic: 'dureza', front: 'Rockwell: ¿qué mide y por qué es el más rápido?', back: 'Mide la profundidad de penetración con lectura automática (sin microscopio). Usa precarga. Cono de diamante 120° o bolas de 1/16" y 1/8".' },
     { id: 'c6-30', unit: 'u6', topic: 'dureza', front: 'Vickers y Knoop', back: 'Vickers: pirámide de base cuadrada, se miden las dos diagonales. Knoop: pirámide romboidal alargada, sólo la diagonal larga, penetra menos (ideal cerámicos y capas delgadas).' },
     { id: 'c6-31', unit: 'u6', topic: 'dureza', front: 'Escalas Rockwell más usadas', back: 'HRC: cono de diamante, 150 kgf, acero templado. HRB: bola 1/16", 100 kgf, latón y acero blando. HRA: cono, 60 kgf, carburos.' },
     { id: 'c6-32', unit: 'u6', topic: 'dureza', front: 'Shore: ¿para qué materiales?', back: 'Cauchos, elastómeros y plásticos. Shore A para blandos, Shore D para rígidos. Mide la profundidad de la marca; no son linealmente convertibles.' },
-    { id: 'c6-33', unit: 'u6', topic: 'dureza', front: 'Estimar σut desde la dureza', back: 'σut ≈ 3,45·HB, válido en aceros no austeníticos (tabla SA-370). En inoxidables austeníticos no se cumple.' },
     { id: 'c6-34', unit: 'u6', topic: 'impacto', front: '¿Qué tipo de ensayo es el de impacto?', back: 'Dinámico: golpe súbito a alta velocidad con un péndulo, sobre una probeta entallada. Mide la energía absorbida al fracturarla.' },
-    { id: 'c6-35', unit: 'u6', topic: 'impacto', front: 'Energía absorbida en el péndulo', back: 'E = m·g·(h₀ − hf), con g = 9,8 m/s². Es la diferencia de energía potencial antes y después de romper la probeta.' },
+    { id: 'c6-35', unit: 'u6', topic: 'impacto', front: 'Energía absorbida en el péndulo', back: 'La energía absorbida es la diferencia de energía potencial del péndulo antes y después del golpe; se lee en la escala del equipo.' },
     { id: 'c6-36', unit: 'u6', topic: 'impacto', front: '¿Para qué sirve la entalla?', back: 'Para que la fractura empiece en un lugar conocido y para concentrar tensiones, simulando defectos y cambios de sección reales. Normalizada: 45°, 2 mm de profundidad, r = 0,25 mm.' },
     { id: 'c6-37', unit: 'u6', topic: 'impacto', front: 'Probeta y montaje Charpy', back: '10 × 10 × 55 mm, entalla al centro (L/2 = 27,5 mm). Se apoya horizontal en los dos extremos (viga) y el péndulo golpea la cara opuesta a la entalla.' },
     { id: 'c6-38', unit: 'u6', topic: 'impacto', front: 'Probeta y montaje Izod', back: '10 × 10 × 75 mm, entalla desplazada. Se empotra vertical por la mitad inferior (voladizo) y el péndulo golpea el extremo libre, del mismo lado de la entalla.' },
@@ -1431,9 +1338,6 @@ const u6 = {
     { id: 'c6-43', unit: 'u6', topic: 'transicion', front: '¿Qué materiales no tienen transición marcada?', back: 'Los FCC: aluminio, cobre y aceros inoxidables austeníticos. Conservan alta energía a baja temperatura; por eso se usan en servicios criogénicos.' },
     { id: 'c6-46', unit: 'u6', topic: 'fatiga', front: '¿Qué es la fatiga?', back: 'Falla por esfuerzos cíclicos menores que σy, sin deformación plástica visible. Es la causa más común de rotura en servicio (ejes, resortes, alas).' },
     { id: 'c6-47', unit: 'u6', topic: 'fatiga', front: 'Las 3 etapas de la fatiga', back: '1) Iniciación de una grieta superficial. 2) Propagación ciclo a ciclo (marcas de playa). 3) Fractura súbita cuando el área remanente no soporta la carga.' },
-    { id: 'c6-48', unit: 'u6', topic: 'fatiga', front: 'Curva S–N: acero vs. aluminio', back: 'El acero tiene meseta horizontal entre 10⁶ y 10⁷ ciclos (límite de fatiga Se). El aluminio no tiene límite definido: su curva sigue bajando.' },
-    { id: 'c6-49', unit: 'u6', topic: 'fatiga', front: "Límite de fatiga de probeta pulida (Se′)", back: "Se′ = 0,5·Sut si Sut ≤ 1400 MPa; si Sut > 1400 MPa se adopta 700 MPa. Es un valor de laboratorio en flexión rotativa." },
-    { id: 'c6-50', unit: 'u6', topic: 'fatiga', front: 'Coeficientes de Marin', back: 'Se = ka·kb·kc·kd·ke·Se′: acabado superficial, tamaño, tipo de carga, temperatura y confiabilidad.' },
   ],
 
   quiz: [
@@ -1443,20 +1347,6 @@ const u6 = {
       options: ['El de tracción aplica la carga lentamente (estático) y el de impacto da un golpe súbito (dinámico)', 'La tracción mide dureza y el impacto mide rigidez', 'El impacto se hace con mordazas y el de tracción con péndulo', 'No hay diferencia: ambos aplican la misma velocidad de carga'],
       correct: 0,
       explain: 'La tracción es un ensayo estático con carga axial creciente y lenta; el impacto es dinámico, con un péndulo que golpea la probeta entallada a alta velocidad.',
-    },
-    {
-      id: 'q6-02', unit: 'u6', topic: 'traccion', type: 'mcq',
-      q: 'En una probeta plana SA-370, el área inicial de la sección reducida se calcula como:',
-      options: ['A₀ = e · w (espesor × ancho)', 'A₀ = π·d₀²/4', 'A₀ = G · w', 'A₀ = 2(e + w)'],
-      correct: 0,
-      explain: 'En la chapa se multiplican espesor y ancho de la sección reducida. La fórmula πd₀²/4 corresponde a la probeta cilíndrica.',
-    },
-    {
-      id: 'q6-03', unit: 'u6', topic: 'traccion', type: 'mcq',
-      q: 'La probeta cilíndrica normalizada cumple G = 4·D. Si D = 12,5 mm, la longitud calibrada es:',
-      options: ['50 mm', '25 mm', '100 mm', '12,5 mm'],
-      correct: 0,
-      explain: 'G = 4 × 12,5 = 50 mm. Las subsize mantienen la proporción: 8,75 → 35 mm; 6,25 → 25 mm; 4,00 → 16 mm; 2,50 → 10 mm.',
     },
     {
       id: 'q6-04', unit: 'u6', topic: 'traccion', type: 'mcq',
@@ -1482,9 +1372,9 @@ const u6 = {
     {
       id: 'q6-07', unit: 'u6', topic: 'propiedades', type: 'mcq',
       q: 'La resistencia a la tracción σut se define como:',
-      options: ['Fmáx / A₀: el esfuerzo de la fuerza máxima', 'La fuerza en el momento de la ruptura', 'El esfuerzo de fluencia multiplicado por 2', 'El área final dividida la fuerza máxima'],
+      options: ['El esfuerzo máximo de la curva, asociado a la fuerza máxima', 'La fuerza en el momento de la ruptura', 'El esfuerzo de fluencia multiplicado por dos', 'El esfuerzo que se mantiene constante después de la estricción'],
       correct: 0,
-      explain: 'σut = Fmáx/A₀. Es el punto más alto de la curva, pero no el de rotura: después del máximo aparece la estricción y la carga baja.',
+      explain: 'σut es el esfuerzo máximo de la curva, pero no el de rotura: después del máximo aparece la estricción y la carga baja.',
     },
     {
       id: 'q6-08', unit: 'u6', topic: 'propiedades', type: 'mcq',
@@ -1498,14 +1388,14 @@ const u6 = {
       q: 'El módulo de Young E de la curva σ–ε es:',
       options: ['La pendiente de la zona lineal elástica', 'El área total bajo la curva', 'La altura del pico σut', 'La deformación en la ruptura'],
       correct: 0,
-      explain: 'E = σ/ε en la zona elástica. Mide la rigidez y depende de la energía de enlace atómico, no del tratamiento térmico.',
+      explain: 'E es la pendiente de la zona elástica: mide la rigidez y depende de la energía de enlace atómico, no del tratamiento térmico.',
     },
     {
       id: 'q6-10', unit: 'u6', topic: 'propiedades', type: 'mcq',
       q: 'La resiliencia es:',
       options: ['El área del triángulo bajo la zona elástica', 'El área total bajo la curva hasta la ruptura', 'La energía absorbida en un golpe de péndulo', 'La deformación permanente después de romper'],
       correct: 0,
-      explain: 'ER = ½σyεy: energía elástica por unidad de volumen que el material absorbe y devuelve. El área total es la tenacidad.',
+      explain: 'La resiliencia es el área elástica: energía por unidad de volumen que el material absorbe y devuelve. El área total es la tenacidad.',
     },
     {
       id: 'q6-11', unit: 'u6', topic: 'propiedades', type: 'mcq',
@@ -1519,7 +1409,7 @@ const u6 = {
       q: 'La ductilidad se informa con:',
       options: ['% de alargamiento y % de estricción', 'σy y σut', 'El módulo E y la resiliencia', 'La energía absorbida en J'],
       correct: 0,
-      explain: '%Δl = (lf−l₀)/l₀·100 y % estricción = (A₀−Af)/A₀·100. Por encima del 5 % de alargamiento el acero se considera dúctil.',
+      explain: 'Se informa con el porcentaje de alargamiento y el de estricción. Por encima del 5 % de alargamiento el acero se considera dúctil.',
     },
     {
       id: 'q6-14', unit: 'u6', topic: 'propiedades', type: 'mcq',
@@ -1557,13 +1447,6 @@ const u6 = {
       explain: 'Se apoya una viga y se carga: la cara inferior trabaja a tracción. Se evita el daño de las mordazas y la flexión parásita.',
     },
     {
-      id: 'q6-19', unit: 'u6', topic: 'flexion', type: 'mcq',
-      q: 'En flexión de 3 puntos, el momento flector máximo vale:',
-      options: ['Mmax = F·L/4', 'Mmax = F·L/2', 'Mmax = F·L', 'Mmax = 3FL/(2wh²)'],
-      correct: 0,
-      explain: 'Con una carga en el centro el diagrama es triangular y el máximo se da sólo en L/2: Mmax = FL/4. El cortante vale ±F/2.',
-    },
-    {
       id: 'q6-20', unit: 'u6', topic: 'flexion', type: 'mcq',
       q: 'La ventaja principal de la flexión en 4 puntos es que:',
       options: ['El momento es constante en el tramo central y el cortante es cero (flexión pura)', 'El momento máximo es el doble que en 3 puntos', 'No necesita apoyos', 'Se mide directamente la dureza'],
@@ -1571,25 +1454,11 @@ const u6 = {
       explain: 'Con dos cargas a L/4 el momento es trapecial y constante en L/2, con V = 0. Se ensaya más volumen de material, útil para cerámicos con defectos distribuidos.',
     },
     {
-      id: 'q6-21', unit: 'u6', topic: 'flexion', type: 'mcq',
-      q: 'En la fórmula σflex = 3FL/(2wh²), la letra L representa:',
-      options: ['La luz entre apoyos, no el largo total de la barra', 'El largo total de la barra', 'La altura de la probeta', 'La deflexión central'],
-      correct: 0,
-      explain: 'Es el error más común del TP: la barra mide 0,5 m pero la luz es 400 mm. Usar el largo total desvía el resultado un 25 %.',
-    },
-    {
       id: 'q6-22', unit: 'u6', topic: 'dureza', type: 'mcq',
       q: 'El ensayo Brinell mide:',
       options: ['El diámetro de la huella dejada por una esfera de 10 mm', 'La profundidad de penetración de un cono', 'La diagonal de una pirámide romboidal', 'La resistencia al rayado con una punta de diamante'],
       correct: 0,
       explain: 'Se mide ópticamente el diámetro promedio d de la impronta. F = 3000 kgf para aceros y hierros, 500 kgf para no ferrosos.',
-    },
-    {
-      id: 'q6-23', unit: 'u6', topic: 'dureza', type: 'mcq',
-      q: 'En la fórmula de Brinell, la carga F debe ir en:',
-      options: ['kgf', 'N', 'MPa', 'kgf/mm²'],
-      correct: 0,
-      explain: 'HBW = 2F/[πD(D−√(D²−d²))] con F en kgf. Si usás newtons el resultado se va por 9,8.',
     },
     {
       id: 'q6-24', unit: 'u6', topic: 'dureza', type: 'mcq',
@@ -1613,25 +1482,11 @@ const u6 = {
       explain: 'Shore mide la profundidad de la marca en materiales no metálicos: Shore A para cauchos blandos, Shore D para plásticos rígidos.',
     },
     {
-      id: 'q6-27', unit: 'u6', topic: 'dureza', type: 'mcq',
-      q: 'La relación σut ≈ 3,45·HB es válida para:',
-      options: ['Aceros no austeníticos', 'Cualquier material, incluidos cerámicos', 'Sólo aceros inoxidables austeníticos', 'Sólo aluminio y cobre'],
-      correct: 0,
-      explain: 'La tabla de conversión de ASTM/ASME SA-370 se aplica a aceros no austeníticos. En austeníticos la correlación no se cumple y hay que aclararlo.',
-    },
-    {
       id: 'q6-28', unit: 'u6', topic: 'dureza', type: 'mcq',
       q: '¿Qué escala Rockwell usarías para un acero templado de alta resistencia?',
       options: ['HRC: cono de diamante y 150 kgf', 'HRB: bola de 1/16" y 100 kgf', 'HRE: bola de 1/8" y 100 kgf', 'Shore D'],
       correct: 0,
       explain: 'HRC (cono de diamante, 150 kgf) es la escala para aceros de alta resistencia y templados. HRB es para latón y aceros blandos.',
-    },
-    {
-      id: 'q6-29', unit: 'u6', topic: 'impacto', type: 'mcq',
-      q: 'La energía absorbida por la probeta en el ensayo de impacto se calcula como:',
-      options: ['E = m·g·(h₀ − hf)', 'E = F·L/4', 'E = ½σyεy', 'E = σ·ε'],
-      correct: 0,
-      explain: 'Es la diferencia de energía potencial del péndulo antes y después del golpe, con g = 9,8 m/s².',
     },
     {
       id: 'q6-30', unit: 'u6', topic: 'impacto', type: 'mcq',
@@ -1718,109 +1573,11 @@ const u6 = {
       explain: 'La grieta nace en la superficie (rayas, entallas, inclusiones), avanza ciclo a ciclo y al final el área remanente se rompe de golpe.',
     },
     {
-      id: 'q6-45', unit: 'u6', topic: 'fatiga', type: 'mcq',
-      q: 'En la curva S–N, la diferencia clave entre acero y aluminio es que:',
-      options: ['El acero tiene un límite de fatiga (meseta entre 10⁶ y 10⁷ ciclos) y el aluminio no', 'El aluminio tiene meseta y el acero no', 'Ninguno tiene límite definido', 'El acero falla siempre antes de 10⁴ ciclos'],
-      correct: 0,
-      explain: 'Los ferrosos y el titanio se aplanan entre 10⁶ y 10⁷ ciclos (Se). Los no ferrosos siguen bajando: se informa resistencia a la fatiga para un N fijo.',
-    },
-    {
-      id: 'q6-46', unit: 'u6', topic: 'fatiga', type: 'mcq',
-      q: "El límite de fatiga de una probeta pulida se estima como:",
-      options: ["Se′ = 0,5·Sut, si Sut ≤ 1400 MPa", "Se′ = 2·Sut", "Se′ = 0,2·Sut, siempre", "Se′ = Sut − σy"],
-      correct: 0,
-      explain: 'Para aceros de alta resistencia (Sut > 1400 MPa) se adopta Se′ = 700 MPa. Es un valor de laboratorio en flexión rotativa.',
-    },
-    {
-      id: 'q6-47', unit: 'u6', topic: 'fatiga', type: 'mcq',
-      q: 'Los coeficientes de Marin (ka…ke) corrigen:',
-      options: ['Acabado superficial, tamaño, tipo de carga, temperatura y confiabilidad', 'Dureza, resistencia, módulo y ductilidad', 'Energía, corte, expansión, dureza y Se', 'Longitud, ancho, espesor, radio y luz'],
-      correct: 0,
-      explain: 'Se = ka·kb·kc·kd·ke·Se′ traslada el valor de probeta pulida a la pieza real. Una superficie rugosa o una pieza grande reducen Se.',
-    },
-    {
       id: 'q6-48', unit: 'u6', topic: 'fatiga', type: 'mcq',
       q: 'La fatiga térmica se produce por:',
       options: ['Dilataciones y contracciones no uniformes que generan tensiones cíclicas', 'Un golpe súbito del péndulo', 'La presencia de una grieta macroscópica', 'El exceso de dureza superficial'],
       correct: 0,
       explain: 'Si el calentamiento o enfriamiento no es uniforme, unas partes restringen a otras y aparecen tensiones cíclicas de signos opuestos (moldes, piezas de horno).',
-    },
-    {
-      id: 'q6-49', unit: 'u6', topic: 'traccion', type: 'num',
-      q: 'Una probeta plana tiene e = 7,5 mm y w = 37,6 mm. ¿Cuál es su área inicial A₀ en mm²?',
-      answer: 282, tolerance: 0.6, answerUnit: 'mm²',
-      steps: ['A₀ = e · w', 'A₀ = 7,5 × 37,6', 'A₀ = 282 mm²'],
-      explain: 'Es el área de la sección reducida: la que se usa para σ = F/A₀. No se usan las cabezas de la probeta.',
-    },
-    {
-      id: 'q6-50', unit: 'u6', topic: 'propiedades', type: 'num',
-      q: 'Una probeta de acero tiene E = 200.000 MPa. Si se le aplica σ = 300 MPa en la zona elástica, ¿cuál es la deformación ε? (en mm/mm)',
-      answer: 0.0015, tolerance: 0.00008, answerUnit: 'mm/mm',
-      steps: ['E = σ/ε → ε = σ/E', 'ε = 300 / 200.000', 'ε = 0,0015 mm/mm (0,15 %)'],
-      explain: 'En la zona elástica ε = σ/E. Para el acero, 300 MPa producen 0,15 % de deformación: muy poca, porque E es grande.',
-    },
-    {
-      id: 'q6-51', unit: 'u6', topic: 'flexion', type: 'num',
-      q: 'Flexión en 3 puntos: F = 1200 N, L = 400 mm, w = 23,5 mm, h = 4,5 mm. ¿Cuál es σflex en MPa?',
-      answer: 1513, tolerance: 5, answerUnit: 'MPa',
-      steps: ['σflex = 3FL / (2wh²)', 'σflex = (3 × 1200 × 400) / (2 × 23,5 × 4,5²)', 'σflex = 1.440.000 / 951,75', 'σflex ≈ 1513 MPa'],
-      explain: 'Convertí todo a mm y N antes de reemplazar. Con h al cuadrado, cualquier error en la altura pesa muchísimo.',
-    },
-    {
-      id: 'q6-52', unit: 'u6', topic: 'dureza', type: 'num',
-      q: 'Brinell: D = 10 mm, d = 6,25 mm, F = 3000 kgf. ¿Cuál es la dureza HB?',
-      answer: 87.06, tolerance: 0.6, answerUnit: 'HB',
-      steps: ['HB = 2F / [πD(D − √(D²−d²))]', '√(10² − 6,25²) = √60,9375 = 7,80625 mm', 'D − 7,80625 = 2,19375 mm', 'HB = 6000 / (π × 10 × 2,19375) = 6000/68,9186', 'HB ≈ 87,06'],
-      explain: 'Primero la raíz, después el paréntesis y al final la división. F en kgf (no N).',
-    },
-    {
-      id: 'q6-53', unit: 'u6', topic: 'impacto', type: 'num',
-      q: 'Un péndulo de 25 kg cae desde 1,50 m y sube hasta 0,62 m después de romper la probeta. ¿Cuánta energía absorbió? (J)',
-      answer: 215.6, tolerance: 1, answerUnit: 'J',
-      steps: ['Δh = h₀ − hf = 1,50 − 0,62 = 0,88 m', 'E = m·g·Δh = 25 × 9,8 × 0,88', 'E = 215,6 J'],
-      explain: 'La energía absorbida es la diferencia de energía potencial del péndulo. Usá g = 9,8 m/s², como la cátedra.',
-    },
-    {
-      id: 'q6-54', unit: 'u6', topic: 'impacto', type: 'num',
-      q: 'La sección de una probeta es 10 × 8 mm y el área de clivaje (brillante) mide 40 mm². ¿Qué % de fractura por corte tiene?',
-      answer: 50, tolerance: 0.5, answerUnit: '%',
-      steps: ['Área total = 10 × 8 = 80 mm²', '% corte = (80 − 40)/80 × 100', '% corte = 50 %'],
-      explain: 'El área brillante es clivaje (frágil); el resto es corte (dúctil). Con 50 % la probeta está en transición.',
-    },
-    {
-      id: 'q6-56', unit: 'u6', topic: 'fatiga', type: 'num',
-      q: 'Un acero tiene Sut = 900 MPa, ka = 0,85, kb = 0,90, kc = kd = 1 y ke = 0,897. ¿Cuál es el límite de fatiga corregido Se? (MPa)',
-      answer: 308.7, tolerance: 2, answerUnit: 'MPa',
-      steps: ['Se′ = 0,5 × 900 = 450 MPa (Sut ≤ 1400)', 'Producto = 0,85 × 0,90 × 1 × 1 × 0,897 = 0,6862', 'Se = 0,6862 × 450 ≈ 308,8 MPa'],
-      explain: 'Primero Se′ con la probeta pulida y después aplicá Marin. Se siempre es menor que Se′ y mucho menor que Sut.',
-    },
-    {
-      id: 'q6-57', unit: 'u6', topic: 'dureza', type: 'num',
-      q: 'Se mide HB = 220 en un acero al carbono. ¿Qué σut se estima? (MPa)',
-      answer: 759, tolerance: 8, answerUnit: 'MPa',
-      steps: ['σut ≈ 3,45 · HB', 'σut ≈ 3,45 × 220', 'σut ≈ 759 MPa'],
-      explain: 'La relación es aproximada y válida en aceros no austeníticos. No se aplica a inoxidables austeníticos.',
-    },
-    {
-      id: 'q6-58', unit: 'u6', topic: 'propiedades', type: 'num',
-      q: 'Una probeta de l₀ = 100 mm rompe con lf = 135,8 mm. ¿Cuál es el alargamiento porcentual?',
-      answer: 35.8, tolerance: 0.3, answerUnit: '%',
-      steps: ['%Δl = (lf − l₀)/l₀ × 100', '%Δl = (135,8 − 100)/100 × 100', '%Δl = 35,8 %'],
-      explain: 'La ductilidad se informa como % de alargamiento (y también como % de estricción). Más de 5 % indica material dúctil.',
-    },
-    {
-      id: 'q6-59', unit: 'u6', topic: 'traccion', type: 'num',
-      q: 'Probeta cilíndrica con d₀ = 8,04 mm. ¿Cuál es A₀ en mm²? (usá π ≈ 3,1416)',
-      answer: 50.77, tolerance: 0.4, answerUnit: 'mm²',
-      steps: ['A₀ = π·d₀²/4', 'A₀ = 3,1416 × 64,6416 / 4', 'A₀ ≈ 50,77 mm²'],
-      explain: 'Es el área de la sección reducida de la probeta cilíndrica. Con ese valor calculás σ = F/A₀.',
-    },
-    {
-      id: 'q6-60', unit: 'u6', topic: 'flexion', type: 'mcq',
-      q: 'Al calcular el módulo de flexión Eflex = L³F/(4wh³δ), ¿qué unidad debe tener δ?',
-      options: ['Milímetros, igual que L, w y h', 'Metros, siempre', 'Micrómetros', 'Adimensional'],
-      correct: 0,
-      explain: 'Todos los largos en la misma unidad (mm). Si δ está en mm y h en mm, Eflex sale en MPa.',
     },
     {
       id: 'q6-61', unit: 'u6', topic: 'impacto', type: 'mcq',
@@ -1850,6 +1607,9 @@ const u6 = {
    Fuente: resumen de cátedra "Parcial 2 — Unidades 6 a 10" +
    apuntes manuscritos del usuario.
    ============================================================ */
+
+const frac = (num, den) => `<span class="frac"><span class="frac__num">${num}</span><span class="frac__den">${den}</span></span>`;
+const lines = (...items) => `<span class="formula-lines">${items.map((item) => `<span class="fline">${item}</span>`).join('')}</span>`;
 
 const u8 = {
   id: 'u8',
@@ -1890,7 +1650,7 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'ΔG = (4/3)·π·r³·ΔGv + 4·π·r²·σ',
+          expr: 'ΔG = (4/3)·π·r³·ΔGv + 4·π·r²·σ', html: 'ΔG = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>π·r³·ΔGv + 4·π·r²·σ',
           note: 'Energía libre total de un núcleo esférico de radio r. ΔGv = energía libre de volumen; σ = energía libre de superficie.',
         },
         {
@@ -1950,7 +1710,7 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'r* = 2·σ·Tm / (ΔHf · ΔT)     con ΔT = Tm − T',
+          expr: 'r* = 2·σ·Tm / (ΔHf · ΔT)     con ΔT = Tm − T', html: '<span class="formula-lines"><span class="fline">r* = <span class="frac"><span class="frac__num">2·σ·Tm</span><span class="frac__den">ΔHf · ΔT</span></span></span><span class="fline">con ΔT = Tm − T</span></span>',
           note: 'σ = energía libre de superficie · ΔHf = calor latente de fusión · Tm = temperatura de solidificación · ΔT = subenfriamiento.',
         },
         {
@@ -2078,7 +1838,7 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'Rapidez de enfriamiento = ΔT / Δt',
+          expr: 'Rapidez de enfriamiento = ΔT / Δt', html: 'Rapidez de enfriamiento = <span class="frac"><span class="frac__num">ΔT</span><span class="frac__den">Δt</span></span>',
           note: 'Es la pendiente de la curva. Cuanto más empinada, más rápido se enfría el metal.',
         },
         {
@@ -2160,7 +1920,7 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'ts = B · (V/A)ⁿ     con n ≈ 2  →  ts = B · V²/A²',
+          expr: 'ts = B · (V/A)ⁿ     con n ≈ 2  →  ts = B · V²/A²', html: '<span class="formula-lines"><span class="fline">ts = B · (<span class="frac"><span class="frac__num">V</span><span class="frac__den">A</span></span>)ⁿ</span><span class="fline">con n ≈ 2</span><span class="fline">ts = B · <span class="frac"><span class="frac__num">V²</span><span class="frac__den">A²</span></span></span></span>',
           note: 'ts = tiempo de solidificación · V = volumen de la fundición (calor a eliminar) · A = área de la superficie del molde por la que se extrae el calor · B = constante del molde.',
         },
         {
@@ -2221,7 +1981,7 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'CUBO (lado a):  V = a³      A = 6a²      V/A = a/6',
+          expr: 'CUBO (lado a):  V = a³      A = 6a²      V/A = a/6', html: '<span class="formula-lines"><span class="fline"><b>CUBO (lado a)</b></span><span class="fline">V = a³</span><span class="fline">A = 6a²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">a</span><span class="frac__den">6</span></span></span></span>',
           note: 'El caso más simple y el más probable en el examen.',
         },
         {
@@ -2231,24 +1991,30 @@ const u8 = {
         },
         {
           t: 'formula',
-          expr: 'CILINDRO (D, h):  V = π·r²·h      A = 2πr² + 2πrh      (r = D/2)',
-          note: 'No olvidar las DOS tapas: 2πr². La superficie lateral es 2πrh (perímetro × altura).',
+          expr: 'CILINDRO (r y D):  V = πr²h = (π/4)D²h      A = 2πr² + 2πrh = (π/2)D² + πDh',
+          html: lines(
+            '<b>CILINDRO (r y D)</b>',
+            `V = πr²h = ${frac('π','4')}D²h`,
+            `A = 2πr² + 2πrh = ${frac('π','2')}D² + πDh`,
+            `V/A = ${frac('r·h','2(r+h)')} = ${frac('D·h','2(D+2h)')}`,
+          ),
+          note: 'No olvidar las DOS tapas: 2πr² = (π/2)D². La superficie lateral es 2πrh = πDh.',
         },
         {
           t: 'formula',
-          expr: 'ESFERA (D):  V = (4/3)·π·r³      A = 4πr²      V/A = r/3',
+          expr: 'ESFERA (D):  V = (4/3)·π·r³      A = 4πr²      V/A = r/3', html: '<span class="formula-lines"><span class="fline"><b>ESFERA (D)</b></span><span class="fline">V = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³</span><span class="fline">A = 4πr²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">r</span><span class="frac__den">3</span></span></span></span>',
           note: 'La que más tarda a igual volumen: máxima V/A.',
         },
         {
           t: 'table',
           head: ['Figura', 'V', 'A', 'V/A'],
           rows: [
-            ['Cubo', 'a³', '6a²', 'a/6'],
-            ['Prisma', 'a·b·c', '2(ab+bc+ac)', 'abc / [2(ab+bc+ac)]'],
-            ['Cilindro', 'πr²h', '2πr² + 2πrh', 'r·h / [2(r+h)]'],
-            ['Esfera', '(4/3)πr³', '4πr²', 'r/3'],
+            ['Cubo', 'a³', '6a²', frac('a','6')],
+            ['Prisma', 'a·b·c', '2(ab+bc+ac)', frac('abc','2(ab+bc+ac)')],
+            ['Cilindro', 'πr²h<br><small>= ' + frac('π','4') + 'D²h</small>', '2πr² + 2πrh<br><small>= ' + frac('π','2') + 'D² + πDh</small>', frac('r·h','2(r+h)') + ' = ' + frac('D·h','2(D+2h)')],
+            ['Esfera', frac('4','3') + 'πr³', '4πr²', frac('r','3')],
           ],
-          caption: 'Para el cilindro, V/A = πr²h / [2πr(r+h)] = r·h/(2(r+h)). Sirve para chequear el resultado sin calculadora.',
+          caption: 'Cilindro: V = πr²h = (π/4)D²h; A = 2πr² + 2πrh = (π/2)D² + πDh; V/A = r·h/[2(r+h)] = D·h/[2(D+2h)]. Sirve para chequear el resultado sin calculadora.',
         },
         {
           t: 'callout',
@@ -2277,7 +2043,7 @@ const u8 = {
       keyPoints: [
         'Cubo: a³ y 6a²; V/A = a/6.',
         'Prisma: abc y 2(ab+bc+ac).',
-        'Cilindro: πr²h y 2πr² + 2πrh (dos tapas).',
+        'Cilindro: V = πr²h = (π/4)D²h; A = 2πr² + 2πrh = (π/2)D² + πDh (dos tapas).',
         'Esfera: 4/3πr³ y 4πr²; V/A = r/3.',
       ],
     },
@@ -2387,20 +2153,20 @@ const u8 = {
   ],
 
   formulas: [
-    { id: 'f8-01', group: 'Nucleación', name: 'Energía libre total', expr: 'ΔG = (4/3)πr³ΔGv + 4πr²σ', note: 'Volumen (a favor) + superficie (en contra)', tone: 'u8' },
-    { id: 'f8-02', group: 'Nucleación', name: 'Radio crítico', expr: 'r* = 2σTm / (ΔHf · ΔT)', note: 'ΔT = Tm − T (subenfriamiento). Página 8: no entra formalmente.', tone: 'u8' },
-    { id: 'f8-11', group: 'Enfriamiento', name: 'Rapidez de enfriamiento', expr: 'ΔT / Δt', note: 'Pendiente de la curva T–t en cada tramo', tone: 'u8' },
+    { id: 'f8-01', group: 'Nucleación', name: 'Energía libre total', expr: 'ΔG = (4/3)πr³ΔGv + 4πr²σ', html: 'ΔG = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³ΔGv + 4πr²σ', note: 'Volumen (a favor) + superficie (en contra)', tone: 'u8' },
+    { id: 'f8-02', group: 'Nucleación', name: 'Radio crítico', expr: 'r* = 2σTm / (ΔHf · ΔT)', html: 'r* = <span class="frac"><span class="frac__num">2σTm</span><span class="frac__den">ΔHf · ΔT</span></span>', note: 'ΔT = Tm − T (subenfriamiento). Página 8: no entra formalmente.', tone: 'u8' },
+    { id: 'f8-11', group: 'Enfriamiento', name: 'Rapidez de enfriamiento', expr: 'ΔT / Δt', html: '<span class="frac"><span class="frac__num">ΔT</span><span class="frac__den">Δt</span></span>', note: 'Pendiente de la curva T–t en cada tramo', tone: 'u8' },
     { id: 'f8-12', group: 'Enfriamiento', name: 'Tiempo de solidificación local', expr: 't_local = t_fin − t_inicio', note: 'Duración de la meseta: sólo calor latente', tone: 'u8' },
     { id: 'f8-13', group: 'Enfriamiento', name: 'Tiempo de solidificación total', expr: 't_total = t_fin − t_vaciado', note: 'Incluye calor específico del líquido sobrecalentado + latente', tone: 'u8' },
     { id: 'f8-14', group: 'Enfriamiento', name: 'Calor sensible', expr: 'Q = m · c · ΔT', note: 'Calor específico: cambia la temperatura', tone: 'u8' },
     { id: 'f8-15', group: 'Enfriamiento', name: 'Calor latente de fusión', expr: 'Q = m · Lf', note: 'Cambio de estado a temperatura constante (meseta)', tone: 'u8' },
-    { id: 'f8-03', group: 'Chvorinov', name: 'Regla de Chvorinov', expr: 'ts = B · (V/A)ⁿ', note: 'n ≈ 2 · B en min/cm² o min/mm²', tone: 'u8' },
-    { id: 'f8-04', group: 'Chvorinov', name: 'Forma usual', expr: 'ts = B · V² / A²', note: 'La más usada en los ejercicios', tone: 'u8' },
-    { id: 'f8-05', group: 'Comparación', name: 'Dos piezas, mismo molde', expr: 'ts1/ts2 = ((V/A)₁/(V/A)₂)²', note: 'Misma B: no hace falta calcular ts', tone: 'u8' },
-    { id: 'f8-06', group: 'Formas', name: 'Cubo', expr: 'V = a³ · A = 6a² · V/A = a/6', note: 'El caso más simple', tone: 'u8' },
+    { id: 'f8-03', group: 'Chvorinov', name: 'Regla de Chvorinov', expr: 'ts = B · (V/A)ⁿ', html: 'ts = B · (<span class="frac"><span class="frac__num">V</span><span class="frac__den">A</span></span>)ⁿ', note: 'n ≈ 2 · B en min/cm² o min/mm²', tone: 'u8' },
+    { id: 'f8-04', group: 'Chvorinov', name: 'Forma usual', expr: 'ts = B · V² / A²', html: 'ts = B · <span class="frac"><span class="frac__num">V²</span><span class="frac__den">A²</span></span>', note: 'La más usada en los ejercicios', tone: 'u8' },
+    { id: 'f8-05', group: 'Comparación', name: 'Dos piezas, mismo molde', expr: 'ts1/ts2 = ((V/A)₁/(V/A)₂)²', html: '<span class="frac"><span class="frac__num">ts₁</span><span class="frac__den">ts₂</span></span> = (<span class="frac"><span class="frac__num">(V/A)₁</span><span class="frac__den">(V/A)₂</span></span>)²', note: 'Misma B: no hace falta calcular ts', tone: 'u8' },
+    { id: 'f8-06', group: 'Formas', name: 'Cubo', expr: 'V = a³ · A = 6a² · V/A = a/6', html: '<span class="formula-lines"><span class="fline">V = a³</span><span class="fline">A = 6a²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">a</span><span class="frac__den">6</span></span></span></span>', note: 'El caso más simple', tone: 'u8' },
     { id: 'f8-07', group: 'Formas', name: 'Prisma', expr: 'V = a·b·c · A = 2(ab+bc+ac)', note: 'Seis caras en tres pares', tone: 'u8' },
-    { id: 'f8-08', group: 'Formas', name: 'Cilindro', expr: 'V = πr²h · A = 2πr² + 2πrh', note: 'r = D/2 · incluye las dos tapas', tone: 'u8' },
-    { id: 'f8-09', group: 'Formas', name: 'Esfera', expr: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3', note: 'Máximo V/A a igual volumen', tone: 'u8' },
+    { id: 'f8-08', group: 'Formas', name: 'Cilindro (r y D)', expr: 'V = πr²h = (π/4)D²h · A = 2πr² + 2πrh = (π/2)D² + πDh · V/A = r·h/[2(r+h)] = D·h/[2(D+2h)]', html: lines(`V = πr²h = ${frac('π','4')}D²h`, `A = 2πr² + 2πrh = ${frac('π','2')}D² + πDh`, `V/A = ${frac('r·h','2(r+h)')} = ${frac('D·h','2(D+2h)')}`), note: 'r = D/2 · incluye las dos tapas', tone: 'u8' },
+    { id: 'f8-09', group: 'Formas', name: 'Esfera', expr: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3', html: '<span class="formula-lines"><span class="fline">V = <span class="frac"><span class="frac__num">4</span><span class="frac__den">3</span></span>πr³</span><span class="fline">A = 4πr²</span><span class="fline">V/A = <span class="frac"><span class="frac__num">r</span><span class="frac__den">3</span></span></span></span>', note: 'Máximo V/A a igual volumen', tone: 'u8' },
     { id: 'f8-10', group: 'Aplicación', name: 'Mazarota', expr: '(V/A)mazarota > (V/A)pieza', note: 'Solidifica última y alimenta el rechupe', tone: 'u8' },
   ],
 
@@ -2430,7 +2196,7 @@ const u8 = {
     { id: 'c8-23', unit: 'u8', topic: 'chvorinov', front: 'Error de unidades en Chvorinov', back: 'Si B está en min/cm², V/A debe estar en cm. Si las medidas están en mm, pasá V y A a cm antes de dividir: un error acá cambia el resultado por 100.' },
     { id: 'c8-24', unit: 'u8', topic: 'formas', front: 'V, A y V/A del cubo', back: 'V = a³ · A = 6a² · V/A = a/6.' },
     { id: 'c8-25', unit: 'u8', topic: 'formas', front: 'V y A del prisma', back: 'V = a·b·c · A = 2(ab + bc + ac): tres pares de caras iguales.' },
-    { id: 'c8-26', unit: 'u8', topic: 'formas', front: 'V y A del cilindro', back: 'V = πr²h · A = 2πr² + 2πrh. No olvidar las dos tapas (2πr²). r = D/2.' },
+    { id: 'c8-26', unit: 'u8', topic: 'formas', front: 'V y A del cilindro', back: 'Con radio: V = πr²h y A = 2πr² + 2πrh. Con diámetro: V = (π/4)D²h y A = (π/2)D² + πDh. No olvidar las dos tapas. r = D/2.' },
     { id: 'c8-27', unit: 'u8', topic: 'formas', front: 'V, A y V/A de la esfera', back: 'V = (4/3)πr³ · A = 4πr² · V/A = r/3. Tiene el máximo V/A a igual volumen.' },
     { id: 'c8-28', unit: 'u8', topic: 'formas', front: 'Relación de tiempos entre dos piezas', back: 'ts1/ts2 = ((V/A)₁/(V/A)₂)², si se cuelan en el mismo molde (misma B).' },
     { id: 'c8-29', unit: 'u8', topic: 'formas', front: '¿Qué superficie tiene más rápido enfriamiento?', back: 'La que tiene más área por unidad de volumen: la placa delgada. A igual volumen, el orden de ts es placa < cubo < esfera.' },
@@ -3123,11 +2889,11 @@ const u9 = {
         },
         {
           t: 'p',
-          html: 'La composición global <b>CA</b> es una vertical fija: no cambia al enfriar. Lo que cambia son las composiciones de cada fase: el <b>líquido es más rico en el componente de menor punto de fusión</b> (Cu) y el <b>sólido en el de mayor</b> (Ni). En la zona bifásica, CL y CS se leen sobre la isoterma, una en cada curva.',
+          html: 'La composición global <b>CA</b> es una vertical fija: no cambia al enfriar. Lo que cambia son las composiciones de cada fase: el <b>líquido es más rico en el componente de menor punto de fusión</b> (Cu) y el <b>sólido en el de mayor</b> (Ni). En la zona bifásica, CL y CS se leen sobre la isoterma, una en cada curva. El eje horizontal es <b>% Ni</b>: 0 es Cu puro y 100 es Ni puro.',
         },
         {
           t: 'p',
-          html: 'Ejemplo de cátedra: Cu–35 % Ni a 1250 °C. La isoterma corta el liquidus en <b>CL = 32 % Ni</b> y el solidus en <b>CS = 43 % Ni</b>. La aleación está entre las dos composiciones; por eso hay L + α. El <b>rango de solidificación</b> es la diferencia entre las temperaturas de liquidus y solidus para esa composición.',
+          html: 'Ejemplo de cátedra: Cu–35 % Ni a 1250 °C. Ojo con el eje: es <b>% en peso de Ni</b>, así que <b>35 % Ni = 65 % Cu</b> (no 35 % Cu). La isoterma corta el liquidus en <b>CL = 32 % Ni (68 % Cu)</b> y el solidus en <b>CS = 43 % Ni (57 % Cu)</b>. La aleación está entre las dos composiciones; por eso hay L + α. El <b>rango de solidificación</b> es la diferencia entre las temperaturas de liquidus y solidus para esa composición.',
         },
         {
           t: 'diagram',
@@ -3164,12 +2930,12 @@ const u9 = {
         },
         {
           t: 'formula',
-          expr: '%L = (CS − CA) / (CS − CL) · 100',
+          expr: '%L = (CS − CA) / (CS − CL) · 100', html: '%L = <span class="frac"><span class="frac__num">(CS − CA)</span><span class="frac__den">(CS − CL)</span></span> · 100',
           note: 'CL en el liquidus, CS en el solidus, CA es la composición global. El numerador es el brazo derecho.',
         },
         {
           t: 'formula',
-          expr: '%S = (CA − CL) / (CS − CL) · 100',
+          expr: '%S = (CA − CL) / (CS − CL) · 100', html: '%S = <span class="frac"><span class="frac__num">(CA − CL)</span><span class="frac__den">(CS − CL)</span></span> · 100',
           note: 'El denominador es siempre CS − CL, la longitud total de la isoterma.',
         },
         {
@@ -3222,7 +2988,7 @@ const u9 = {
       blocks: [
         {
           t: 'p',
-          html: 'La aleación isomorfa <b>no solidifica a temperatura constante</b>. Su curva de enfriamiento tiene <b>dos cambios de pendiente</b>: uno en el <b>liquidus</b> (aparece el primer sólido α) y otro en el <b>solidus</b> (desaparece el último líquido). Entre los dos, la temperatura sigue bajando por la zona L + α. <b>No hay meseta horizontal.</b>',
+          html: 'La aleación isomorfa <b>no solidifica a temperatura constante</b>. Su curva de enfriamiento tiene <b>dos cambios de pendiente</b>: uno en el <b>liquidus</b> (aparece el primer sólido α) y otro en el <b>solidus</b> (desaparece el último líquido). Entre los dos, la temperatura sigue bajando por la zona L + α. <b>No hay meseta horizontal.</b> Y no son rectas: la rama del líquido, el tramo L + α y la rama del sólido son curvas.',
         },
         {
           t: 'table',
@@ -3305,11 +3071,11 @@ const u9 = {
   ],
 
   formulas: [
-    { id: 'f9-01', group: 'Palanca', name: 'Porcentaje de líquido', expr: '%L = (CS − CA) / (CS − CL) · 100', note: 'CL en el liquidus; CS en el solidus; CA es la composición global.' },
-    { id: 'f9-02', group: 'Palanca', name: 'Porcentaje de sólido', expr: '%S = (CA − CL) / (CS − CL) · 100', note: 'El denominador es siempre la isoterma completa CS − CL.' },
+    { id: 'f9-01', group: 'Palanca', name: 'Porcentaje de líquido', expr: '%L = (CS − CA) / (CS − CL) · 100', html: '%L = <span class="frac"><span class="frac__num">(CS − CA)</span><span class="frac__den">(CS − CL)</span></span> · 100', note: 'CL en el liquidus; CS en el solidus; CA es la composición global.' },
+    { id: 'f9-02', group: 'Palanca', name: 'Porcentaje de sólido', expr: '%S = (CA − CL) / (CS − CL) · 100', html: '%S = <span class="frac"><span class="frac__num">(CA − CL)</span><span class="frac__den">(CS − CL)</span></span> · 100', note: 'El denominador es siempre la isoterma completa CS − CL.' },
     { id: 'f9-03', group: 'Palanca', name: 'Control de la palanca', expr: '%L + %S = 100 %', note: 'Si no da 100, revisá los numeradores o el denominador.' },
-    { id: 'f9-05', group: 'Palanca', name: 'Masa de una fase', expr: 'm_fase = (%fase / 100) · m_total', note: 'La palanca reparte cantidades; las composiciones CL y CS no cambian.' },
-    { id: 'f9-06', group: 'Palanca', name: 'Palanca general', expr: '%fase = (C_opuesta − CA) / (C_opuesta − C_fase) · 100', note: 'El numerador es el brazo opuesto a la fase que calculás.' },
+    { id: 'f9-05', group: 'Palanca', name: 'Masa de una fase', expr: 'm_fase = (%fase / 100) · m_total', html: 'm_fase = <span class="frac"><span class="frac__num">%fase</span><span class="frac__den">100</span></span> · m_total', note: 'La palanca reparte cantidades; las composiciones CL y CS no cambian.' },
+    { id: 'f9-06', group: 'Palanca', name: 'Palanca general', expr: '%fase = (C_opuesta − CA) / (C_opuesta − C_fase) · 100', html: '%fase = <span class="frac"><span class="frac__num">(C_opuesta − CA)</span><span class="frac__den">(C_opuesta − C_fase)</span></span> · 100', note: 'El numerador es el brazo opuesto a la fase que calculás.' },
     { id: 'f9-04', group: 'Solidificación', name: 'Rango de solidificación', expr: 'ΔT = TL − TS', note: 'TL: temperatura de liquidus; TS: temperatura de solidus, para la composición de la aleación.' },
   ],
 
@@ -3647,20 +3413,19 @@ const ENSAYOS = [
     icon: 'arrow-right',
     summary: 'Estira una probeta normalizada con carga axial creciente y lenta hasta romperla. De acá salen casi todas las propiedades mecánicas.',
     measures: 'Módulo E, fluencia σy, resistencia σut, ductilidad, resiliencia y estricción.',
-    probeta: 'SA-370 plana (A₀ = e·w) o cilíndrica (A₀ = πd₀²/4, G = 4D). Zona reducida con radios R y longitud calibrada G.',
+    probeta: 'SA-370 plana o cilíndrica, con zona reducida, radios R y longitud calibrada G. No se calculan áreas en el parcial.',
     equipo: 'Máquina universal de ensayos (INSTRON, WOLPERT) con mordazas y extensómetro.',
     steps: [
-      'Medir la sección reducida para calcular A₀.',
+      'Identificar la sección reducida de la probeta.',
       'Marcar la longitud calibrada l₀ y acoplar el extensómetro.',
       'Aplicar carga axial creciente y lenta, registrando F y Δl.',
       'Construir la curva σ–ε y ubicar los puntos característicos.',
     ],
-    results: ['Curva σ–ε completa', 'σy y σ₀,₂', 'σut = Fmáx/A₀', 'Alargamiento y estricción', 'E = σ/ε'],
-    formula: { expr: 'σ = F/A₀   ·   ε = Δl/l₀   ·   E = σ/ε', note: 'MPa = N/mm²' },
+    results: ['Curva σ–ε completa', 'σy y σ₀,₂', 'σut (esfuerzo máximo)', 'Alargamiento y estricción', 'E (rigidez)'],
     units: 'σ en MPa; ε adimensional; E en MPa o GPa.',
     whenUse: 'Material dúctil y pieza que trabaja estirada. Es el ensayo de referencia para comparar materiales.',
     errors: ['Usar el área de las cabezas en vez de la sección reducida', 'Confundir σut con la tensión de rotura'],
-    examQ: { q: '¿Qué propiedades se obtienen de un solo ensayo de tracción?', a: 'Las propiedades de la curva: fluencia, fluencia 0,2 %, resistencia a la tracción, estricción, módulo de Young, resiliencia y ductilidad. La curva se construye con σ = F/A₀ y ε = Δl/l₀.' },
+    examQ: { q: '¿Qué propiedades se obtienen de un solo ensayo de tracción?', a: 'Las propiedades de la curva: fluencia, fluencia 0,2 %, resistencia a la tracción, estricción, módulo de Young, resiliencia y ductilidad. En este parcial se interpretan, no se calculan.' },
     diagram: 'curva-sigma-epsilon',
   },
   {
@@ -3670,20 +3435,19 @@ const ENSAYOS = [
     tag: 'Materiales frágiles',
     icon: 'layers',
     summary: 'Una viga simplemente apoyada con una carga en el centro. Evita las mordazas que trituran a los materiales frágiles.',
-    measures: 'Tensión de rotura en flexión (σflex) y módulo de elasticidad en flexión (Eflex).',
+    measures: 'Comportamiento a flexión: por qué se usa en frágiles y cómo se distribuyen momento y cortante.',
     probeta: 'Barra prismática (w ancho, h altura) apoyada en dos apoyos separados por la luz L.',
     equipo: 'Máquina universal con dispositivo de flexión y comparador para la deflexión δ.',
     steps: [
       'Apoyar la barra dejando la luz L entre apoyos (¡no el largo total!).',
-      'Aplicar F en el centro y medir la deflexión central δ.',
-      'Calcular σflex = 3FL/(2wh²) y Eflex = L³F/(4wh³δ).',
+      'Aplicar F en el centro y observar la cara traccionada.',
+      'Identificar el momento triangular y el cambio de signo del cortante.',
     ],
-    results: ['σflex (MPa)', 'Eflex (MPa)', 'Diagrama de momento triangular: Mmax = FL/4', 'Cortante constante ±F/2'],
-    formula: { expr: 'σflex = 3FL/(2wh²)   ·   Eflex = L³F/(4wh³δ)', note: 'Todo en mm y N → MPa' },
-    units: 'F en N, L/w/h/δ en mm, σ y E en MPa.',
+    results: ['Falla por la cara traccionada', 'Momento triangular con máximo en el centro', 'El cortante cambia de signo en el centro'],
+    units: 'Conceptual: en este parcial no se calculan σflex ni Eflex.',
     whenUse: 'Cerámicos, vidrios, fundición gris y polímeros rígidos que se rompen en las mordazas de tracción.',
-    errors: ['Usar el largo total de la barra en lugar de L', 'Pasar la carga en kg sin multiplicar por 9,8', 'Olvidar el cubo de h en Eflex'],
-    examQ: { q: '¿Por qué se ensayan los frágiles en flexión?', a: 'Porque las mordazas de tracción trituran las cabezas y la desalineación rompe la pieza antes de medir. En flexión se apoya una viga y falla la cara traccionada, que es lo que se quiere caracterizar.' },
+    errors: ['Confundir 3 y 4 puntos', 'Olvidar que el momento máximo está en el centro', 'No justificar por qué se usa en materiales frágiles'],
+    examQ: { q: '¿Por qué se ensayan los frágiles en flexión?', a: 'Porque las mordazas de tracción trituran las cabezas y la desalineación rompe la pieza antes de medir. En flexión se apoya una viga y falla la cara traccionada, que es lo que se quiere caracterizar. Es un ensayo conceptual: no se calcula σflex en el parcial.' },
   },
   {
     id: 'flexion-4',
@@ -3697,15 +3461,14 @@ const ENSAYOS = [
     equipo: 'Máquina universal con dispositivo de 4 puntos.',
     steps: [
       'Ubicar las cargas a L/4 de cada apoyo.',
-      'Aplicar la carga y medir la deflexión central.',
-      'Usar los diagramas: momento trapecial constante en L/2 y V = 0.',
+      'Aplicar la carga y observar el tramo central.',
+      'Identificar el momento constante en el tramo central y el cortante nulo.',
     ],
     results: ['Flexión pura en el tramo central', 'Mayor volumen de material ensayado', 'Resultado más representativo con defectos distribuidos'],
-    formula: { expr: 'M = cte en L/2   ·   V = 0', note: 'La tensión se calcula con la misma fórmula de flexión' },
-    units: 'Igual que flexión en 3 puntos.',
+    units: 'Conceptual: no se calcula en el parcial.',
     whenUse: 'Cerámicos con defectos distribuidos, cuando se busca un resultado más representativo que el de 3 puntos.',
     errors: ['Confundir los diagramas con los de 3 puntos', 'Ubicar las cargas en el centro'],
-    examQ: { q: '¿Qué diferencia hay entre 3 y 4 puntos?', a: 'En 3 puntos el momento es triangular (máximo FL/4 sólo en el centro) y el cortante vale ±F/2. En 4 puntos el momento es constante en todo el tramo central L/2 y el cortante es cero: flexión pura, se ensaya más volumen.' },
+    examQ: { q: '¿Qué diferencia hay entre 3 y 4 puntos?', a: 'En 3 puntos el momento es triangular y se concentra en el centro. En 4 puntos el momento es constante en todo el tramo central y el cortante es cero: flexión pura, se ensaya más volumen de material.' },
   },
   {
     id: 'brinell',
@@ -3714,19 +3477,18 @@ const ENSAYOS = [
     tag: 'Huella grande',
     icon: 'target',
     summary: 'Esfera de 10 mm que se hunde con 3000 o 500 kgf. Se mide el diámetro de la huella con microscopio.',
-    measures: 'Dureza HB/HBW y, en aceros no austeníticos, estimación de σut ≈ 3,45 HB.',
+    measures: 'Dureza HB y diámetro de la huella. La conversión a resistencia es sólo una referencia, no se calcula en el parcial.',
     probeta: 'Superficie plana y pulida; espesor suficiente para que la huella no la atraviese.',
     equipo: 'Durómetro Brinell con esfera de acero duro o carburo de tungsteno, microscopio de medición.',
     steps: [
       'Apoyar la probeta y aplicar la carga (3000 kgf aceros/hierros; 500 kgf no ferrosos).',
       'Medir el diámetro d de la impronta con lupa o microscopio.',
-      'Calcular HBW = 2F/[πD(D − √(D² − d²))].',
+      'Informar la dureza HB según la norma; en este parcial no se reemplaza la fórmula.',
     ],
-    results: ['HB (kgf/mm²)', 'Diámetro d de la huella', 'Estimación de σut'],
-    formula: { expr: 'HBW = 2F / [π·D·(D − √(D² − d²))]', note: 'F en kgf · D y d en mm' },
+    results: ['HB (escala de dureza)', 'Diámetro d de la huella', 'Tipo de huella'],
     units: 'HB en kgf/mm²; D y d en mm.',
     whenUse: 'Fundiciones y aceros, piezas grandes. No sirve para piezas delgadas ni para microdureza.',
-    errors: ['Usar F en N en lugar de kgf', 'Medir mal d (promedio de dos lecturas perpendiculares)'],
+    errors: ['Confundir Brinell con Rockwell', 'Medir mal d (promedio de dos lecturas perpendiculares)'],
     examQ: { q: '¿Por qué Brinell no sirve en piezas delgadas?', a: 'Porque la esfera de 10 mm con 3000 kgf deja una huella grande que puede atravesar o deformar la pieza. Para espesores chicos se usa Rockwell o microdureza Vickers/Knoop.' },
   },
   {
@@ -3745,7 +3507,6 @@ const ENSAYOS = [
       'Leer directamente la profundidad en el reloj o display.',
     ],
     results: ['HRC (acero templado)', 'HRB (latón, acero blando)', 'HRA (carburos)', 'HRE/HRF (materiales suaves)'],
-    formula: { expr: 'HR = f(profundidad de penetración)', note: 'No se calcula: se lee en el equipo' },
     units: 'Adimensional (número de escala HR).',
     whenUse: 'Producción rápida en serie, piezas terminadas, control de tratamientos térmicos.',
     errors: ['Usar la escala equivocada (HRB en un acero templado)', 'No apoyar bien la pieza'],
@@ -3761,9 +3522,8 @@ const ENSAYOS = [
     measures: 'Dureza HV, válida en un rango amplio de materiales.',
     probeta: 'Superficie pulida; puede ser una capa o una zona pequeña.',
     equipo: 'Microdurómetro Vickers con microscopio.',
-    steps: ['Aplicar la carga (≈10 kg).', 'Medir las dos diagonales de la huella al microscopio.', 'Calcular HV.'],
+    steps: ['Aplicar la carga (≈10 kg).', 'Medir las dos diagonales de la huella al microscopio.', 'Informar HV según la norma.'],
     results: ['HV', 'Huella cuadrada', 'Dos diagonales'],
-    formula: { expr: 'HV ≈ 1,854 · F / d²', note: 'd = promedio de las diagonales, mm; F en kgf' },
     units: 'HV (kgf/mm²).',
     whenUse: 'Materiales duros, capas, zonas de soldadura, microdureza.',
     errors: ['Medir una sola diagonal', 'Confundir con Knoop (rombo alargado)'],
@@ -3779,9 +3539,8 @@ const ENSAYOS = [
     measures: 'Dureza HK.',
     probeta: 'Superficie pulida, recubrimientos o fases pequeñas.',
     equipo: 'Microdurómetro Knoop con microscopio.',
-    steps: ['Aplicar 500 g.', 'Medir sólo la diagonal larga.', 'Calcular HK.'],
+    steps: ['Aplicar 500 g.', 'Medir sólo la diagonal larga.', 'Informar HK según la norma.'],
     results: ['HK', 'Huella romboidal alargada'],
-    formula: { expr: 'HK ≈ 14,23 · F / L²', note: 'L = diagonal larga en mm; F en kgf' },
     units: 'HK (kgf/mm²).',
     whenUse: 'Cerámicos y capas delgadas donde Vickers penetraría demasiado.',
     errors: ['Intentar medir la diagonal corta', 'Usar cargas altas'],
@@ -3799,7 +3558,6 @@ const ENSAYOS = [
     equipo: 'Durómetro Shore con punta con resorte.',
     steps: ['Apoyar el durómetro perpendicular a la superficie.', 'Leer la profundidad de la marca.', 'Usar escala A o D según el material.'],
     results: ['Shore A', 'Shore D'],
-    formula: { expr: 'Shore A / Shore D', note: 'No son linealmente convertibles entre sí' },
     units: 'Escala Shore (adimensional).',
     whenUse: 'Cauchos, elastómeros, plásticos rígidos y espumas.',
     errors: ['Convertir Shore A a D con una regla lineal', 'Medir sobre una superficie curva'],
@@ -3818,15 +3576,14 @@ const ENSAYOS = [
     steps: [
       'Apoyar la probeta horizontalmente en los dos extremos (viga).',
       'Soltar el péndulo desde h₀: golpea la cara opuesta a la entalla.',
-      'Registrar la altura final hf y calcular E = m·g·(h₀ − hf).',
+      'Registrar la altura final y leer la energía absorbida en la escala del equipo.',
       'Leer la cara de fractura y medir la expansión lateral.',
     ],
     results: ['Energía absorbida (J)', '% de fractura por corte', 'Expansión lateral (mm)'],
-    formula: { expr: 'E = m·g·(h₀ − hf)', note: 'g = 9,8 m/s²' },
     units: 'J (o ft·lbf); expansión en mm o mils.',
     whenUse: 'Evaluar el comportamiento ante golpe súbito, controlar transición dúctil–frágil y comparar aceros.',
     errors: ['Golpear del lado de la entalla (es al revés)', 'Mirar sólo la energía y no el % de corte ni la expansión lateral'],
-    examQ: { q: 'Describí el ensayo Charpy y sus resultados.', a: 'Probeta 10×10×55 mm apoyada horizontalmente, entalla al centro y golpe en la cara opuesta. El péndulo cae desde h₀ y sube a hf: E = mg(h₀−hf). Entrega energía absorbida, % de corte y expansión lateral.' },
+    examQ: { q: 'Describí el ensayo Charpy y sus resultados.', a: 'Probeta 10×10×55 mm apoyada horizontalmente, entalla al centro y golpe en la cara opuesta. El péndulo cae, rompe la probeta y sube menos: esa diferencia de altura indica la energía absorbida. Entrega energía, % de corte y expansión lateral.' },
     diagram: 'impacto',
     highlight: true,
   },
@@ -3843,10 +3600,9 @@ const ENSAYOS = [
     steps: [
       'Empotrar la probeta vertical por la mitad inferior (voladizo).',
       'Golpear el extremo libre, del mismo lado de la entalla.',
-      'Calcular E = m·g·(h₀ − hf) y evaluar la cara de fractura.',
+      'Leer la energía absorbida en la escala y evaluar la cara de fractura.',
     ],
     results: ['Energía absorbida', '% de corte', 'Expansión lateral'],
-    formula: { expr: 'E = m·g·(h₀ − hf)', note: 'Misma energía que Charpy; cambia el montaje' },
     units: 'J; expansión en mm o mils.',
     whenUse: 'Cuando la norma o el material lo piden; es común en plásticos y en normas americanas antiguas.',
     errors: ['Golpear la cara opuesta (eso es Charpy)', 'Confundir la longitud de probeta (75 mm)'],
@@ -3860,22 +3616,20 @@ const ENSAYOS = [
     category: 'ciclico',
     tag: 'Cargas repetidas',
     icon: 'refresh',
-    summary: 'Aplica esfuerzos cíclicos menores que σy hasta la falla, sin deformación visible. Se describe con la curva S–N.',
-    measures: 'Vida a fatiga, límite de fatiga Se y resistencia para un N dado.',
+    summary: 'Aplica esfuerzos cíclicos menores que σy hasta la falla, sin deformación visible. Falla por iniciación y propagación de una grieta.',
+    measures: 'Concepto de fatiga, etapas de falla y por qué es peligrosa. Sin cálculos de Se ni Marin.',
     probeta: 'Probeta pulida en flexión rotativa (ensayo base).',
     equipo: 'Máquina de fatiga rotativa o servo-hidráulica.',
     steps: [
       'Aplicar un esfuerzo cíclico de amplitud constante.',
-      'Contar los ciclos hasta la falla.',
-      'Repetir a distintos niveles y construir la curva S–N.',
-      'Corregir con Marin para la pieza real.',
+      'Observar la iniciación superficial de la grieta.',
+      'Seguir la propagación ciclo a ciclo hasta la fractura súbita.',
     ],
-    results: ['Curva S–N (Wöhler)', 'Límite de fatiga Se (ferrosos)', 'Resistencia a la fatiga para N fijo (no ferrosos)'],
-    formula: { expr: "Se′ = 0,5·Sut   ·   Se = ka·kb·kc·kd·ke·Se′", note: 'Sut ≤ 1400 MPa; si no, Se′ = 700 MPa' },
-    units: 'MPa; N en ciclos (escala log).',
+    results: ['Iniciación superficial', 'Propagación ciclo a ciclo', 'Fractura súbita sin deformación visible'],
+    units: 'Conceptual: no se calculan Se ni coeficientes de Marin.',
     whenUse: 'Ejes, resortes, alas, piezas con cargas repetidas o vibración.',
-    errors: ['Aplicar Marin sin aclarar que Se′ es de probeta pulida', 'Suponer que el aluminio tiene límite de fatiga definido'],
-    examQ: { q: 'Etapas de la fatiga y diferencia acero/aluminio', a: 'Iniciación superficial → propagación ciclo a ciclo → fractura súbita. El acero tiene meseta entre 10⁶ y 10⁷ ciclos (Se); el aluminio no tiene límite definido y su curva sigue bajando.' },
+    errors: ['Decir que la fatiga ocurre por encima de σy', 'Olvidar que no hay deformación plástica visible', 'Confundir el orden de las 3 etapas'],
+    examQ: { q: 'Etapas de la fatiga', a: 'Iniciación superficial de la grieta → propagación ciclo a ciclo, con marcas de playa → fractura súbita cuando el área remanente ya no soporta la carga. Falla con σ < σy y sin deformación plástica visible.' },
   },
 ];
 
@@ -4886,9 +4640,9 @@ const isomorfo = {
         { n: 3, x: 110, y: 242, lx: 96, ly: 258, label: 'Solidus', q: '¿Qué separa la línea de solidus?', detail: 'Separa la zona L + α (arriba) de todo sólido α (abajo). Al cruzarlo desaparece la última gota de líquido.' },
         { n: 4, x: 210, y: 140, lx: 236, ly: 128, label: 'Zona L + α', q: '¿Qué hay entre liquidus y solidus?', detail: 'Coexisten líquido y sólido α. Cada fase tiene su propia composición: CL en el liquidus y CS en el solidus.' },
         { n: 5, x: 250, y: 220, lx: 272, ly: 236, label: 'Fase sólida α', q: '¿Qué hay por debajo del solidus?', detail: 'Todo sólido α: una sola fase con estructura FCC, rica en Ni para esta aleación.' },
-        { n: 6, x: 153, y: 172, lx: 140, ly: 158, label: 'CL = 32 % Ni', q: '¿Dónde se lee CL?', detail: 'En el liquidus, sobre la isoterma. Es la composición del líquido: 32 % Ni (más rica en Cu, el de menor punto de fusión).' },
-        { n: 7, x: 182, y: 172, lx: 196, ly: 158, label: 'CS = 43 % Ni', q: '¿Dónde se lee CS?', detail: 'En el solidus, sobre la isoterma. Es la composición del sólido α: 43 % Ni (más rico en Ni, el de mayor punto de fusión).' },
-        { n: 8, x: 161, y: 202, lx: 132, ly: 214, label: 'CA = 35 % Ni', q: '¿Qué es CA y cuánto vale?', detail: 'La composición global de la aleación: 35 % Ni. Es una vertical fija; no cambia al enfriar. CL y CS son las composiciones de cada fase.' },
+        { n: 6, x: 153, y: 172, lx: 140, ly: 158, label: 'CL = 32 % Ni (68 % Cu)', q: '¿Dónde se lee CL?', detail: 'En el liquidus, sobre la isoterma. Es la composición del líquido: 32 % Ni y 68 % Cu (más rica en Cu, el de menor punto de fusión).' },
+        { n: 7, x: 182, y: 172, lx: 196, ly: 158, label: 'CS = 43 % Ni (57 % Cu)', q: '¿Dónde se lee CS?', detail: 'En el solidus, sobre la isoterma. Es la composición del sólido α: 43 % Ni y 57 % Cu (más rico en Ni, el de mayor punto de fusión).' },
+        { n: 8, x: 161, y: 202, lx: 132, ly: 214, label: 'CA = 35 % Ni (65 % Cu)', q: '¿Qué es CA y cuánto vale?', detail: 'La composición global de la aleación es 35 % Ni y 65 % Cu. Es una vertical fija; no cambia al enfriar. CL y CS son las composiciones de cada fase.' },
       ],
     },
   ],
@@ -4902,6 +4656,7 @@ const curvaAleacion = {
   key: 'curva-aleacion',
   notes: [
     'La aleación isomorfa no tiene meseta: la temperatura sigue bajando entre liquidus y solidus.',
+    'Las ramas del líquido y del sólido son curvas, y el tramo L + α también: no hay tramos rectos salvo la referencia de temperatura.',
     'El primer quiebre es el liquidus (aparece el primer sólido); el segundo es el solidus (desaparece el último líquido).',
     'En el metal puro de la U8 hay una sola meseta horizontal en Tf. En la U10, el eutéctico también tendrá una meseta.',
   ],
@@ -4928,8 +4683,8 @@ const curvaAleacion = {
         <text x="245" y="150" text-anchor="start" class="svg-text svg-text--rose" font-size="6.5">1280 °C · liquidus</text>
         <text x="245" y="168" text-anchor="start" class="svg-text svg-text--rose" font-size="6.5">1240 °C · solidus</text>
 
-        <path d="M70 45 C 92 94, 118 136, 140 156" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M140 156 C 166 163, 192 171, 215 177" fill="none" stroke="var(--amber)" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M70 45 C 96 76, 126 124, 140 156" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M140 156 C 166 157, 195 165, 215 177" fill="none" stroke="var(--amber)" stroke-width="3.4" stroke-linecap="round"/>
         <path d="M215 177 C 236 200, 280 228, 315 244" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/>
 
         <text x="94" y="86" class="svg-text svg-text--accent" font-size="9">L</text>
@@ -4944,7 +4699,7 @@ const curvaAleacion = {
       pins: [
         { n: 1, x: 70, y: 45, lx: 100, ly: 34, label: 'Vaciado (t = 0)', q: '¿Dónde empieza la curva?', detail: 'En el vaciado, con el metal 100 % líquido. La temperatura baja mientras se enfría el líquido.' },
         { n: 2, x: 140, y: 156, lx: 122, ly: 142, label: 'Liquidus: primer sólido', q: '¿Qué ocurre en el primer quiebre?', detail: 'Se llega al liquidus y aparece el primer sólido α. Empieza a liberarse calor latente y la pendiente se hace menos empinada.' },
-        { n: 3, x: 175, y: 166, lx: 166, ly: 190, label: 'Zona L + α', q: '¿Qué pasa entre los dos quiebres?', detail: 'Líquido y sólido α coexisten. La temperatura sigue bajando: no hay meseta. Las composiciones cambian siguiendo liquidus y solidus.' },
+        { n: 3, x: 180, y: 168, lx: 166, ly: 190, label: 'Zona L + α', q: '¿Qué pasa entre los dos quiebres?', detail: 'Líquido y sólido α coexisten. La temperatura sigue bajando: no hay meseta. Las composiciones cambian siguiendo liquidus y solidus.' },
         { n: 4, x: 215, y: 177, lx: 238, ly: 190, label: 'Solidus: último líquido', q: '¿Qué ocurre en el segundo quiebre?', detail: 'Desaparece la última gota de líquido. Termina la solidificación y el sólido α vuelve a enfriarse: la pendiente se hace más empinada.' },
         { n: 5, x: 280, y: 225, lx: 298, ly: 238, label: 'Sólido α enfriándose', q: '¿Qué pasa después del solidus?', detail: 'Ya es 100 % sólido α. Se elimina calor específico del sólido y la temperatura sigue bajando.' },
         { n: 6, x: 300, y: 90, lx: 280, ly: 76, label: 'No hay meseta', q: '¿Por qué esta curva no tiene meseta?', detail: 'Porque la solidificación ocurre en un rango de temperaturas: el calor latente se libera entre liquidus y solidus, no a temperatura constante.' },
@@ -5269,7 +5024,7 @@ function homeView() {
         </a>
         <a class="card card--tap" href="#/practica/simuladores" style="display:block">
           <div class="row" style="gap:8px">${icon('calculator', 'icon--sm')}<b style="font-size:0.85rem">Simuladores</b></div>
-          <p class="card__sub">Chvorinov, impacto, palanca y calculadoras</p>
+          <p class="card__sub">Chvorinov y regla de la palanca</p>
         </a>
         <a class="card card--tap" href="#/teoria/formulas" style="display:block">
           <div class="row" style="gap:8px">${icon('book', 'icon--sm')}<b style="font-size:0.85rem">Fórmulas</b></div>
@@ -5350,7 +5105,7 @@ function renderBlocks(blocks = []) {
         return `<ol class="steps">${block.items.map((item) => `<li>${item}</li>`).join('')}</ol>`;
       case 'formula':
         return `<div class="formula ${block.tone ? `formula--${block.tone}` : ''}">
-          <div class="formula__expr">${block.expr}</div>
+          <div class="formula__expr">${block.html || block.expr}</div>
           ${block.note ? `<div class="formula__note">${block.note}</div>` : ''}
         </div>`;
       case 'callout':
@@ -5403,7 +5158,7 @@ function formulaCard(formula, { maskable = false } = {}) {
       <span class="fcard__name">${esc(formula.name)}</span>
       ${maskable ? `<button class="btn btn--xs btn--ghost" type="button" data-reveal="${formula.id}" aria-label="Mostrar u ocultar fórmula">${icon('bulb', 'icon--xs')}</button>` : ''}
     </div>
-    <div class="fcard__expr" data-mask-target="${formula.id}">${formula.expr}</div>
+    <div class="fcard__expr" data-mask-target="${formula.id}">${formula.html || formula.expr}</div>
     ${formula.note ? `<div class="fcard__note">${formula.note}</div>` : ''}
   </div>`;
 }
@@ -6105,6 +5860,8 @@ const TABS = [
 ];
 
 // Los grupos se derivan del contenido, en el orden en que aparecen las fórmulas.
+const FORMULA_UNITS = UNIT_LIST.filter((unit) => unit.formulas.length > 0);
+
 const GROUP_ORDER = [...new Set(ALL_FORMULAS.map((formula) => `${formula.unit}|${formula.group}`))]
   .map((key) => {
     const [unit, name] = key.split('|');
@@ -6129,7 +5886,7 @@ function formulasView() {
     </div>
     <div class="chip-row" data-controls>
       <button class="chip" type="button" data-unit="todas" aria-pressed="true">Todas</button>
-      ${UNIT_LIST.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
+      ${FORMULA_UNITS.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
       <button class="chip" type="button" data-mask aria-pressed="false">${icon('bulb', 'icon--xs')} <span>Ocultar todas</span></button>
     </div>
     <div id="formulaList" class="stack"></div>
@@ -6343,10 +6100,10 @@ function ensayoView({ params }) {
     <section class="section">
       <div class="section__head"><div class="section__title">Resultados</div></div>
       <div class="row row--wrap">${ensayo.results.map((result) => `<span class="chip">${result}</span>`).join('')}</div>
-      <div class="formula" style="margin-top:6px">
-        <div class="formula__expr">${ensayo.formula.expr}</div>
+      ${ensayo.formula ? `<div class="formula" style="margin-top:6px">
+        <div class="formula__expr">${ensayo.formula.html || ensayo.formula.expr}</div>
         <div class="formula__note">${ensayo.formula.note}</div>
-      </div>
+      </div>` : ''}
       <p class="tiny muted">Unidades: ${ensayo.units}</p>
     </section>
 
@@ -6428,10 +6185,10 @@ function practiceView() {
     { href: '#/practica/quiz?scope=u8&n=12', icon: 'layers', title: 'Práctica Unidad 8', meta: 'Nucleación, grano y Chvorinov', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u8').length}` },
     { href: '#/practica/quiz?scope=u9&n=12', icon: 'layers', title: 'Práctica Unidad 9', meta: 'Fases, solubilidad, diagrama isomorfo y palanca', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u9').length}` },
     { href: '#/practica/quiz?scope=weak&n=10', icon: 'target', title: 'Puntos débiles', meta: 'Sólo preguntas en las que fallaste la última vez', badge: `${weak}` },
-    { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, impacto, Brinell, flexión y fatiga', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
+    { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, formas y palanca', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
     { href: '#/practica/quiz?scope=new&n=10', icon: 'sparkles', title: 'Preguntas nuevas', meta: 'Todavía no las respondiste', badge: `${newCount}` },
     { href: '#/practica/tarjetas?scope=mix&n=20', icon: 'layers', title: 'Tarjetas', meta: 'Memorizá definiciones y fórmulas con autoevaluación', badge: `${dueCards} para hoy` },
-    { href: '#/practica/simuladores', icon: 'calculator', title: 'Simuladores', meta: 'Chvorinov, formas, impacto, palanca y calculadoras', badge: '4' },
+    { href: '#/practica/simuladores', icon: 'calculator', title: 'Simuladores', meta: 'Chvorinov, formas y regla de la palanca', badge: '2' },
     { href: '#/teoria/formulas', icon: 'book', title: 'Hoja de fórmulas', meta: 'Repaso rápido con fórmulas tapadas', badge: `${ALL_FORMULAS.length}` },
   ];
 
@@ -7075,6 +6832,8 @@ function flashcardsView({ query }) {
    V, A y V/A + siluetas SVG para el simulador
    ============================================================ */
 
+const frac = (num, den) => `<span class="frac"><span class="frac__num">${num}</span><span class="frac__den">${den}</span></span>`;
+
 const cubeIcon = `<svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
   <path d="M9 18 26 9l17 9v18L26 45 9 36z"/><path d="M9 18l17 9 17-9M26 27v18"/></svg>`;
 
@@ -7095,6 +6854,7 @@ const SHAPES = [
     icon: cubeIcon,
     dims: [{ key: 'a', label: 'Lado a', unit: 'cm', min: 1, max: 100, step: 0.5, value: 10 }],
     formulas: { v: 'V = a³', a: 'A = 6a²', va: 'V/A = a/6' },
+    html: { v: 'V = a³', a: 'A = 6a²', va: `V/A = ${frac('a','6')}` },
     compute: ({ a }) => ({ V: a ** 3, A: 6 * a ** 2, VA: a / 6 }),
   },
   {
@@ -7108,6 +6868,7 @@ const SHAPES = [
       { key: 'c', label: 'Lado c', unit: 'cm', min: 1, max: 100, step: 0.5, value: 10 },
     ],
     formulas: { v: 'V = a·b·c', a: 'A = 2(ab + bc + ac)', va: 'V/A = abc / [2(ab+bc+ac)]' },
+    html: { v: 'V = a·b·c', a: 'A = 2(ab + bc + ac)', va: `V/A = ${frac('abc','2(ab+bc+ac)')}` },
     compute: ({ a, b, c }) => {
       const V = a * b * c;
       const A = 2 * (a * b + b * c + a * c);
@@ -7124,6 +6885,7 @@ const SHAPES = [
       { key: 'h', label: 'Altura h', unit: 'cm', min: 1, max: 100, step: 0.5, value: 20 },
     ],
     formulas: { v: 'V = πr²h', a: 'A = 2πr² + 2πrh', va: 'V/A = r·h / [2(r+h)]' },
+    html: { v: `V = πr²h = ${frac('π','4')}D²h`, a: `A = 2πr² + 2πrh = ${frac('π','2')}D² + πDh`, va: `V/A = ${frac('r·h','2(r+h)')} = ${frac('D·h','2(D+2h)')}` },
     compute: ({ d, h }) => {
       const r = d / 2;
       const V = Math.PI * r ** 2 * h;
@@ -7138,6 +6900,7 @@ const SHAPES = [
     icon: sphereIcon,
     dims: [{ key: 'd', label: 'Diámetro D', unit: 'cm', min: 1, max: 100, step: 0.5, value: 20 }],
     formulas: { v: 'V = (4/3)πr³', a: 'A = 4πr²', va: 'V/A = r/3' },
+    html: { v: `V = ${frac('4','3')}πr³`, a: 'A = 4πr²', va: `V/A = ${frac('r','3')}` },
     compute: ({ d }) => {
       const r = d / 2;
       const V = (4 / 3) * Math.PI * r ** 3;
@@ -7189,7 +6952,7 @@ function compareEqualVolume(volume) {
 (function () {
   "use strict";
 /* ============================================================
-   views/lab.js — simuladores: Chvorinov, impacto y calculadoras
+   views/lab.js — simuladores: Chvorinov y palanca
    ============================================================ */
 
 const { SHAPES, shapeById, shapeDefaults, compareEqualVolume } = __CDM_MODULES__["data/shapes.js"];
@@ -7212,20 +6975,6 @@ function labHubView() {
       title: 'Regla de la palanca',
       meta: 'Calculá %L y %S con CL, CA y CS. Incluye masa de cada fase y retos rápidos.',
       badge: 'Unidad 9',
-    },
-    {
-      href: '#/practica/simuladores/impacto',
-      icon: 'zap',
-      title: 'Impacto y energía',
-      meta: 'Péndulo con h₀ y hf, energía absorbida, % de fractura por corte y expansión lateral.',
-      badge: 'Unidad 6',
-    },
-    {
-      href: '#/practica/simuladores/calculadoras',
-      icon: 'target',
-      title: 'Calculadoras rápidas',
-      meta: 'Brinell, flexión y fatiga con Marin: verificá tus resultados del TP.',
-      badge: 'U6',
     },
   ];
 
@@ -7451,9 +7200,9 @@ function chvorinovView() {
       `ts = ${formatNumber(state.B, 2)} × (${formatNumber(VA, 3)})² = ${formatNumber(ts, 2)} min`;
 
     formulasBox.innerHTML = `
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.v}</div><div class="formula__note">Volumen de la figura (calor a extraer).</div></div>
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.a}</div><div class="formula__note">Área total del molde (superficie de extracción).</div></div>
-      <div class="formula formula--u8"><div class="formula__expr">${shape.formulas.va}</div><div class="formula__note">Relación que entra en Chvorinov.</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.v || shape.formulas.v}</div><div class="formula__note">Volumen de la figura (calor a extraer).</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.a || shape.formulas.a}</div><div class="formula__note">Área total del molde (superficie de extracción).</div></div>
+      <div class="formula formula--u8"><div class="formula__expr">${shape.html?.va || shape.formulas.va}</div><div class="formula__note">Relación que entra en Chvorinov.</div></div>
     `;
 
     const cubeEquivalent = Math.cbrt(V);
@@ -7825,7 +7574,7 @@ function calculadorasView() {
     ${pageHead({
       eyebrow: 'Herramientas',
       title: 'Calculadoras',
-      sub: 'Verificá tus cuentas del TP. La fórmula siempre va escrita antes de reemplazar.',
+      sub: 'Calculá la dureza Brinell y estimá la resistencia del acero. La fórmula va escrita antes de reemplazar.',
     })}
 
     <div class="card" data-calc="brinell">
@@ -7837,41 +7586,6 @@ function calculadorasView() {
         <div class="field"><label class="field__label">Huella d</label><div class="input-group"><input class="input" data-in="d" type="text" inputmode="decimal" value="6.25"><span class="input-group__unit">mm</span></div></div>
       </div>
       <div class="lab-result" style="margin-top:12px"><div class="lab-result__label">Dureza</div><div class="lab-result__value" data-out>—</div><div class="tiny muted" data-note></div></div>
-    </div>
-
-    <div class="card" data-calc="flexion">
-      <div class="row row--between"><h3 style="font-size:0.95rem">Flexión en 3 puntos</h3><span class="badge">MPa</span></div>
-      <p class="card__sub">σflex = 3FL/(2wh²) · Eflex = L³F/(4wh³δ)</p>
-      <div class="lab-row" style="margin-top:12px">
-        <div class="field"><label class="field__label">Carga F</label><div class="input-group"><input class="input" data-in="F" type="text" inputmode="decimal" value="1200"><span class="input-group__unit">N</span></div></div>
-        <div class="field"><label class="field__label">Luz L</label><div class="input-group"><input class="input" data-in="L" type="text" inputmode="decimal" value="400"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Ancho w</label><div class="input-group"><input class="input" data-in="w" type="text" inputmode="decimal" value="23.5"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Altura h</label><div class="input-group"><input class="input" data-in="h" type="text" inputmode="decimal" value="4.5"><span class="input-group__unit">mm</span></div></div>
-        <div class="field"><label class="field__label">Deflexión δ</label><div class="input-group"><input class="input" data-in="delta" type="text" inputmode="decimal" value="10.2"><span class="input-group__unit">mm</span></div></div>
-      </div>
-      <div class="grid grid--2" style="margin-top:12px">
-        <div class="lab-result"><div class="lab-result__label">σflex</div><div class="lab-result__value" data-out="sigma">—</div></div>
-        <div class="lab-result" style="border-color:var(--line)"><div class="lab-result__label">Eflex</div><div class="lab-result__value" data-out="E" style="color:var(--violet);font-size:1.15rem">—</div></div>
-      </div>
-      <p class="tiny muted" style="margin-top:8px" data-note>Ojo con h al cubo y con δ en mm. El resultado del TP es alto: verificá que δ sea la deflexión central medida.</p>
-    </div>
-
-    <div class="card" data-calc="fatiga">
-      <div class="row row--between"><h3 style="font-size:0.95rem">Fatiga y Marin</h3><span class="badge">MPa</span></div>
-      <p class="card__sub">Se′ = 0,5·Sut (Sut ≤ 1400) · Se = ka·kb·kc·kd·ke·Se′</p>
-      <div class="lab-row" style="margin-top:12px">
-        <div class="field"><label class="field__label">Sut</label><div class="input-group"><input class="input" data-in="Sut" type="text" inputmode="decimal" value="900"><span class="input-group__unit">MPa</span></div></div>
-        <div class="field"><label class="field__label">ka · acabado</label><input class="input" data-in="ka" type="text" inputmode="decimal" value="0.85"></div>
-        <div class="field"><label class="field__label">kb · tamaño</label><input class="input" data-in="kb" type="text" inputmode="decimal" value="0.90"></div>
-        <div class="field"><label class="field__label">kc · carga</label><input class="input" data-in="kc" type="text" inputmode="decimal" value="1"></div>
-        <div class="field"><label class="field__label">kd · temperatura</label><input class="input" data-in="kd" type="text" inputmode="decimal" value="1"></div>
-        <div class="field"><label class="field__label">ke · confiabilidad</label><input class="input" data-in="ke" type="text" inputmode="decimal" value="0.897"></div>
-      </div>
-      <div class="grid grid--2" style="margin-top:12px">
-        <div class="lab-result"><div class="lab-result__label">Se′</div><div class="lab-result__value" data-out="sep" style="font-size:1.15rem">—</div></div>
-        <div class="lab-result" style="border-color:var(--line)"><div class="lab-result__label">Se corregido</div><div class="lab-result__value" data-out="se" style="color:var(--violet);font-size:1.15rem">—</div></div>
-      </div>
-      <p class="tiny muted" style="margin-top:8px" data-note></p>
     </div>
 
     <div class="note">Estas calculadoras son de verificación: en el parcial tenés que escribir la fórmula, reemplazar y aclarar las unidades del resultado.</div>
@@ -7904,35 +7618,10 @@ function calculadorasView() {
     note.textContent = `σut ≈ 3,45 · HB = ${formatNumber(3.45 * hb, 0)} MPa (sólo aceros no austeníticos).`;
   });
 
-  bindCalc('[data-calc="flexion"]', (data, card) => {
-    const { F, L, w, h, delta } = data;
-    const sigma = (3 * F * L) / (2 * w * h * h);
-    const eflex = (L ** 3 * F) / (4 * w * h ** 3 * delta);
-    card.querySelector('[data-out="sigma"]').innerHTML = Number.isFinite(sigma)
-      ? `${formatNumber(sigma, 1)} <span class="lab-result__unit">MPa</span>` : '—';
-    card.querySelector('[data-out="E"]').innerHTML = Number.isFinite(eflex)
-      ? `${formatNumber(eflex, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-  });
-
-  bindCalc('[data-calc="fatiga"]', (data, card) => {
-    const { Sut, ka, kb, kc, kd, ke } = data;
-    const sep = Sut > 1400 ? 700 : 0.5 * Sut;
-    const k = ka * kb * kc * kd * ke;
-    const se = sep * k;
-    const note = card.querySelector('[data-note]');
-    card.querySelector('[data-out="sep"]').innerHTML = Number.isFinite(sep)
-      ? `${formatNumber(sep, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-    card.querySelector('[data-out="se"]').innerHTML = Number.isFinite(se)
-      ? `${formatNumber(se, 0)} <span class="lab-result__unit">MPa</span>` : '—';
-    note.textContent = Sut > 1400
-      ? 'Sut > 1400 MPa: se adopta Se′ = 700 MPa. Producto de factores: ' + formatNumber(k, 4)
-      : 'Producto de factores de Marin: ' + formatNumber(k, 4) + ' (Se′ de probeta pulida en flexión rotativa).';
-  });
-
   return {
     el,
     title: 'Calculadoras',
-    sub: 'Brinell · flexión · fatiga',
+    sub: 'Dureza Brinell',
     nav: 'practica',
     back: '/practica/simuladores',
   };
@@ -8539,7 +8228,7 @@ const { ensayosView, ensayoView } = __CDM_MODULES__["views/ensayos.js"];
 const { practiceView } = __CDM_MODULES__["views/practice.js"];
 const { quizView } = __CDM_MODULES__["views/quiz.js"];
 const { flashcardsView } = __CDM_MODULES__["views/flashcards.js"];
-const { labHubView, chvorinovView, impactoView, calculadorasView } = __CDM_MODULES__["views/lab.js"];
+const { labHubView, chvorinovView } = __CDM_MODULES__["views/lab.js"];
 const { palancaView } = __CDM_MODULES__["views/palanca.js"];
 const { progressView } = __CDM_MODULES__["views/progress.js"];
 
@@ -8558,8 +8247,6 @@ addRoute('/practica/quiz', quizView);
 addRoute('/practica/tarjetas', flashcardsView);
 addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
-addRoute('/practica/simuladores/impacto', impactoView);
-addRoute('/practica/simuladores/calculadoras', calculadorasView);
 addRoute('/practica/simuladores/palanca', palancaView);
 addRoute('/progreso', progressView);
 

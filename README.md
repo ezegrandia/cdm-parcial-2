@@ -16,6 +16,10 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 
 ![Curva U9](docs/preview-curva-u9.png)
 
+**Hoja de fórmulas: fracciones apiladas y cilindro con r y D**
+
+![Fórmulas](docs/preview-formulas.png)
+
 **Curva de enfriamiento (Unidad 8)**
 
 ![Curva de enfriamiento](docs/preview-enfriamiento.png)
@@ -26,11 +30,11 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 
 ## Qué incluye
 
-- **Teoría** en 25 lecciones cortas (9 de la U6, 8 de la U8 y 8 de la U9), con fórmulas, tablas, trampas de examen y «qué busca el profesor».
+- **Teoría** en 25 lecciones cortas (9 de la U6, 8 de la U8 y 8 de la U9), con tablas, trampas de examen y «qué busca el profesor». La U6 se trabaja de forma **conceptual**, sin cálculos.
 - **Ensayos**: catálogo de 11 ensayos (tracción, flexión 3 y 4 puntos, Brinell, Rockwell, Vickers, Knoop, Shore, Charpy, Izod y fatiga), con probeta, procedimiento, resultados, unidades, errores y pregunta típica.
 - **Diagramas interactivos** (7): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación, curva del metal puro (U8), diagrama isomorfo Cu–Ni y curva de la aleación (U9). Modo *Estudiar* y modo *Practicar* (con pines y opciones).
-- **Práctica**: 153 preguntas (opción múltiple y cálculos numéricos), 116 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
-- **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera, **regla de la palanca con %L/%S y masa de fases**, energía de impacto y % de fractura por corte, calculadoras de Brinell, flexión y fatiga con Marin.
+- **Práctica**: 132 preguntas (conceptuales de U6 y opción múltiple/cálculos de U8 y U9), 107 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
+- **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera y **regla de la palanca con %L/%S y masa de fases**. La Unidad 6 se trabaja de forma conceptual, sin calculadoras.
 - **Progreso**: racha, meta diaria, precisión por tema, cajas de repaso, logros, respaldo exportable y borrado.
 - **PWA offline**: se puede agregar a la pantalla de inicio y funciona sin internet después de la primera visita.
 
@@ -92,7 +96,7 @@ js/
     ui.js                  íconos, anillos, hojas, toasts
     utils.js / text.js     números, fechas, normalización
   data/
-    u6.js                  lecciones, fórmulas, tarjetas y quiz de la U6
+    u6.js                  lecciones, tarjetas y quiz conceptuales de la U6
     u8.js                  lecciones, fórmulas, tarjetas y quiz de la U8
     u9.js                  fases, solubilidad, palanca y curva de la U9
     ensayos.js             catálogo de ensayos

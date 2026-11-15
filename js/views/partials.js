@@ -54,7 +54,7 @@ export function renderBlocks(blocks = []) {
         return `<ol class="steps">${block.items.map((item) => `<li>${item}</li>`).join('')}</ol>`;
       case 'formula':
         return `<div class="formula ${block.tone ? `formula--${block.tone}` : ''}">
-          <div class="formula__expr">${block.expr}</div>
+          <div class="formula__expr">${block.html || block.expr}</div>
           ${block.note ? `<div class="formula__note">${block.note}</div>` : ''}
         </div>`;
       case 'callout':
@@ -107,7 +107,7 @@ export function formulaCard(formula, { maskable = false } = {}) {
       <span class="fcard__name">${esc(formula.name)}</span>
       ${maskable ? `<button class="btn btn--xs btn--ghost" type="button" data-reveal="${formula.id}" aria-label="Mostrar u ocultar fórmula">${icon('bulb', 'icon--xs')}</button>` : ''}
     </div>
-    <div class="fcard__expr" data-mask-target="${formula.id}">${formula.expr}</div>
+    <div class="fcard__expr" data-mask-target="${formula.id}">${formula.html || formula.expr}</div>
     ${formula.note ? `<div class="fcard__note">${formula.note}</div>` : ''}
   </div>`;
 }

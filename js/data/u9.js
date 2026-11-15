@@ -236,11 +236,11 @@ export const u9 = {
         },
         {
           t: 'p',
-          html: 'La composición global <b>CA</b> es una vertical fija: no cambia al enfriar. Lo que cambia son las composiciones de cada fase: el <b>líquido es más rico en el componente de menor punto de fusión</b> (Cu) y el <b>sólido en el de mayor</b> (Ni). En la zona bifásica, CL y CS se leen sobre la isoterma, una en cada curva.',
+          html: 'La composición global <b>CA</b> es una vertical fija: no cambia al enfriar. Lo que cambia son las composiciones de cada fase: el <b>líquido es más rico en el componente de menor punto de fusión</b> (Cu) y el <b>sólido en el de mayor</b> (Ni). En la zona bifásica, CL y CS se leen sobre la isoterma, una en cada curva. El eje horizontal es <b>% Ni</b>: 0 es Cu puro y 100 es Ni puro.',
         },
         {
           t: 'p',
-          html: 'Ejemplo de cátedra: Cu–35 % Ni a 1250 °C. La isoterma corta el liquidus en <b>CL = 32 % Ni</b> y el solidus en <b>CS = 43 % Ni</b>. La aleación está entre las dos composiciones; por eso hay L + α. El <b>rango de solidificación</b> es la diferencia entre las temperaturas de liquidus y solidus para esa composición.',
+          html: 'Ejemplo de cátedra: Cu–35 % Ni a 1250 °C. Ojo con el eje: es <b>% en peso de Ni</b>, así que <b>35 % Ni = 65 % Cu</b> (no 35 % Cu). La isoterma corta el liquidus en <b>CL = 32 % Ni (68 % Cu)</b> y el solidus en <b>CS = 43 % Ni (57 % Cu)</b>. La aleación está entre las dos composiciones; por eso hay L + α. El <b>rango de solidificación</b> es la diferencia entre las temperaturas de liquidus y solidus para esa composición.',
         },
         {
           t: 'diagram',
@@ -277,12 +277,12 @@ export const u9 = {
         },
         {
           t: 'formula',
-          expr: '%L = (CS − CA) / (CS − CL) · 100',
+          expr: '%L = (CS − CA) / (CS − CL) · 100', html: '%L = <span class="frac"><span class="frac__num">(CS − CA)</span><span class="frac__den">(CS − CL)</span></span> · 100',
           note: 'CL en el liquidus, CS en el solidus, CA es la composición global. El numerador es el brazo derecho.',
         },
         {
           t: 'formula',
-          expr: '%S = (CA − CL) / (CS − CL) · 100',
+          expr: '%S = (CA − CL) / (CS − CL) · 100', html: '%S = <span class="frac"><span class="frac__num">(CA − CL)</span><span class="frac__den">(CS − CL)</span></span> · 100',
           note: 'El denominador es siempre CS − CL, la longitud total de la isoterma.',
         },
         {
@@ -335,7 +335,7 @@ export const u9 = {
       blocks: [
         {
           t: 'p',
-          html: 'La aleación isomorfa <b>no solidifica a temperatura constante</b>. Su curva de enfriamiento tiene <b>dos cambios de pendiente</b>: uno en el <b>liquidus</b> (aparece el primer sólido α) y otro en el <b>solidus</b> (desaparece el último líquido). Entre los dos, la temperatura sigue bajando por la zona L + α. <b>No hay meseta horizontal.</b>',
+          html: 'La aleación isomorfa <b>no solidifica a temperatura constante</b>. Su curva de enfriamiento tiene <b>dos cambios de pendiente</b>: uno en el <b>liquidus</b> (aparece el primer sólido α) y otro en el <b>solidus</b> (desaparece el último líquido). Entre los dos, la temperatura sigue bajando por la zona L + α. <b>No hay meseta horizontal.</b> Y no son rectas: la rama del líquido, el tramo L + α y la rama del sólido son curvas.',
         },
         {
           t: 'table',
@@ -418,11 +418,11 @@ export const u9 = {
   ],
 
   formulas: [
-    { id: 'f9-01', group: 'Palanca', name: 'Porcentaje de líquido', expr: '%L = (CS − CA) / (CS − CL) · 100', note: 'CL en el liquidus; CS en el solidus; CA es la composición global.' },
-    { id: 'f9-02', group: 'Palanca', name: 'Porcentaje de sólido', expr: '%S = (CA − CL) / (CS − CL) · 100', note: 'El denominador es siempre la isoterma completa CS − CL.' },
+    { id: 'f9-01', group: 'Palanca', name: 'Porcentaje de líquido', expr: '%L = (CS − CA) / (CS − CL) · 100', html: '%L = <span class="frac"><span class="frac__num">(CS − CA)</span><span class="frac__den">(CS − CL)</span></span> · 100', note: 'CL en el liquidus; CS en el solidus; CA es la composición global.' },
+    { id: 'f9-02', group: 'Palanca', name: 'Porcentaje de sólido', expr: '%S = (CA − CL) / (CS − CL) · 100', html: '%S = <span class="frac"><span class="frac__num">(CA − CL)</span><span class="frac__den">(CS − CL)</span></span> · 100', note: 'El denominador es siempre la isoterma completa CS − CL.' },
     { id: 'f9-03', group: 'Palanca', name: 'Control de la palanca', expr: '%L + %S = 100 %', note: 'Si no da 100, revisá los numeradores o el denominador.' },
-    { id: 'f9-05', group: 'Palanca', name: 'Masa de una fase', expr: 'm_fase = (%fase / 100) · m_total', note: 'La palanca reparte cantidades; las composiciones CL y CS no cambian.' },
-    { id: 'f9-06', group: 'Palanca', name: 'Palanca general', expr: '%fase = (C_opuesta − CA) / (C_opuesta − C_fase) · 100', note: 'El numerador es el brazo opuesto a la fase que calculás.' },
+    { id: 'f9-05', group: 'Palanca', name: 'Masa de una fase', expr: 'm_fase = (%fase / 100) · m_total', html: 'm_fase = <span class="frac"><span class="frac__num">%fase</span><span class="frac__den">100</span></span> · m_total', note: 'La palanca reparte cantidades; las composiciones CL y CS no cambian.' },
+    { id: 'f9-06', group: 'Palanca', name: 'Palanca general', expr: '%fase = (C_opuesta − CA) / (C_opuesta − C_fase) · 100', html: '%fase = <span class="frac"><span class="frac__num">(C_opuesta − CA)</span><span class="frac__den">(C_opuesta − C_fase)</span></span> · 100', note: 'El numerador es el brazo opuesto a la fase que calculás.' },
     { id: 'f9-04', group: 'Solidificación', name: 'Rango de solidificación', expr: 'ΔT = TL − TS', note: 'TL: temperatura de liquidus; TS: temperatura de solidus, para la composición de la aleación.' },
   ],
 

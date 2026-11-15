@@ -149,7 +149,7 @@ export function homeView() {
         </a>
         <a class="card card--tap" href="#/practica/simuladores" style="display:block">
           <div class="row" style="gap:8px">${icon('calculator', 'icon--sm')}<b style="font-size:0.85rem">Simuladores</b></div>
-          <p class="card__sub">Chvorinov, impacto, palanca y calculadoras</p>
+          <p class="card__sub">Chvorinov y regla de la palanca</p>
         </a>
         <a class="card card--tap" href="#/teoria/formulas" style="display:block">
           <div class="row" style="gap:8px">${icon('book', 'icon--sm')}<b style="font-size:0.85rem">Fórmulas</b></div>
