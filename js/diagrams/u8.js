@@ -209,7 +209,8 @@ const enfriamiento = {
   subtitle: 'Líquido, meseta y sólido · tiempos local y total',
   key: 'enfriamiento',
   notes: [
-    'En la meseta la temperatura no baja porque se extrae calor latente, no calor sensible.',
+    'Los tramos líquido y sólido son curvos: la velocidad de enfriamiento cambia con la temperatura.',
+    'La única recta horizontal es la meseta en Tf; ahí no baja la temperatura porque se extrae calor latente.',
     'Tiempo local = inicio → fin de solidificación. Tiempo total = vaciado → fin de solidificación.',
   ],
   legend: [
@@ -233,9 +234,9 @@ const enfriamiento = {
         <line x1="38" y1="150" x2="336" y2="150" stroke="var(--rose)" stroke-width="1.4" stroke-dasharray="5 4"/>
         <text x="28" y="145" class="svg-text svg-text--rose" font-size="9">Tf</text>
 
-        <path d="M70 52 L150 150" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M70 52 C 92 98, 122 140, 150 150" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
         <path d="M150 150 L250 150" fill="none" stroke="var(--amber)" stroke-width="3.4" stroke-linecap="round"/>
-        <path d="M250 150 L320 244" fill="none" stroke="var(--violet)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M250 150 C 262 190, 298 232, 320 244" fill="none" stroke="var(--violet)" stroke-width="3" stroke-linecap="round"/>
 
         <line x1="150" y1="150" x2="150" y2="252" stroke="var(--line-strong)" stroke-width="1.1" stroke-dasharray="4 4"/>
         <line x1="250" y1="150" x2="250" y2="270" stroke="var(--line-strong)" stroke-width="1.1" stroke-dasharray="4 4"/>
@@ -256,13 +257,13 @@ const enfriamiento = {
         <text x="300" y="172" class="svg-text svg-text--violet" font-size="8">sólido</text>
       </svg>`,
       pins: [
-        { n: 1, x: 100, y: 78, lx: 130, ly: 58, label: 'Líquido: 100 % líquido', q: '¿Qué estado y qué calor se eliminan en el primer tramo?', detail: 'El metal está 100 % líquido y sobrecalentado: se elimina calor específico del líquido y la temperatura baja.' },
-        { n: 2, x: 112, y: 104, lx: 172, ly: 90, label: 'Rapidez de enfriamiento ΔT/Δt', q: '¿Qué representa la pendiente de la curva?', detail: 'La rapidez de enfriamiento: grados que baja por unidad de tiempo. Más empinada = más rápido.' },
+        { n: 1, x: 88, y: 85, lx: 130, ly: 74, label: 'Líquido: 100 % líquido', q: '¿Qué estado y qué calor se eliminan en el primer tramo?', detail: 'El metal está 100 % líquido y sobrecalentado: se elimina calor específico del líquido y la temperatura baja.' },
+        { n: 2, x: 112, y: 120, lx: 172, ly: 92, label: 'Rapidez de enfriamiento ΔT/Δt', q: '¿Qué representa la pendiente de la curva?', detail: 'La rapidez de enfriamiento: grados que baja por unidad de tiempo. Más empinada = más rápido.' },
         { n: 3, x: 80, y: 150, lx: 50, ly: 130, label: 'Tf: temperatura de fusión', q: '¿Qué indica la línea horizontal punteada?', detail: 'La temperatura de fusión/solidificación del metal puro. La meseta ocurre exactamente en Tf.' },
         { n: 4, x: 195, y: 150, lx: 196, ly: 180, label: 'Meseta: líquido + sólido', q: '¿Qué ocurre en la meseta de la curva?', detail: 'Se está solidificando: coexisten líquido y sólido y sólo se elimina calor latente de fusión. Por eso T no baja.' },
         { n: 5, x: 150, y: 150, lx: 122, ly: 192, label: 'Inicio de la solidificación', q: '¿Qué marca el comienzo de la meseta?', detail: 'Empieza la solidificación y también el tiempo local.' },
         { n: 6, x: 250, y: 150, lx: 284, ly: 178, label: 'Fin de la solidificación', q: '¿Qué marca el final de la meseta?', detail: 'Termina la solidificación: ya no queda líquido. Ahí termina el tiempo local (y el total).' },
-        { n: 7, x: 292, y: 205, lx: 300, ly: 184, label: 'Sólido: 100 % sólido', q: '¿Qué calor se elimina en el último tramo?', detail: 'El metal ya es 100 % sólido: se elimina calor específico del sólido y la temperatura sigue bajando.' },
+        { n: 7, x: 286, y: 212, lx: 300, ly: 190, label: 'Sólido: 100 % sólido', q: '¿Qué calor se elimina en el último tramo?', detail: 'El metal ya es 100 % sólido: se elimina calor específico del sólido y la temperatura sigue bajando.' },
         { n: 8, x: 200, y: 262, lx: 246, ly: 252, label: 'Tiempo local', q: '¿Cómo se mide el tiempo de solidificación local?', detail: 'Desde el inicio hasta el fin de la solidificación (la meseta). Sólo incluye calor latente.' },
         { n: 9, x: 215, y: 284, lx: 255, ly: 298, label: 'Tiempo total', q: '¿Cómo se mide el tiempo de solidificación total?', detail: 'Desde el vaciado hasta el fin de la solidificación. Incluye el calor específico del líquido sobrecalentado + el latente.' },
         { n: 10, x: 70, y: 52, lx: 100, ly: 36, label: 'Vaciado (t = 0)', q: '¿Dónde comienza a contarse el tiempo total?', detail: 'En el vaciado: t = 0. Por eso el tiempo total es mayor que el local.' },

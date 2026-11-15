@@ -221,7 +221,7 @@ export const u8 = {
       blocks: [
         {
           t: 'p',
-          html: 'La <b>curva de enfriamiento</b> registra la temperatura del metal en función del tiempo desde el vaciado. En un <b>metal puro</b> aparecen tres tramos bien marcados: el líquido se enfría, la temperatura se estabiliza mientras solidifica y después el sólido se sigue enfriando.',
+          html: 'La <b>curva de enfriamiento</b> registra la temperatura del metal en función del tiempo desde el vaciado. En un <b>metal puro</b> aparecen tres tramos bien marcados: el líquido se enfría, la temperatura se estabiliza mientras solidifica y después el sólido se sigue enfriando. Las ramas líquida y sólida son curvas: la velocidad de enfriamiento cambia. La meseta es la única recta horizontal.',
         },
         {
           t: 'callout',
@@ -282,7 +282,7 @@ export const u8 = {
           t: 'callout',
           tone: 'prof',
           title: 'Qué busca el profesor',
-          html: 'Dibujá la curva completa: ejes T–t, los tres tramos, la línea horizontal en Tf y las dos llaves de tiempo. Después explicá qué calor se elimina en cada tramo. Con eso la pregunta está completa.',
+          html: 'Dibujá la curva completa: ejes T–t, ramas curvas en líquido y sólido, meseta horizontal en Tf y las dos llaves de tiempo. Después explicá qué calor se elimina en cada tramo. Con eso la pregunta está completa.',
         },
         {
           t: 'diagram',

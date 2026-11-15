@@ -2,7 +2,7 @@
    sw.js — service worker: app offline después de la 1.ª visita
    ============================================================ */
 
-const VERSION = 'cdm-v1.4.0';
+const VERSION = 'cdm-v1.5.0';
 const APP_SHELL = [
   './',
   './index.html',
