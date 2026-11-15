@@ -21,7 +21,17 @@ const TOPIC_BY_DIAGRAM = {
   transicion: 'transicion',
   nucleacion: 'nucleacion',
   enfriamiento: 'enfriamiento',
+  isomorfo: 'isomorfo',
+  'curva-aleacion': 'curva-aleacion',
 };
+
+const DIAGRAM_SECTION = {
+  u6: 'Diagramas de ensayos',
+  u8: 'Diagramas de solidificación',
+  u9: 'Diagramas de fases',
+};
+
+const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9' };
 
 function totalPins(diagram) {
   return diagram.variants.reduce((acc, variant) => acc + variant.pins.length, 0);
@@ -39,7 +49,7 @@ export function diagramsListView() {
     const diagrams = diagramsForUnit(unit.id);
     return `<section class="section">
       <div class="section__head">
-        <div class="section__title">${unitPill(unit.id)} ${unit.id === 'u6' ? 'Diagramas de ensayos' : 'Diagramas de solidificación'}</div>
+        <div class="section__title">${unitPill(unit.id)} ${DIAGRAM_SECTION[unit.id] || `Diagramas de la Unidad ${unit.number}`}</div>
         <span class="tiny muted mono">${diagrams.length} diagramas</span>
       </div>
       <div class="stack stack--sm">
@@ -85,8 +95,8 @@ export function diagramView({ params, query }) {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: `Unidad ${diagram.unit === 'u6' ? 6 : 8} · diagrama interactivo`,
-      eyebrowTone: diagram.unit === 'u8' ? 'eyebrow--u8' : '',
+      eyebrow: `Unidad ${Number(diagram.unit.slice(1))} · diagrama interactivo`,
+      eyebrowTone: EYEBROW_TONE[diagram.unit] || '',
       title: diagram.title,
       sub: diagram.subtitle,
     })}
@@ -185,7 +195,7 @@ export function diagramView({ params, query }) {
       </div>
 
       <div class="row" style="margin-top:10px;gap:8px">
-        <div style="flex:1">${bar(pct, diagram.unit === 'u8' ? 'u8' : '')}</div>
+        <div style="flex:1">${bar(pct, diagram.unit)}</div>
         <span class="tiny muted mono">${pct}%</span>
         ${solved.length ? `<button class="btn btn--xs btn--ghost" type="button" data-reset>${icon('refresh', 'icon--xs')} Reiniciar</button>` : ''}
       </div>
@@ -409,7 +419,7 @@ export function diagramView({ params, query }) {
   return {
     el,
     title: diagram.title,
-    sub: `Unidad ${diagram.unit === 'u6' ? 6 : 8}`,
+    sub: `Unidad ${Number(diagram.unit.slice(1))}`,
     nav: 'teoria',
     back,
   };

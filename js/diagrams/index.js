@@ -4,8 +4,9 @@
 
 import { U6_DIAGRAMS } from './u6.js';
 import { U8_DIAGRAMS } from './u8.js';
+import { U9_DIAGRAMS } from './u9.js';
 
-export const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS];
+export const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS, ...U9_DIAGRAMS];
 
 export function getDiagram(id) {
   return ALL_DIAGRAMS.find((diagram) => diagram.id === id) || null;

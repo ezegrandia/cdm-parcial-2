@@ -15,6 +15,7 @@ import { practiceView } from './views/practice.js';
 import { quizView } from './views/quiz.js';
 import { flashcardsView } from './views/flashcards.js';
 import { labHubView, chvorinovView, impactoView, calculadorasView } from './views/lab.js';
+import { palancaView } from './views/palanca.js';
 import { progressView } from './views/progress.js';
 
 /* ---------------- rutas ---------------- */
@@ -34,6 +35,7 @@ addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
 addRoute('/practica/simuladores/impacto', impactoView);
 addRoute('/practica/simuladores/calculadoras', calculadorasView);
+addRoute('/practica/simuladores/palanca', palancaView);
 addRoute('/progreso', progressView);
 
 /* ---------------- estado de la shell ---------------- */
@@ -96,10 +98,10 @@ function render() {
   viewEl.replaceChildren(result.el);
 
   document.title = result.title === 'CDM · Repaso'
-    ? 'CDM · Repaso — Unidades 6 y 8'
+    ? 'CDM · Repaso — Unidades 6, 8 y 9'
     : `${result.title} · CDM Repaso`;
   titleEl.textContent = result.title || 'CDM · Repaso';
-  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6 y 8';
+  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8 y 9';
 
   const hasBack = !!result.back;
   backBtn.hidden = !hasBack;

@@ -2,7 +2,7 @@
    views/home.js — pantalla de inicio
    ============================================================ */
 
-import { ALL_LESSONS, ALL_QUIZ, ALL_FORMULAS, getLesson, getUnit } from '../data/index.js';
+import { ALL_LESSONS, ALL_QUIZ, ALL_FORMULAS, UNIT_LIST, getLesson, getUnit } from '../data/index.js';
 import { ALL_DIAGRAMS } from '../diagrams/index.js';
 import { getState, lessonRead, dailySummary } from '../core/store.js';
 import { quizDueCount, cardsDueCount } from '../core/sessions.js';
@@ -24,7 +24,12 @@ function masteryFor(unit) {
 }
 
 function unitCard(unit, stats) {
-  const isU6 = unit.id === 'u6';
+  const thirdLink = unit.id === 'u6'
+    ? { href: '#/ensayos', icon: 'flask', label: 'Ensayos' }
+    : unit.id === 'u8'
+      ? { href: '#/practica/simuladores/chvorinov', icon: 'calculator', label: 'Chvorinov' }
+      : { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' };
+
   return `<div class="unit-card unit-card--${unit.id}">
     <div class="unit-card__head">
       <span class="unit-num">${unit.number}</span>
@@ -32,14 +37,14 @@ function unitCard(unit, stats) {
         <h3>${unit.title}</h3>
         <p>${unit.subtitle}</p>
       </div>
-      <span class="unit-card__badge">${isU6 ? 'Va seguro' : 'Alta prob.'}</span>
+      <span class="unit-card__badge">${unit.tag}</span>
     </div>
 
     <div class="row row--between" style="margin-top:13px">
       <span class="tiny muted">Dominio estimado</span>
       <span class="tiny mono" style="color:var(--text)">${stats.pct}%</span>
     </div>
-    <div style="margin-top:5px">${bar(stats.pct, isU6 ? 'u6' : 'u8')}</div>
+    <div style="margin-top:5px">${bar(stats.pct, unit.id)}</div>
 
     <div class="unit-card__meta">
       <span><b>${stats.lessonsRead}/${stats.lessonsTotal}</b> lecciones</span>
@@ -50,9 +55,7 @@ function unitCard(unit, stats) {
     <div class="unit-card__links">
       <a class="mini-link" href="#/teoria">${icon('book')} Teoría</a>
       <a class="mini-link" href="#/teoria/diagramas">${icon('chart')} Diagramas</a>
-      ${isU6
-        ? `<a class="mini-link" href="#/ensayos">${icon('flask')} Ensayos</a>`
-        : `<a class="mini-link" href="#/practica/simuladores/chvorinov">${icon('calculator')} Chvorinov</a>`}
+      <a class="mini-link" href="${thirdLink.href}">${icon(thirdLink.icon)} ${thirdLink.label}</a>
       <a class="mini-link" href="#/practica/quiz?scope=${unit.id}&n=12">${icon('target')} Practicar</a>
     </div>
   </div>`;
@@ -63,11 +66,8 @@ export function homeView() {
   const summary = dailySummary();
   const dueQuiz = quizDueCount('mix');
   const dueCards = cardsDueCount('mix');
-  const u6 = getUnit('u6');
-  const u8 = getUnit('u8');
-  const statsU6 = masteryFor(u6);
-  const statsU8 = masteryFor(u8);
-  const overall = Math.round((statsU6.pct + statsU8.pct) / 2);
+  const units = UNIT_LIST.map((unit) => ({ unit, stats: masteryFor(unit) }));
+  const overall = Math.round(units.reduce((acc, item) => acc + item.stats.pct, 0) / units.length);
   const lastLesson = state.lastLesson ? getLesson(state.lastLesson) : null;
   const lastLessonUnit = lastLesson ? getUnit(lastLesson.unit) : null;
   const initialLesson = lastLesson || ALL_LESSONS[0];
@@ -79,8 +79,8 @@ export function homeView() {
       <div class="hero__top">
         <div class="hero__copy">
           <span class="hero__kicker">Parcial 2 · CDM</span>
-          <h2>Unidades <em>6 y 8</em><br>para repasar en el celular</h2>
-          <p class="hero__sub">Ensayos mecánicos, impacto Charpy/Izod, nucleación y Chvorinov. Sesiones cortas, repetidas hasta que quede en memoria.</p>
+          <h2>Unidades <em>6, 8 y 9</em><br>para repasar en el celular</h2>
+          <p class="hero__sub">Ensayos, impacto Charpy/Izod, fases, solubilidad y regla de la palanca. Sesiones cortas, repetidas hasta que quede en memoria.</p>
         </div>
         <div class="hero__ring">
           ${ring(overall, 'dominio', { size: 78 })}
@@ -116,8 +116,7 @@ export function homeView() {
         <span class="tiny muted">${ALL_LESSONS.length} lecciones · ${ALL_QUIZ.length} preguntas</span>
       </div>
       <div class="stack">
-        ${unitCard(u6, statsU6)}
-        ${unitCard(u8, statsU8)}
+        ${units.map(({ unit, stats }) => unitCard(unit, stats)).join('')}
       </div>
     </section>
 
@@ -150,7 +149,7 @@ export function homeView() {
         </a>
         <a class="card card--tap" href="#/practica/simuladores" style="display:block">
           <div class="row" style="gap:8px">${icon('calculator', 'icon--sm')}<b style="font-size:0.85rem">Simuladores</b></div>
-          <p class="card__sub">Chvorinov, impacto y calculadoras</p>
+          <p class="card__sub">Chvorinov, impacto, palanca y calculadoras</p>
         </a>
         <a class="card card--tap" href="#/teoria/formulas" style="display:block">
           <div class="row" style="gap:8px">${icon('book', 'icon--sm')}<b style="font-size:0.85rem">Fórmulas</b></div>
@@ -166,5 +165,5 @@ export function homeView() {
     <div class="note">Atajo para el celular: agregá esta página a la pantalla de inicio. Queda como una app, abre sin internet y guarda tu avance. Recomendado: una sesión corta por día y una extra antes del parcial.</div>
   `;
 
-  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6 y 8', nav: 'inicio', back: null };
+  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8 y 9', nav: 'inicio', back: null };
 }

@@ -38,6 +38,8 @@
   --u6-soft: rgba(53, 224, 240, 0.12);
   --u8: #fbbf24;
   --u8-soft: rgba(251, 191, 36, 0.12);
+  --u9: #4ade80;
+  --u9-soft: rgba(74, 222, 128, 0.12);
 
   --radius-xl: 24px;
   --radius-lg: 18px;
@@ -97,6 +99,8 @@
   --u6-soft: rgba(14, 116, 144, 0.1);
   --u8: #b45309;
   --u8-soft: rgba(180, 83, 9, 0.1);
+  --u9: #15803d;
+  --u9-soft: rgba(21, 128, 61, 0.1);
 
   --shadow-card: 0 18px 36px -30px rgba(15, 23, 42, 0.35);
   --shadow-pop: 0 30px 80px -30px rgba(15, 23, 42, 0.35);

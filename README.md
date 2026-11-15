@@ -1,14 +1,20 @@
-# CDM Repaso — Unidades 6 y 8
+# CDM Repaso — Unidades 6, 8 y 9
 
 App de repaso para el **Parcial 2 de Ciencia de los Materiales** (ITU, Producción Industrial Automatizada), pensada para usarse desde el celular, muchas veces y en sesiones cortas.
 
-Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Izod en detalle) y **Unidad 8** (nucleación, grano fino, regla de Chvorinov y volumen/área de figuras básicas). Basada en el resumen de cátedra *«Parcial 2 — Unidades 6 a 10»* y en los apuntes manuscritos.
+Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Izod en detalle), **Unidad 8** (nucleación, grano fino, Chvorinov y volumen/área de figuras) y **Unidad 9** (fases, solubilidad, diagrama isomorfo, regla de la palanca y curva de la aleación). Basada en el resumen de cátedra *«Parcial 2 — Unidades 6 a 10»* y en los apuntes manuscritos.
 
 | Inicio | Quiz con explicación |
 | --- | --- |
 | ![Inicio](docs/preview-home.png) | ![Quiz](docs/preview-quiz.png) |
 | **Chvorinov: comparar formas** | **Diagrama en modo practicar** |
 | ![Chvorinov](docs/preview-chvorinov.png) | ![Diagrama](docs/preview-diagrama.png) |
+| **Unidad 9: diagrama isomorfo** | **Regla de la palanca** |
+| ![Isomorfo](docs/preview-isomorfo.png) | ![Palanca](docs/preview-palanca.png) |
+
+**Curva de enfriamiento de la aleación (Unidad 9)**
+
+![Curva U9](docs/preview-curva-u9.png)
 
 **Curva de enfriamiento (Unidad 8)**
 
@@ -20,11 +26,11 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 
 ## Qué incluye
 
-- **Teoría** en 17 lecciones cortas (9 de la U6, 8 de la U8), con fórmulas, tablas, trampas de examen y «qué busca el profesor».
+- **Teoría** en 25 lecciones cortas (9 de la U6, 8 de la U8 y 8 de la U9), con fórmulas, tablas, trampas de examen y «qué busca el profesor».
 - **Ensayos**: catálogo de 11 ensayos (tracción, flexión 3 y 4 puntos, Brinell, Rockwell, Vickers, Knoop, Shore, Charpy, Izod y fatiga), con probeta, procedimiento, resultados, unidades, errores y pregunta típica.
-- **Diagramas interactivos** (5): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación y curva de enfriamiento. Modo *Estudiar* y modo *Practicar* (con pines y opciones).
-- **Práctica**: 115 preguntas (opción múltiple y cálculos numéricos), 84 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
-- **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera (calculadora, comparación a igual volumen y entrenamiento de fórmulas), energía de impacto y % de fractura por corte, calculadoras de Brinell, flexión y fatiga con Marin.
+- **Diagramas interactivos** (7): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación, curva del metal puro (U8), diagrama isomorfo Cu–Ni y curva de la aleación (U9). Modo *Estudiar* y modo *Practicar* (con pines y opciones).
+- **Práctica**: 153 preguntas (opción múltiple y cálculos numéricos), 116 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
+- **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera, **regla de la palanca con %L/%S y masa de fases**, energía de impacto y % de fractura por corte, calculadoras de Brinell, flexión y fatiga con Marin.
 - **Progreso**: racha, meta diaria, precisión por tema, cajas de repaso, logros, respaldo exportable y borrado.
 - **PWA offline**: se puede agregar a la pantalla de inicio y funciona sin internet después de la primera visita.
 
@@ -88,13 +94,14 @@ js/
   data/
     u6.js                  lecciones, fórmulas, tarjetas y quiz de la U6
     u8.js                  lecciones, fórmulas, tarjetas y quiz de la U8
+    u9.js                  fases, solubilidad, palanca y curva de la U9
     ensayos.js             catálogo de ensayos
     shapes.js              figuras básicas para Chvorinov
     index.js               agregados y metadatos
   diagrams/
-    u6.js, u8.js           SVG + pines de cada diagrama
+    u6.js, u8.js, u9.js    SVG + pines de cada diagrama
     index.js               registro
-  views/                   una vista por pantalla
+  views/                   una vista por pantalla (incluye palanca.js)
 tools/
   serve.mjs                servidor local para probar
   build-bundle.mjs         genera js/bundle.js (para file://)
@@ -131,7 +138,7 @@ node tools/check-data.mjs
 
 ### Agregar contenido
 
-- Una pregunta nueva: agregar un objeto al array `quiz` en `js/data/u6.js` o `u8.js` (campos: `id`, `unit`, `topic`, `type` `'mcq'` o `'num'`, `q`, `options`/`correct` o `answer`/`tolerance`/`answerUnit`, `explain`).
+- Una pregunta nueva: agregar un objeto al array `quiz` en `js/data/u6.js`, `u8.js` o `u9.js` (campos: `id`, `unit`, `topic`, `type` `'mcq'` o `'num'`, `q`, `options`/`correct` o `answer`/`tolerance`/`answerUnit`, `explain`).
 - Una tarjeta: agregar a `cards` (`front`, `back`, `hint`).
 - Una lección: agregar a `lessons` con bloques (`p`, `ul`, `ol`, `formula`, `callout`, `table`, `diagram`, `lab`).
 - Después de editar módulos, corré `node tools/build-bundle.mjs` para actualizar el bundle que usa el doble clic.

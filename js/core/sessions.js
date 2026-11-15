@@ -11,6 +11,7 @@ export const SCOPE_LABELS = {
   mix: 'Repaso mixto',
   u6: 'Unidad 6',
   u8: 'Unidad 8',
+  u9: 'Unidad 9',
   due: 'Pendientes de hoy',
   weak: 'Puntos débiles',
   new: 'Preguntas nuevas',
@@ -25,7 +26,7 @@ export function scopeLabel(scope, topic) {
 }
 
 function unitFiltered(items, scope) {
-  if (scope === 'u6' || scope === 'u8') return items.filter((item) => item.unit === scope);
+  if (['u6', 'u8', 'u9'].includes(scope)) return items.filter((item) => item.unit === scope);
   return items;
 }
 

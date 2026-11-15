@@ -18,9 +18,11 @@ export function pageHead({ eyebrow = '', eyebrowTone = '', title, sub = '', acti
     </div>`;
 }
 
+const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok' };
+
 export function unitPill(unitId) {
-  const isU6 = unitId === 'u6';
-  return `<span class="badge ${isU6 ? 'badge--accent' : 'badge--warn'}">U${isU6 ? 6 : 8}</span>`;
+  const number = String(unitId).replace(/^u/, '');
+  return `<span class="badge ${UNIT_BADGE[unitId] || 'badge'}">U${number}</span>`;
 }
 
 export function topicPill(topicId) {
@@ -122,7 +124,7 @@ export function segmentedTabs(items, activeKey, { hrefFor } = {}) {
 
 export function diagramCard(diagram, solved, total) {
   return `<a class="diagram-card" href="#/teoria/diagramas/${diagram.id}">
-    <span class="diagram-card__thumb ${diagram.unit === 'u8' ? 'diagram-card__thumb--u8' : ''}">${icon('chart')}</span>
+    <span class="diagram-card__thumb diagram-card__thumb--${diagram.unit}">${icon('chart')}</span>
     <span class="row-card__main">
       <span class="row-card__title">${esc(diagram.title)}</span>
       <span class="row-card__meta">${esc(diagram.subtitle)} · ${solved}/${total} puntos</span>

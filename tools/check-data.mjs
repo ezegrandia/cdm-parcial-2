@@ -23,7 +23,7 @@ UNIT_LIST.forEach((unit) => {
       if (block.t === 'diagram' && !ALL_DIAGRAMS.some((diagram) => diagram.id === block.id)) {
         errors.push(`Diagrama inexistente referenciado en ${lesson.id}: ${block.id}`);
       }
-      if (block.t === 'lab' && !['chvorinov', 'impacto'].includes(block.id)) {
+      if (block.t === 'lab' && !['chvorinov', 'impacto', 'palanca'].includes(block.id)) {
         errors.push(`Laboratorio inexistente referenciado en ${lesson.id}: ${block.id}`);
       }
     });
@@ -35,7 +35,7 @@ UNIT_LIST.forEach((unit) => {
   unit.quiz.forEach((question) => {
     unique(question.id, 'pregunta');
     if (!TOPICS[question.topic]) errors.push(`Tema desconocido en ${question.id}: ${question.topic}`);
-    if (!['u6', 'u8'].includes(question.unit)) errors.push(`Unidad inválida en ${question.id}: ${question.unit}`);
+    if (!['u6', 'u8', 'u9'].includes(question.unit)) errors.push(`Unidad inválida en ${question.id}: ${question.unit}`);
     if (question.type === 'mcq') {
       if (!Array.isArray(question.options) || question.options.length < 2) errors.push(`Opciones inválidas en ${question.id}`);
       if (!Number.isInteger(question.correct) || question.correct < 0 || question.correct >= (question.options?.length || 0)) {

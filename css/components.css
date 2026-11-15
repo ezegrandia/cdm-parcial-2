@@ -253,6 +253,7 @@
 
 .bar__fill--u6 { background: linear-gradient(90deg, var(--u6), #60a5fa); }
 .bar__fill--u8 { background: linear-gradient(90deg, var(--u8), #f97316); }
+.bar__fill--u9 { background: linear-gradient(90deg, var(--u9), #22d3ee); }
 .bar__fill--ok { background: linear-gradient(90deg, var(--green), #22d3ee); }
 .bar__fill--warn { background: linear-gradient(90deg, var(--amber), #fb923c); }
 .bar__fill--bad { background: linear-gradient(90deg, var(--rose), #f472b6); }
@@ -1398,6 +1399,7 @@ body.is-focus .toast { bottom: calc(96px + var(--safe-b)); }
 }
 
 .diagram-card__thumb--u8 { color: var(--u8); }
+.diagram-card__thumb--u9 { color: var(--u9); }
 
 /* ---------------- simuladores ---------------- */
 

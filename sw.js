@@ -2,7 +2,7 @@
    sw.js — service worker: app offline después de la 1.ª visita
    ============================================================ */
 
-const VERSION = 'cdm-v1.5.0';
+const VERSION = 'cdm-v2.0.0';
 const APP_SHELL = [
   './',
   './index.html',
@@ -22,11 +22,13 @@ const APP_SHELL = [
   './js/data/index.js',
   './js/data/u6.js',
   './js/data/u8.js',
+  './js/data/u9.js',
   './js/data/ensayos.js',
   './js/data/shapes.js',
   './js/diagrams/index.js',
   './js/diagrams/u6.js',
   './js/diagrams/u8.js',
+  './js/diagrams/u9.js',
   './js/views/home.js',
   './js/views/theory.js',
   './js/views/diagrams.js',
@@ -36,6 +38,7 @@ const APP_SHELL = [
   './js/views/quiz.js',
   './js/views/flashcards.js',
   './js/views/lab.js',
+  './js/views/palanca.js',
   './js/views/progress.js',
   './js/views/partials.js',
   './assets/icons/favicon.svg',

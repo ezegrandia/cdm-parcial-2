@@ -99,7 +99,7 @@ export function quizView({ query }) {
     qArea.innerHTML = `
       <div class="q-card">
         <div class="q-meta">
-          <span class="badge badge--${question.unit === 'u6' ? 'accent' : 'warn'}">U${question.unit === 'u6' ? 6 : 8}</span>
+          <span class="badge badge--${question.unit === 'u6' ? 'accent' : question.unit === 'u8' ? 'warn' : 'ok'}">U${Number(question.unit.slice(1))}</span>
           <span class="badge">${esc(topicInfo.label)}</span>
           ${question.type === 'num' ? '<span class="badge badge--violet">cálculo</span>' : ''}
         </div>

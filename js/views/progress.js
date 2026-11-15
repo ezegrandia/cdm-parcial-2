@@ -2,7 +2,7 @@
    views/progress.js — progreso, temas flojos, ajustes y respaldo
    ============================================================ */
 
-import { ALL_LESSONS, ALL_CARDS, ALL_QUIZ, TOPICS, getUnit } from '../data/index.js';
+import { ALL_LESSONS, ALL_CARDS, ALL_QUIZ, TOPICS, UNIT_LIST, getUnit } from '../data/index.js';
 import { ALL_DIAGRAMS } from '../diagrams/index.js';
 import {
   getState, dailySummary, weeklyActivity, lessonRead, recentSessions,
@@ -102,8 +102,7 @@ export function progressView() {
   const summary = dailySummary();
   const weekly = weeklyActivity();
   const accuracy = globalAccuracy();
-  const statsU6 = unitStats('u6');
-  const statsU8 = unitStats('u8');
+  const unitData = UNIT_LIST.map((unit) => ({ unit, stats: unitStats(unit.id) }));
   const topics = topicStats();
   const practicedTopics = topics.filter((topic) => topic.attempts > 0);
   const boxes = boxesDistribution();
@@ -111,8 +110,8 @@ export function progressView() {
   const badges = achievements();
   const maxWeek = Math.max(1, ...weekly.map((day) => day.answers));
   const weakTopics = [...topics].filter((topic) => topic.attempts >= 2).sort((a, b) => a.accuracy - b.accuracy).slice(0, 3);
-  const totalMasteredQuiz = statsU6.quizMastered + statsU8.quizMastered;
-  const totalMasteredCards = statsU6.cardsMastered + statsU8.cardsMastered;
+  const totalMasteredQuiz = unitData.reduce((acc, item) => acc + item.stats.quizMastered, 0);
+  const totalMasteredCards = unitData.reduce((acc, item) => acc + item.stats.cardsMastered, 0);
 
   const el = document.createElement('div');
   el.className = 'page';
@@ -159,16 +158,16 @@ export function progressView() {
     <section class="section">
       <div class="section__head"><div class="section__title">Por unidad</div></div>
       <div class="stack">
-        ${[['u6', statsU6, 'Ensayos y propiedades'], ['u8', statsU8, 'Solidificación y Chvorinov']].map(([unitId, stats, subtitle]) => `
+        ${unitData.map(({ unit, stats }) => `
           <div class="card">
             <div class="row" style="gap:14px">
               ${ring(stats.overall, 'dominio', { size: 66 })}
               <div style="flex:1;min-width:0">
                 <div class="row row--between">
-                  <h3 style="font-size:0.95rem">Unidad ${unitId === 'u6' ? 6 : 8}</h3>
-                  ${unitId === 'u6' ? '<span class="badge badge--accent">Va seguro</span>' : '<span class="badge badge--warn">Alta prob.</span>'}
+                  <h3 style="font-size:0.95rem">Unidad ${unit.number}</h3>
+                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : 'badge--ok'}">${unit.tag}</span>
                 </div>
-                <p class="card__sub">${subtitle}</p>
+                <p class="card__sub">${unit.subtitle}</p>
               </div>
             </div>
             <div class="mini-stats">
@@ -287,7 +286,7 @@ export function progressView() {
       <div><h4>Guardar en el teléfono</h4><p>En Chrome o Safari, abrí el menú y elegí <b>“Agregar a pantalla de inicio”</b>. La app funciona sin internet después de la primera visita y tu progreso queda guardado en el navegador. Exportá un respaldo de vez en cuando.</p></div>
     </div>
 
-    <p class="tiny muted center">Repaso CDM · Unidades 6 y 8 · Hecho para estudiar en el celular</p>
+    <p class="tiny muted center">Repaso CDM · Unidades 6, 8 y 9 · Hecho para estudiar en el celular</p>
   `;
 
   const refresh = () => navigate(`/progreso?r=${Date.now()}`);

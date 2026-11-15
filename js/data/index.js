@@ -4,12 +4,13 @@
 
 import { u6 } from './u6.js';
 import { u8 } from './u8.js';
+import { u9 } from './u9.js';
 import { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD } from './ensayos.js';
 
 export { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD };
 
-export const UNITS = { u6, u8 };
-export const UNIT_LIST = [u6, u8];
+export const UNITS = { u6, u8, u9 };
+export const UNIT_LIST = [u6, u8, u9];
 
 export const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
@@ -27,6 +28,14 @@ export const TOPICS = {
   enfriamiento: { label: 'Curva de enfriamiento', unit: 'u8' },
   chvorinov: { label: 'Chvorinov', unit: 'u8' },
   formas: { label: 'Formas y V/A', unit: 'u8' },
+  fases: { label: 'Fase y diagrama', unit: 'u9' },
+  solubilidad: { label: 'Tipos de solubilidad', unit: 'u9' },
+  'hume-rothery': { label: 'Hume-Rothery', unit: 'u9' },
+  'solucion-solida': { label: 'Solución sólida', unit: 'u9' },
+  isomorfo: { label: 'Diagrama isomorfo', unit: 'u9' },
+  palanca: { label: 'Regla de la palanca', unit: 'u9' },
+  'curva-aleacion': { label: 'Curva de la aleación', unit: 'u9' },
+  segregacion: { label: 'Segregación', unit: 'u9' },
 };
 
 export const ALL_LESSONS = UNIT_LIST.flatMap((unit) =>

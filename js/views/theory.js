@@ -35,14 +35,14 @@ export function theoryView() {
         <div class="section__title">${unitPill(unit.id)} ${unit.title}</div>
         <span class="tiny muted mono">${read}/${total} leídas</span>
       </div>
-      ${bar(percent(read, total), unit.id === 'u6' ? 'u6' : 'u8')}
+      ${bar(percent(read, total), unit.id)}
       <div class="stack stack--sm">
         ${unit.lessons.map((lesson, index) => lessonRow(lesson, index)).join('')}
       </div>
       <details class="acc">
         <summary>${icon('alert', 'icon--sm')} Qué entra y qué no · Unidad ${unit.number}</summary>
         <div class="acc__body">
-          <div class="callout callout--${unit.id === 'u6' ? 'info' : 'warn'}" style="margin-bottom:10px">
+          <div class="callout callout--${unit.id === 'u6' ? 'info' : unit.id === 'u8' ? 'warn' : 'tip'}" style="margin-bottom:10px">
             <div class="callout__icon">${icon('graduation')}</div>
             <div><h4>Indicación de cátedra</h4><p>${unit.examQuote}</p></div>
           </div>
@@ -59,7 +59,7 @@ export function theoryView() {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: 'Unidades 6 y 8',
+      eyebrow: 'Unidades 6, 8 y 9',
       title: 'Teoría esencial',
       sub: 'Lecciones cortas, diagramas interactivos y hoja de fórmulas.',
     })}
@@ -68,7 +68,7 @@ export function theoryView() {
     <div class="note">Consejo: leé una lección, abrí su diagrama y recién después hacé el quiz del tema. La repetición espaciada te va a volver a traer lo que falles.</div>
   `;
 
-  return { el, title: 'Teoría', sub: 'Unidades 6 y 8', nav: 'teoria', back: null };
+  return { el, title: 'Teoría', sub: 'Unidades 6, 8 y 9', nav: 'teoria', back: null };
 }
 
 function practiceHref(topic) {

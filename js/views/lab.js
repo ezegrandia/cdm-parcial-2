@@ -17,6 +17,13 @@ export function labHubView() {
       badge: 'Unidad 8',
     },
     {
+      href: '#/practica/simuladores/palanca',
+      icon: 'layers',
+      title: 'Regla de la palanca',
+      meta: 'Calculá %L y %S con CL, CA y CS. Incluye masa de cada fase y retos rápidos.',
+      badge: 'Unidad 9',
+    },
+    {
       href: '#/practica/simuladores/impacto',
       icon: 'zap',
       title: 'Impacto y energía',

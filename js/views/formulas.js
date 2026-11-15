@@ -2,7 +2,7 @@
    views/formulas.js — hoja de fórmulas con modo ocultar
    ============================================================ */
 
-import { ALL_FORMULAS } from '../data/index.js';
+import { ALL_FORMULAS, UNIT_LIST } from '../data/index.js';
 import { icon } from '../core/ui.js';
 import { normalize } from '../core/text.js';
 import { pageHead, formulaCard, segmentedTabs } from './partials.js';
@@ -38,8 +38,7 @@ export function formulasView() {
     </div>
     <div class="chip-row" data-controls>
       <button class="chip" type="button" data-unit="todas" aria-pressed="true">Todas</button>
-      <button class="chip" type="button" data-unit="u6" aria-pressed="false">Unidad 6</button>
-      <button class="chip" type="button" data-unit="u8" aria-pressed="false">Unidad 8</button>
+      ${UNIT_LIST.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
       <button class="chip" type="button" data-mask aria-pressed="false">${icon('bulb', 'icon--xs')} <span>Ocultar todas</span></button>
     </div>
     <div id="formulaList" class="stack"></div>
@@ -68,7 +67,7 @@ export function formulasView() {
       if (!rows.length) return '';
       return `<section class="section">
         <div class="section__head">
-          <div class="section__title">${group.unit === 'u6' ? 'U6' : 'U8'} · ${group.name}</div>
+          <div class="section__title">U${Number(group.unit.slice(1))} · ${group.name}</div>
           <span class="tiny muted mono">${rows.length}</span>
         </div>
         <div class="stack stack--sm">${rows.map((formula) => formulaCard(formula, { maskable: state.masked })).join('')}</div>

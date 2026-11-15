@@ -1,7 +1,7 @@
 {
-  "name": "CDM Repaso — Unidades 6 y 8",
+  "name": "CDM Repaso — Unidades 6, 8 y 9",
   "short_name": "CDM Repaso",
-  "description": "Repaso de Ciencia de los Materiales para el Parcial 2: ensayos mecánicos, impacto Charpy/Izod, nucleación y regla de Chvorinov.",
+  "description": "Repaso de Ciencia de los Materiales para el Parcial 2: ensayos mecánicos, impacto Charpy/Izod, solidificación, fases, solubilidad y regla de la palanca.",
   "lang": "es-AR",
   "dir": "ltr",
   "start_url": "./",
@@ -42,6 +42,12 @@
       "name": "Chvorinov",
       "short_name": "Chvorinov",
       "url": "./index.html#/practica/simuladores/chvorinov",
+      "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Regla de la palanca",
+      "short_name": "Palanca",
+      "url": "./index.html#/practica/simuladores/palanca",
       "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]

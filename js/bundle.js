@@ -2882,6 +2882,745 @@ const u8 = {
   __CDM_MODULES__["data/u8.js"] = { u8 };
 })();
 
+/* ===== data/u9.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   data/u9.js — Unidad 9: Equilibrio de Fases y Solución Sólida
+   Fuente: resumen de cátedra "Parcial 2 — Unidades 6 a 10"
+   (páginas 49 a 61) + apuntes del usuario (diagrama isomorfo
+   y curva de enfriamiento de la aleación).
+   ============================================================ */
+
+const u9 = {
+  id: 'u9',
+  number: 9,
+  title: 'Equilibrio de Fases y Solución Sólida',
+  shortTitle: 'Fases y palanca',
+  subtitle: 'Solubilidad, diagrama isomorfo y regla de la palanca',
+  tag: 'Va seguro',
+  examQuote: '«Lo que es la regla de gases (Gibbs) no va en el parcial. Lo que sí va a tomar sí o sí es condiciones para la solubilidad sólida limitada; también la regla de la palanca es importante y la toma casi seguro.»',
+  intro:
+    'La unidad enseña a leer el mapa de una aleación: el diagrama de fases. Ese mapa dice qué fases hay, ' +
+    'de qué composición son y en qué cantidad (eso último se calcula con la regla de la palanca). ' +
+    'El profesor confirmó que Gibbs no entra, pero la palanca y las condiciones de solubilidad son de examen.',
+  priority: [
+    'Fase y diagrama de fases en equilibrio.',
+    'Tipos de solubilidad con ejemplos: ilimitada (Ni–Cu), limitada (Zn–Cu) y nula (Cu–Pb).',
+    'Las 4 condiciones de Hume-Rothery para solubilidad ilimitada y por qué la real es limitada.',
+    'Endurecimiento por solución sólida: factores y efectos en las propiedades.',
+    'Diagrama isomorfo Cu–Ni: liquidus, solidus, L + α y rango de solidificación.',
+    'Regla de la palanca: %L y %S, control 100 % y masa de cada fase.',
+    'Curva de enfriamiento de la aleación isomorfa y su diferencia con la del metal puro.',
+    'Microsegregación (homogeneización) y macrosegregación (trabajo en caliente).',
+  ],
+  notPriority: 'Regla de fases de Gibbs (F = C − P + 2): confirmado que no entra. El resto de la unidad sí.',
+
+  lessons: [
+    {
+      id: 'u9-fases',
+      unit: 'u9',
+      title: 'Fase y diagrama de fases',
+      kicker: 'Qué es una fase',
+      minutes: 4,
+      goal: 'Definir fase con sus tres condiciones y explicar qué representa un diagrama de equilibrio.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Una <b>fase</b> es una porción del material que es igual a sí misma en todo su volumen. Si al microscopio ves dos zonas con distinta composición o estructura, son dos fases, aunque las dos sean sólidas. El <b>diagrama de fases</b> es el mapa que dice cuáles hay para cada temperatura y composición.',
+        },
+        {
+          t: 'ol',
+          items: [
+            '<b>Misma estructura:</b> el arreglo atómico es igual en toda esa porción.',
+            '<b>Misma composición y propiedades aproximadas:</b> no hay saltos internos de composición.',
+            '<b>Interface definida:</b> entre esa fase y cualquier otra hay una superficie de separación clara.',
+          ],
+        },
+        {
+          t: 'callout',
+          tone: 'info',
+          title: 'Gibbs no entra',
+          html: 'La regla de fases de Gibbs, <b>F = C − P + 2</b>, está confirmada como <b>fuera del parcial</b>. Sabé que existe y para qué sirve, pero no pierdas tiempo aplicándola.',
+        },
+        {
+          t: 'p',
+          html: 'Un diagrama binario de equilibrio tiene <b>temperatura</b> en el eje vertical y <b>composición</b> en el horizontal. Las líneas separan las zonas monofásicas (una sola fase) de las bifásicas (dos fases). Para leerlo se usa una <b>isoterma</b>: una horizontal a la temperatura que te interesa.',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'La definición de fase con las <b>tres condiciones juntas</b>. Si falta una, no es una fase. Y que sepas que el diagrama es el mapa de fases en equilibrio, no una foto de lo que pasa con enfriamiento rapidísimo.',
+        },
+      ],
+      keyPoints: [
+        'Fase = misma estructura + misma composición/propiedades + interface definida.',
+        'Dos sólidos con distinta composición son dos fases distintas.',
+        'Diagrama de fases: mapa T vs. composición; las líneas separan zonas de 1 y 2 fases.',
+        'Gibbs no entra; la palanca sí.',
+      ],
+    },
+
+    {
+      id: 'u9-solubilidad',
+      unit: 'u9',
+      title: 'Tipos de solubilidad y ejemplos',
+      kicker: 'Ilimitada, limitada y nula',
+      minutes: 5,
+      goal: 'Distinguir los tres tipos de solubilidad, dar el ejemplo de cátedra de cada uno y reconocerlos en el diagrama.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Cuando mezclás dos metales, el soluto puede entrar en la red del solvente (solución sólida) o no. Si entran en <b>cualquier proporción</b>, la solubilidad es ilimitada. Si entran <b>solo hasta un máximo</b>, es limitada: pasado ese límite aparece una segunda fase. Y si directamente <b>no se mezclan</b>, cada uno forma su propia fase.',
+        },
+        {
+          t: 'table',
+          head: ['Tipo', 'Qué pasa', 'Ejemplo de cátedra'],
+          rows: [
+            ['<b>Ilimitada</b>', 'El soluto se disuelve en cualquier proporción: una sola fase sólida α con estructura y composición única.', '<b>Ni–Cu</b> (níquel en cobre)'],
+            ['<b>Limitada</b>', 'Se disuelve hasta un máximo (solvus). Con exceso aparecen dos fases: α saturada + β.', '<b>Zn–Cu</b> (latones); <b>Pb–Sn</b>'],
+            ['<b>Nula</b>', 'No se mezclan: cada componente forma su propia fase.', '<b>Cu–Pb</b> en estado sólido (o aceite y agua)'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'En el diagrama, la solubilidad ilimitada muestra solo <b>liquidus</b> y <b>solidus</b>, con una única fase sólida α debajo. La limitada agrega una tercera línea, el <b>solvus</b>, que marca el máximo de soluto que admite α a cada temperatura; pasado ese límite se entra en <b>α + β</b>. La nula directamente muestra dos fases separadas.',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'Limitada ≠ nula',
+          html: 'En la limitada el soluto <b>sí entra</b>, pero hasta un máximo. En la nula no entra nada: son dos fases separadas. El error clásico es decir que Zn–Cu «no se mezcla»; el zinc sí se disuelve en el cobre, hasta ≈ 35 %.',
+        },
+        {
+          t: 'p',
+          html: 'Ejemplos para fijar: el <b>Pb–Sn</b> de las soldaduras disuelve estaño en plomo hasta ≈ <b>19 %</b> a 183 °C; con más estaño aparecen α + β. El <b>Zn–Cu</b> disuelve zinc en cobre hasta ≈ <b>35 %</b> (fase α); con más zinc aparece β, más dura y frágil. Ese es el origen del endurecimiento por solución sólida.',
+        },
+      ],
+      keyPoints: [
+        'Ilimitada: cualquier proporción, una sola fase sólida. Ejemplo: Ni–Cu.',
+        'Limitada: hasta un máximo (solvus); después α + β. Ejemplos: Zn–Cu y Pb–Sn.',
+        'Nula: no se mezclan; cada uno forma su fase. Ejemplo: Cu–Pb.',
+        'La solubilidad limitada se reconoce por la tercera línea: el solvus.',
+      ],
+    },
+
+    {
+      id: 'u9-hume-rothery',
+      unit: 'u9',
+      title: 'Condiciones para solubilidad ilimitada',
+      kicker: 'Hume-Rothery',
+      minutes: 5,
+      goal: 'Enunciar las cuatro condiciones, explicar qué pasa cuando falla cada una y cerrar con el solvus.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Para que un átomo entre cómodo en la red de otro, tienen que parecerse. Las <b>reglas de Hume-Rothery</b> se enuncian como condiciones para la <b>solubilidad ilimitada</b>; cuando alguna falla, la solubilidad pasa a ser <b>limitada</b>.',
+        },
+        {
+          t: 'table',
+          head: ['Condición', 'Para solubilidad ilimitada se exige…', 'Si no se cumple → limitada porque…'],
+          rows: [
+            ['<b>Tamaño atómico</b>', 'Átomos de tamaño similar: diferencia <b>&lt; 15 %</b>.', 'La red se distorsiona y solo admite soluto hasta cierto porcentaje.'],
+            ['<b>Estructura cristalina</b>', 'La <b>misma</b> estructura cristalina.', 'No hay sitios compatibles; la solubilidad cae mucho.'],
+            ['<b>Valencia</b>', 'La <b>misma valencia</b>.', 'Se generan electrones o vacancias de más y se limita la cantidad soluble.'],
+            ['<b>Electronegatividad</b>', 'Electronegatividad <b>parecida</b>.', 'Tienden a formar compuestos intermetálicos en vez de solución sólida.'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'Además de las reglas hay una <b>causa térmica</b>: incluso cumpliéndolas, la solubilidad máxima existe a una temperatura dada y <b>disminuye al bajar la temperatura</b>. Por eso el <b>solvus</b> marca el límite y, por debajo de él, el exceso de soluto precipita como segunda fase. Ese es el origen del endurecimiento por dispersión de la Unidad 10.',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Respuesta de examen',
+          html: 'Enunciá las <b>cuatro condiciones</b>, decí qué pasa si falla cada una y cerrá con: «por eso aparece el solvus y, pasado el límite, una segunda fase». Esa es la respuesta completa a «condiciones para la solubilidad sólida limitada».',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'No confundir Hume-Rothery con Gibbs',
+          html: 'Hume-Rothery son las <b>condiciones físicas</b> para que el soluto entre (tamaño, estructura, valencia, electronegatividad). Gibbs es la regla de grados de libertad, que <b>no entra</b>.',
+        },
+      ],
+      keyPoints: [
+        'Tamaño < 15 % · misma estructura · misma valencia · electronegatividad parecida.',
+        'Si falla una → solubilidad limitada, no ilimitada.',
+        'Electronegatividades muy distintas → compuesto intermetálico.',
+        'El solvus baja con la temperatura: el exceso precipita como 2.ª fase.',
+      ],
+    },
+
+    {
+      id: 'u9-solucion-solida',
+      unit: 'u9',
+      title: 'Endurecimiento por solución sólida',
+      kicker: 'Átomos que frenan dislocaciones',
+      minutes: 4,
+      goal: 'Explicar el mecanismo, los dos factores que lo aumentan y los cuatro efectos sobre las propiedades.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Ocurre cuando el aleante entra como <b>átomo sustitucional</b> en la red del metal base. El átomo distinto <b>deforma la red</b> y dificulta el movimiento de las dislocaciones: la aleación queda más resistente que el metal puro. Es como poner una piedra en el camino de las dislocaciones.',
+        },
+        {
+          t: 'ol',
+          items: [
+            '<b>Diferencia de tamaño atómico:</b> a mayor diferencia, más distorsión y más endurecimiento.',
+            '<b>Cantidad de aleante:</b> cuanto más se agrega, mayor es el efecto, siempre hasta el límite de solubilidad.',
+          ],
+        },
+        {
+          t: 'ul',
+          items: [
+            'Suben la <b>tensión de fluencia</b>, la <b>tensión de rotura</b> y la <b>dureza</b> respecto del metal puro.',
+            'Baja la <b>ductilidad</b>.',
+            'Baja mucho la <b>conductividad eléctrica</b>: los átomos extraños dispersan los electrones.',
+            'Mejora la <b>resistencia a la termofluencia</b>.',
+          ],
+        },
+        {
+          t: 'p',
+          html: 'Ejemplo: el <b>latón</b> (Zn en Cu) es más duro que el cobre porque cada átomo de Zn distorsiona la red y frena las dislocaciones. Hasta ≈ 35 % de Zn queda una sola fase α; si se sigue agregando aparece β, más dura y frágil. Es endurecimiento por solución sólida puro.',
+        },
+        {
+          t: 'callout',
+          tone: 'info',
+          title: 'No es dispersión',
+          html: 'Acá el soluto está <b>disuelto en la red</b>, átomo por átomo. En la Unidad 10, el endurecimiento por dispersión usa <b>partículas</b> de otra fase. Son mecanismos distintos.',
+        },
+      ],
+      keyPoints: [
+        'Átomo sustitucional distorsiona la red y frena dislocaciones.',
+        'Depende de la diferencia de tamaño y de la cantidad de aleante (hasta el límite).',
+        'Sube σy, σut y dureza; baja ductilidad y conductividad; mejora termofluencia.',
+        'Ejemplo: Zn en Cu (latón) hasta ≈ 35 %; después aparece β.',
+      ],
+    },
+
+    {
+      id: 'u9-isomorfo',
+      unit: 'u9',
+      title: 'Diagrama isomorfo Cu–Ni',
+      kicker: 'Liquidus, solidus y L + α',
+      minutes: 5,
+      goal: 'Leer el diagrama isomorfo, ubicar las tres zonas y explicar por qué CL y CS son distintas de CA.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'En un diagrama <b>isomorfo</b> los dos componentes son solubles en todo rango: hay una sola fase sólida, α. El Cu y el Ni lo son. El diagrama tiene dos líneas curvas: el <b>liquidus</b> (arriba: todo líquido) y el <b>solidus</b> (abajo: todo sólido α). Entre las dos, líquido y sólido conviven.',
+        },
+        {
+          t: 'table',
+          head: ['Zona / línea', 'Qué hay', 'Cómo se lee'],
+          rows: [
+            ['<b>Liquidus</b>', 'Por encima de la línea: todo líquido L.', 'Al cruzarla empieza a formarse el primer sólido α.'],
+            ['<b>Solidus</b>', 'Por debajo de la línea: todo sólido α.', 'Al cruzarla desaparece la última gota de líquido.'],
+            ['<b>L + α</b>', 'Entre liquidus y solidus: las dos fases.', 'Se traza una isoterma y se leen CL (liquidus) y CS (solidus).'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'La composición global <b>CA</b> es una vertical fija: no cambia al enfriar. Lo que cambia son las composiciones de cada fase: el <b>líquido es más rico en el componente de menor punto de fusión</b> (Cu) y el <b>sólido en el de mayor</b> (Ni). En la zona bifásica, CL y CS se leen sobre la isoterma, una en cada curva.',
+        },
+        {
+          t: 'p',
+          html: 'Ejemplo de cátedra: Cu–35 % Ni a 1250 °C. La isoterma corta el liquidus en <b>CL = 32 % Ni</b> y el solidus en <b>CS = 43 % Ni</b>. La aleación está entre las dos composiciones; por eso hay L + α. El <b>rango de solidificación</b> es la diferencia entre las temperaturas de liquidus y solidus para esa composición.',
+        },
+        {
+          t: 'diagram',
+          id: 'isomorfo',
+          label: 'Abrir el diagrama Cu–Ni con la isoterma de 1250 °C',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'Tres errores clásicos',
+          html: '<b>CA no cambia</b> al enfriar. <b>CL</b> se lee en el liquidus y <b>CS</b> en el solidus (no al revés). Y en la zona L + α no hay una sola composición: hay dos, una por fase.',
+        },
+      ],
+      keyPoints: [
+        'Isomorfo = solubilidad total; una sola fase sólida α.',
+        'Liquidus: arriba todo L; al cruzarlo aparece el primer sólido.',
+        'Solidus: debajo todo α; al cruzarlo desaparece el último líquido.',
+        'Entre las curvas: L + α; se leen CL y CS con una isoterma.',
+        'CA es vertical fija; el líquido es más rico en Cu y el sólido en Ni.',
+      ],
+    },
+
+    {
+      id: 'u9-palanca',
+      unit: 'u9',
+      title: 'Regla de la palanca: %L y %S',
+      kicker: 'La cuenta más probable',
+      minutes: 6,
+      goal: 'Aplicar las fórmulas de %L y %S, controlar que sumen 100 % y calcular la masa de cada fase.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'En la zona de dos fases necesitás saber <b>cuánto hay de cada una</b>. La regla de la palanca es una regla de proporciones: cuanto más cerca está la aleación de una fase, más hay de esa fase. El numerador es la <b>distancia opuesta</b> a la fase que calculás; el denominador es la <b>isoterma completa</b>.',
+        },
+        {
+          t: 'formula',
+          expr: '%L = (CS − CA) / (CS − CL) · 100',
+          note: 'CL en el liquidus, CS en el solidus, CA es la composición global. El numerador es el brazo derecho.',
+        },
+        {
+          t: 'formula',
+          expr: '%S = (CA − CL) / (CS − CL) · 100',
+          note: 'El denominador es siempre CS − CL, la longitud total de la isoterma.',
+        },
+        {
+          t: 'callout',
+          tone: 'tip',
+          title: 'Control de 2 segundos',
+          html: 'Siempre <b>%L + %S = 100 %</b>. Si no da 100, revisá los numeradores. La fase cuya composición está más lejos de CA es la que está en <b>menor</b> cantidad.',
+        },
+        {
+          t: 'p',
+          html: 'Ejemplo resuelto: Cu–35 % Ni a 1250 °C, con CL = 32 % y CS = 43 %. La isoterma mide 43 − 32 = <b>11</b>. Entonces %L = (43 − 35)/11 × 100 = 8/11 = <b>72,7 %</b> y %S = (35 − 32)/11 × 100 = 3/11 = <b>27,3 %</b>. Control: 72,7 + 27,3 = 100 %. Hay más líquido porque 35 está más cerca de 32 que de 43.',
+        },
+        {
+          t: 'p',
+          html: 'Si piden <b>masa</b>: multiplicá el porcentaje por la masa total. Para 2 kg: mL = 0,727 × 2000 g = <b>1454 g</b> y mS = 0,273 × 2000 g = <b>546 g</b>. La palanca reparte cantidades; <b>no cambia las composiciones</b>: el líquido sigue con 32 % Ni y el sólido con 43 % Ni.',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'Los 4 errores que más se pagan',
+          html: '1) Invertir los numeradores. 2) Usar otro denominador en vez de <b>CS − CL</b>. 3) Leer CL en el solidus o CS en el liquidus. 4) Olvidar el <b>× 100</b>. En zona monofásica no se aplica: la fase es el 100 %.',
+        },
+        {
+          t: 'diagram',
+          id: 'isomorfo',
+          label: 'Ver la isoterma y los brazos de la palanca',
+        },
+        {
+          t: 'lab',
+          id: 'palanca',
+          label: 'Practicar con el simulador de palanca',
+        },
+      ],
+      keyPoints: [
+        '%L = (CS − CA)/(CS − CL) × 100.',
+        '%S = (CA − CL)/(CS − CL) × 100.',
+        'Denominador siempre CS − CL; control %L + %S = 100 %.',
+        'La fase más lejana a CA es la menos abundante.',
+        'Masa: m = (%/100) × mtotal. La composición de cada fase no cambia.',
+      ],
+    },
+
+    {
+      id: 'u9-curva-aleacion',
+      unit: 'u9',
+      title: 'Curva de enfriamiento de la aleación',
+      kicker: 'Dos quiebres, sin meseta',
+      minutes: 5,
+      goal: 'Dibujar la curva de una aleación isomorfa y explicar las diferencias con la del metal puro de la U8.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'La aleación isomorfa <b>no solidifica a temperatura constante</b>. Su curva de enfriamiento tiene <b>dos cambios de pendiente</b>: uno en el <b>liquidus</b> (aparece el primer sólido α) y otro en el <b>solidus</b> (desaparece el último líquido). Entre los dos, la temperatura sigue bajando por la zona L + α. <b>No hay meseta horizontal.</b>',
+        },
+        {
+          t: 'table',
+          head: ['Tramo', 'Metal puro (U8)', 'Aleación isomorfa (U9)'],
+          rows: [
+            ['Enfriamiento del líquido', 'Baja hasta Tf.', 'Baja hasta el liquidus.'],
+            ['Solidificación', 'Ocurre en una <b>meseta horizontal</b> a Tf.', 'Ocurre en un <b>rango</b> entre liquidus y solidus; T sigue bajando.'],
+            ['Quiebres de la curva', '<b>Uno</b>: la meseta.', '<b>Dos</b>: liquidus y solidus (cambios de pendiente).'],
+            ['Después de solidificar', 'Sólido baja de temperatura.', 'Sólido α baja de temperatura.'],
+            ['Tiempo local', 'Duración de la meseta.', 'No hay meseta: el rango se mide entre liquidus y solidus.'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'Ejemplo: Cu–40 % Ni. El liquidus está en <b>1280 °C</b> y el solidus en <b>1240 °C</b>. El rango de solidificación es ΔT = 1280 − 1240 = <b>40 °C</b>. La curva baja de 1280 a 1240 sin quedarse horizontal: el calor latente se libera <b>a lo largo de todo el intervalo</b>, no en un solo punto.',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'No dibujar una meseta en la U9',
+          html: 'La meseta horizontal es de la <b>U8 (metal puro)</b> y de la <b>U10 (eutéctica)</b>. La aleación isomorfa de la U9 tiene <b>dos quiebres</b> y un tramo inclinado L + α. Si dibujás una meseta en la U9, el gráfico está mal.',
+        },
+        {
+          t: 'p',
+          html: '¿Por qué cambia la pendiente? En el liquidus empieza a formarse sólido y se libera calor latente: la curva se hace <b>menos empinada</b>. En el solidus se termina el líquido y vuelve a enfriarse sólo el sólido: la pendiente <b>vuelve a aumentar</b>. El profesor toma las curvas de la U8, la U9 y la U10: tenelas las tres bien separadas.',
+        },
+        {
+          t: 'diagram',
+          id: 'curva-aleacion',
+          label: 'Ver la curva de la aleación con liquidus y solidus',
+        },
+      ],
+      keyPoints: [
+        'Aleación isomorfa: dos quiebres (liquidus y solidus), no una meseta.',
+        'Entre liquidus y solidus: L + α; la temperatura sigue bajando.',
+        'ΔT = TL − TS; ejemplo Cu–40 % Ni: 1280 − 1240 = 40 °C.',
+        'El calor latente se libera durante todo el rango, no a T constante.',
+        'U8: meseta. U9: rampa con dos quiebres. U10: meseta eutéctica.',
+      ],
+    },
+
+    {
+      id: 'u9-segregacion',
+      unit: 'u9',
+      title: 'Solidificación fuera de equilibrio: segregación',
+      kicker: 'Coring y macro',
+      minutes: 4,
+      goal: 'Distinguir micro y macrosegregación, explicar por qué se producen y cómo se corrigen.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Si el enfriamiento es demasiado rápido, los átomos no tienen tiempo de difundir y cada zona queda con la composición del momento en que solidificó. El sólido que se forma primero es más rico en el metal de <b>mayor</b> punto de fusión; el líquido que queda se enriquece en el de <b>menor</b>. Eso rompe la homogeneidad que predice el diagrama de equilibrio.',
+        },
+        {
+          t: 'table',
+          head: ['Tipo', 'Dónde ocurre', 'Cómo se corrige'],
+          rows: [
+            ['<b>Microsegregación</b> (coring)', 'Distancias cortas, entre brazos dendríticos. α tiene composición distinta en el centro y en el borde.', '<b>Homogeneización</b>: tratamiento térmico; la difusión funciona a corta distancia.'],
+            ['<b>Macrosegregación</b>', 'Entre la superficie y el centro de la pieza. Las distancias son demasiado grandes para difundir.', '<b>Trabajo en caliente</b>: no se elimina con homogeneización.'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'La clave para diferenciarlas es la <b>escala</b> y el <b>método de corrección</b>. La homogeneización sólo sirve a distancias cortas (brazos dendríticos). Para la superficie–centro hace falta deformación en caliente, que mezcla el material mecánicamente.',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'Que expliques que el <b>coring</b> aparece por falta de difusión, que el centro del brazo es rico en el metal de mayor T de fusión y el borde en el de menor, y que la corrección cambia según la escala: homogeneización (micro) vs. trabajo en caliente (macro).',
+        },
+      ],
+      keyPoints: [
+        'Enfriamiento rápido → no hay difusión → segregación.',
+        'Micro (coring): brazos dendríticos; se corrige con homogeneización.',
+        'Macro: superficie–centro; se reduce con trabajo en caliente.',
+        'El sólido primero es más rico en el metal de mayor punto de fusión.',
+      ],
+    },
+  ],
+
+  formulas: [
+    { id: 'f9-01', group: 'Palanca', name: 'Porcentaje de líquido', expr: '%L = (CS − CA) / (CS − CL) · 100', note: 'CL en el liquidus; CS en el solidus; CA es la composición global.' },
+    { id: 'f9-02', group: 'Palanca', name: 'Porcentaje de sólido', expr: '%S = (CA − CL) / (CS − CL) · 100', note: 'El denominador es siempre la isoterma completa CS − CL.' },
+    { id: 'f9-03', group: 'Palanca', name: 'Control de la palanca', expr: '%L + %S = 100 %', note: 'Si no da 100, revisá los numeradores o el denominador.' },
+    { id: 'f9-05', group: 'Palanca', name: 'Masa de una fase', expr: 'm_fase = (%fase / 100) · m_total', note: 'La palanca reparte cantidades; las composiciones CL y CS no cambian.' },
+    { id: 'f9-06', group: 'Palanca', name: 'Palanca general', expr: '%fase = (C_opuesta − CA) / (C_opuesta − C_fase) · 100', note: 'El numerador es el brazo opuesto a la fase que calculás.' },
+    { id: 'f9-04', group: 'Solidificación', name: 'Rango de solidificación', expr: 'ΔT = TL − TS', note: 'TL: temperatura de liquidus; TS: temperatura de solidus, para la composición de la aleación.' },
+  ],
+
+  cards: [
+    { id: 'c9-01', unit: 'u9', topic: 'fases', front: '¿Qué es una fase?', back: 'Una porción del material con la misma estructura, aproximadamente la misma composición y propiedades, y una interface bien definida con cualquier otra fase.' },
+    { id: 'c9-02', unit: 'u9', topic: 'fases', front: 'Las 3 condiciones de una fase', back: '1) Misma estructura (arreglo atómico). 2) Misma composición y propiedades aproximadas. 3) Interface bien definida. Si falta una, no es una fase.' },
+    { id: 'c9-03', unit: 'u9', topic: 'fases', front: '¿Qué representa un diagrama de fases?', back: 'El mapa de equilibrio: para cada temperatura y composición dice qué fases hay, de qué composición y en qué cantidad (con la palanca).' },
+    { id: 'c9-04', unit: 'u9', topic: 'fases', front: '¿Entra la regla de Gibbs?', back: 'No. F = C − P + 2 está confirmada fuera del parcial. Sí entran la palanca y las condiciones de solubilidad.' },
+    { id: 'c9-05', unit: 'u9', topic: 'solubilidad', front: 'Solubilidad ilimitada: definición y ejemplo', back: 'El soluto se disuelve en cualquier proporción y queda una sola fase sólida α. Ejemplo de cátedra: Ni–Cu.' },
+    { id: 'c9-06', unit: 'u9', topic: 'solubilidad', front: 'Solubilidad limitada: definición y ejemplo', back: 'El soluto entra hasta un máximo (solvus); con exceso aparecen dos fases (α + β). Ejemplos: Zn–Cu (latones) y Pb–Sn.' },
+    { id: 'c9-07', unit: 'u9', topic: 'solubilidad', front: 'Solubilidad nula: definición y ejemplo', back: 'No se mezclan: cada componente forma su propia fase. Ejemplo: Cu–Pb en estado sólido (o aceite y agua).' },
+    { id: 'c9-08', unit: 'u9', topic: 'solubilidad', front: '¿Qué es el solvus?', back: 'La línea que marca el máximo de soluto que admite la fase sólida a cada temperatura. Pasado ese límite aparece una segunda fase.' },
+    { id: 'c9-09', unit: 'u9', topic: 'solubilidad', front: 'Diferencia entre solubilidad limitada y nula', back: 'En la limitada el soluto sí entra hasta un máximo; en la nula no entra nada. Zn–Cu es limitada (hasta ≈ 35 %); Cu–Pb es nula.' },
+    { id: 'c9-10', unit: 'u9', topic: 'hume-rothery', front: 'Condición de tamaño atómico', back: 'Diferencia de tamaño < 15 % para aspirar a solubilidad ilimitada. Si es mayor, la red se distorsiona y solo admite soluto hasta cierto porcentaje.' },
+    { id: 'c9-11', unit: 'u9', topic: 'hume-rothery', front: 'Las otras 3 condiciones de Hume-Rothery', back: 'Misma estructura cristalina, misma valencia y electronegatividad parecida. Si falla una, la solubilidad es limitada.' },
+    { id: 'c9-12', unit: 'u9', topic: 'hume-rothery', front: '¿Qué pasa si las electronegatividades son muy distintas?', back: 'Tienden a formar compuestos intermetálicos en lugar de una solución sólida, y la solubilidad se limita.' },
+    { id: 'c9-13', unit: 'u9', topic: 'hume-rothery', front: 'Causa térmica de la solubilidad limitada', back: 'Aun cumpliendo Hume-Rothery, la solubilidad máxima existe a una temperatura y disminuye al enfriar. Por eso el solvus limita y el exceso precipita como segunda fase.' },
+    { id: 'c9-14', unit: 'u9', topic: 'hume-rothery', front: 'Respuesta completa sobre condiciones de solubilidad', back: 'Enunciar las 4 condiciones, decir qué pasa si falla cada una y cerrar: «por eso aparece el solvus y, pasado el límite, una segunda fase».' },
+    { id: 'c9-15', unit: 'u9', topic: 'solucion-solida', front: '¿Qué es el endurecimiento por solución sólida?', back: 'El aleante entra como átomo sustitucional, distorsiona la red y dificulta el movimiento de dislocaciones. La aleación queda más resistente que el metal puro.' },
+    { id: 'c9-16', unit: 'u9', topic: 'solucion-solida', front: '¿De qué depende el endurecimiento por solución sólida?', back: 'De la diferencia de tamaño atómico (más diferencia → más distorsión) y de la cantidad de aleante (hasta el límite de solubilidad).' },
+    { id: 'c9-17', unit: 'u9', topic: 'solucion-solida', front: 'Efectos sobre las propiedades', back: 'Suben σy, σut y dureza; baja la ductilidad; baja mucho la conductividad eléctrica; mejora la resistencia a la termofluencia.' },
+    { id: 'c9-18', unit: 'u9', topic: 'solucion-solida', front: '¿Por qué el latón es más duro que el cobre?', back: 'El Zn disuelto distorsiona la red del Cu y frena dislocaciones. Hasta ≈ 35 % queda α; con más Zn aparece β, aún más dura y frágil.' },
+    { id: 'c9-19', unit: 'u9', topic: 'isomorfo', front: '¿Qué es el liquidus?', back: 'La línea por encima de la cual todo es líquido. Al cruzarla empieza a formarse el primer sólido α.' },
+    { id: 'c9-20', unit: 'u9', topic: 'isomorfo', front: '¿Qué es el solidus?', back: 'La línea por debajo de la cual todo es sólido α. Al cruzarla desaparece la última gota de líquido.' },
+    { id: 'c9-21', unit: 'u9', topic: 'isomorfo', front: '¿Qué hay entre liquidus y solidus?', back: 'La zona bifásica L + α. Se traza una isoterma y se leen CL (en el liquidus) y CS (en el solidus).' },
+    { id: 'c9-22', unit: 'u9', topic: 'isomorfo', front: '¿CA, CL y CS qué son?', back: 'CA: composición global de la aleación (vertical fija). CL: composición del líquido en el liquidus. CS: composición del sólido en el solidus.' },
+    { id: 'c9-23', unit: 'u9', topic: 'isomorfo', front: 'En Cu–Ni, ¿qué fase es más rica en Cu?', back: 'El líquido es más rico en Cu (menor punto de fusión) y el sólido α en Ni (mayor punto de fusión).' },
+    { id: 'c9-24', unit: 'u9', topic: 'palanca', front: 'Fórmula del % de líquido', back: '%L = (CS − CA)/(CS − CL) × 100. El numerador es el brazo derecho; el denominador es la isoterma completa.' },
+    { id: 'c9-25', unit: 'u9', topic: 'palanca', front: 'Fórmula del % de sólido', back: '%S = (CA − CL)/(CS − CL) × 100. Siempre se controla que %L + %S = 100 %.' },
+    { id: 'c9-26', unit: 'u9', topic: 'palanca', front: 'Errores clásicos de la palanca', back: 'Invertir numeradores, usar mal el denominador (siempre CS − CL), leer CL/CS en el eje equivocado y olvidar el × 100.' },
+    { id: 'c9-27', unit: 'u9', topic: 'palanca', front: '¿Qué pasa en una zona monofásica?', back: 'La fase es el 100 %; no se aplica la palanca. La palanca solo se usa en la zona bifásica.' },
+    { id: 'c9-28', unit: 'u9', topic: 'curva-aleacion', front: 'Curva de enfriamiento de una aleación isomorfa', back: 'Dos cambios de pendiente: liquidus (primer sólido) y solidus (último líquido). No hay meseta horizontal; la T sigue bajando en L + α.' },
+    { id: 'c9-29', unit: 'u9', topic: 'curva-aleacion', front: '¿Qué significa el quiebre del liquidus?', back: 'Que aparece el primer sólido α y empieza a liberarse calor latente. La pendiente se hace menos empinada, pero la temperatura sigue bajando.' },
+    { id: 'c9-30', unit: 'u9', topic: 'curva-aleacion', front: '¿Qué significa el quiebre del solidus?', back: 'Que desaparece el último líquido. Termina la solidificación y el sólido α vuelve a enfriarse: la pendiente se hace más empinada.' },
+    { id: 'c9-31', unit: 'u9', topic: 'curva-aleacion', front: 'Diferencia U8 vs. U9', back: 'U8 (metal puro): una meseta horizontal a Tf. U9 (aleación isomorfa): dos quiebres y un tramo inclinado L + α, sin meseta.' },
+    { id: 'c9-32', unit: 'u9', topic: 'segregacion', front: 'Micro vs. macrosegregación', back: 'Micro (coring): entre brazos dendríticos; se corrige con homogeneización. Macro: superficie–centro; se reduce con trabajo en caliente.' },
+  ],
+
+  quiz: [
+    {
+      id: 'q9-01', unit: 'u9', topic: 'fases', type: 'mcq',
+      q: '¿Cuáles son las tres condiciones que debe cumplir una fase?',
+      options: ['Misma estructura, misma composición/propiedades e interface definida', 'Ser líquida, sólida y gaseosa a la vez', 'Tener la misma densidad, color y brillo', 'Estar por encima del liquidus'],
+      correct: 0,
+      explain: 'Una fase es una porción homogénea: misma estructura, composición y propiedades aproximadas, y una interface bien definida con las demás fases.',
+    },
+    {
+      id: 'q9-02', unit: 'u9', topic: 'fases', type: 'mcq',
+      q: '¿La regla de fases de Gibbs entra en el parcial?',
+      options: ['No, está confirmado que no entra', 'Sí, es el tema principal', 'Solo para diagramas isomorfos', 'Solo si el diagrama tiene solvus'],
+      correct: 0,
+      explain: 'El profesor confirmó que Gibbs (F = C − P + 2) no entra. Sí entran la palanca y las condiciones de solubilidad.',
+    },
+    {
+      id: 'q9-03', unit: 'u9', topic: 'solubilidad', type: 'mcq',
+      q: '¿Cuál es el ejemplo de cátedra de solubilidad ilimitada?',
+      options: ['Ni–Cu', 'Zn–Cu', 'Cu–Pb', 'Pb–Sn'],
+      correct: 0,
+      explain: 'Ni–Cu es isomorfo: una sola fase sólida α en todo el rango de composición.',
+    },
+    {
+      id: 'q9-04', unit: 'u9', topic: 'solubilidad', type: 'mcq',
+      q: 'El Zn en Cu (latón) es un ejemplo de solubilidad:',
+      options: ['Limitada: entra hasta ≈ 35 % y después aparece β', 'Ilimitada: entra en cualquier proporción', 'Nula: no se mezclan', 'Gaseosa'],
+      correct: 0,
+      explain: 'El Zn se disuelve en Cu hasta ≈ 35 % (fase α). Con más Zn aparece la fase β, más dura y frágil.',
+    },
+    {
+      id: 'q9-05', unit: 'u9', topic: 'solubilidad', type: 'mcq',
+      q: '¿Qué sistema es de solubilidad nula en estado sólido?',
+      options: ['Cu–Pb', 'Ni–Cu', 'Zn–Cu', 'Pb–Sn en fase α'],
+      correct: 0,
+      explain: 'Cu y Pb no se mezclan en estado sólido: cada uno forma su propia fase. Es el ejemplo de solubilidad nula.',
+    },
+    {
+      id: 'q9-06', unit: 'u9', topic: 'solubilidad', type: 'mcq',
+      q: '¿Qué línea marca el máximo de soluto que admite la fase sólida?',
+      options: ['El solvus', 'El liquidus', 'El solidus', 'La isoterma eutéctica'],
+      correct: 0,
+      explain: 'El solvus fija la solubilidad máxima a cada temperatura. Pasado ese límite aparece una segunda fase.',
+    },
+    {
+      id: 'q9-07', unit: 'u9', topic: 'solubilidad', type: 'mcq',
+      q: 'La diferencia entre solubilidad limitada y nula es que:',
+      options: ['En la limitada el soluto entra hasta un máximo; en la nula no entra nada', 'En la nula el soluto entra en cualquier proporción', 'Son sinónimos', 'La limitada solo ocurre en líquidos'],
+      correct: 0,
+      explain: 'Limitada = entra hasta el solvus (Zn–Cu). Nula = no se mezclan (Cu–Pb).',
+    },
+    {
+      id: 'q9-08', unit: 'u9', topic: 'hume-rothery', type: 'mcq',
+      q: '¿Qué diferencia de tamaño atómico se exige para aspirar a solubilidad ilimitada?',
+      options: ['Menor al 15 %', 'Menor al 50 %', 'Mayor al 15 %', 'No importa el tamaño'],
+      correct: 0,
+      explain: 'La regla de tamaño de Hume-Rothery pide una diferencia < 15 %. Si es mayor, la red se distorsiona y la solubilidad se limita.',
+    },
+    {
+      id: 'q9-09', unit: 'u9', topic: 'hume-rothery', type: 'mcq',
+      q: 'Además del tamaño, ¿qué otras condiciones pide Hume-Rothery?',
+      options: ['Misma estructura, misma valencia y electronegatividad parecida', 'Distinta estructura y distinta valencia', 'Que uno sea líquido y el otro gaseoso', 'Solo que tengan distinto color'],
+      correct: 0,
+      explain: 'Las cuatro condiciones son: tamaño < 15 %, misma estructura cristalina, misma valencia y electronegatividad parecida.',
+    },
+    {
+      id: 'q9-10', unit: 'u9', topic: 'hume-rothery', type: 'mcq',
+      q: 'Si las electronegatividades son muy distintas, lo más probable es que:',
+      options: ['Se forme un compuesto intermetálico en vez de una solución sólida', 'La solubilidad sea ilimitada', 'No cambie nada', 'El material se vuelva un gas'],
+      correct: 0,
+      explain: 'La diferencia de electronegatividad favorece compuestos intermetálicos y limita la solución sólida.',
+    },
+    {
+      id: 'q9-11', unit: 'u9', topic: 'hume-rothery', type: 'mcq',
+      q: '¿Por qué la solubilidad real suele ser limitada aunque se cumplan las reglas?',
+      options: ['Porque la solubilidad máxima depende de la temperatura y baja al enfriar (solvus)', 'Porque los átomos dejan de existir', 'Porque el liquidus desaparece', 'Porque la palanca lo impide'],
+      correct: 0,
+      explain: 'Aun cumpliendo Hume-Rothery, la solubilidad máxima existe a una temperatura y disminuye al enfriar; el exceso precipita como segunda fase.',
+    },
+    {
+      id: 'q9-12', unit: 'u9', topic: 'solucion-solida', type: 'mcq',
+      q: 'El endurecimiento por solución sólida se produce porque:',
+      options: ['El átomo sustitucional distorsiona la red y frena las dislocaciones', 'Se agregan partículas de otra fase', 'El material se calienta hasta fundirse', 'Disminuye la cantidad de átomos'],
+      correct: 0,
+      explain: 'El soluto sustitucional deforma la red y dificulta el movimiento de dislocaciones; la aleación queda más resistente.',
+    },
+    {
+      id: 'q9-13', unit: 'u9', topic: 'solucion-solida', type: 'mcq',
+      q: '¿De qué depende el grado de endurecimiento por solución sólida?',
+      options: ['De la diferencia de tamaño atómico y de la cantidad de aleante', 'Solo del color del metal', 'De la presión atmosférica', 'De la regla de Gibbs'],
+      correct: 0,
+      explain: 'A mayor diferencia de tamaño y mayor cantidad de aleante (hasta el límite), mayor distorsión y endurecimiento.',
+    },
+    {
+      id: 'q9-14', unit: 'u9', topic: 'solucion-solida', type: 'mcq',
+      q: '¿Cuál es el efecto del endurecimiento por solución sólida sobre las propiedades?',
+      options: ['Suben σy, σut y dureza; baja la ductilidad y la conductividad', 'Suben ductilidad y conductividad', 'Baja la dureza y sube la ductilidad', 'No cambia ninguna propiedad'],
+      correct: 0,
+      explain: 'Suben resistencia y dureza, baja la ductilidad, baja mucho la conductividad y mejora la resistencia a la termofluencia.',
+    },
+    {
+      id: 'q9-15', unit: 'u9', topic: 'solucion-solida', type: 'mcq',
+      q: '¿Por qué el latón es más duro que el cobre?',
+      options: ['El Zn disuelto distorsiona la red del Cu y frena dislocaciones', 'El Zn forma una meseta eutéctica', 'El Cu se vuelve más dúctil', 'Porque el latón tiene menos átomos'],
+      correct: 0,
+      explain: 'Es endurecimiento por solución sólida: el Zn sustitucional distorsiona la red. Hasta ≈ 35 % queda α; después aparece β.',
+    },
+    {
+      id: 'q9-16', unit: 'u9', topic: 'isomorfo', type: 'mcq',
+      q: '¿Qué hay por encima de la línea de liquidus?',
+      options: ['Todo líquido', 'Todo sólido α', 'Líquido + sólido', 'Solo la fase β'],
+      correct: 0,
+      explain: 'Por encima del liquidus todo es líquido. Al cruzar el liquidus empieza a formarse el primer sólido α.',
+    },
+    {
+      id: 'q9-17', unit: 'u9', topic: 'isomorfo', type: 'mcq',
+      q: '¿Qué hay por debajo del solidus?',
+      options: ['Todo sólido α', 'Todo líquido', 'Líquido + α', 'Dos fases líquidas'],
+      correct: 0,
+      explain: 'Por debajo del solidus todo es sólido α. Al cruzar el solidus desaparece la última gota de líquido.',
+    },
+    {
+      id: 'q9-18', unit: 'u9', topic: 'isomorfo', type: 'mcq',
+      q: 'En la zona entre liquidus y solidus de un diagrama isomorfo hay:',
+      options: ['L + α, con CL en el liquidus y CS en el solidus', 'Solo α', 'Solo líquido', 'α + β, dos sólidos'],
+      correct: 0,
+      explain: 'Entre las dos curvas coexisten líquido y sólido α. Se leen CL y CS con una isoterma.',
+    },
+    {
+      id: 'q9-19', unit: 'u9', topic: 'isomorfo', type: 'mcq',
+      q: 'En Cu–Ni, ¿qué fase es más rica en Ni?',
+      options: ['El sólido α', 'El líquido', 'Las dos tienen igual composición', 'La fase β'],
+      correct: 0,
+      explain: 'El sólido α es más rico en Ni (mayor punto de fusión); el líquido es más rico en Cu (menor punto de fusión).',
+    },
+    {
+      id: 'q9-20', unit: 'u9', topic: 'isomorfo', type: 'mcq',
+      q: 'La composición global CA de la aleación, al enfriar:',
+      options: ['No cambia: es una vertical fija', 'Se mueve hacia el líquido', 'Se mueve hacia el sólido', 'Desaparece en la zona bifásica'],
+      correct: 0,
+      explain: 'CA es la composición global y no cambia. Lo que cambian son las composiciones de cada fase, CL y CS.',
+    },
+    {
+      id: 'q9-21', unit: 'u9', topic: 'palanca', type: 'mcq',
+      q: 'La fórmula correcta del porcentaje de líquido es:',
+      options: ['%L = (CS − CA)/(CS − CL) × 100', '%L = (CA − CL)/(CS − CL) × 100', '%L = (CS − CL)/(CS − CA) × 100', '%L = CA/CL × 100'],
+      correct: 0,
+      explain: 'El %L usa el brazo opuesto al líquido, CS − CA, sobre la isoterma completa CS − CL.',
+    },
+    {
+      id: 'q9-22', unit: 'u9', topic: 'palanca', type: 'mcq',
+      q: 'El denominador de la regla de la palanca es siempre:',
+      options: ['CS − CL, la isoterma completa', 'CA − CL', 'CS − CA', 'CA + CL'],
+      correct: 0,
+      explain: 'El denominador es la longitud total de la isoterma, CS − CL. No cambia según la fase que calcules.',
+    },
+    {
+      id: 'q9-23', unit: 'u9', topic: 'palanca', type: 'mcq',
+      q: 'Si CA está más cerca de CL que de CS, entonces:',
+      options: ['Hay más líquido que sólido', 'Hay más sólido que líquido', 'Hay partes iguales', 'No se puede saber'],
+      correct: 0,
+      explain: 'La fase cuya composición está más cerca de CA es la más abundante. Si CA está cerca de CL, hay más líquido.',
+    },
+    {
+      id: 'q9-24', unit: 'u9', topic: 'palanca', type: 'mcq',
+      q: 'En una zona monofásica, el porcentaje de fase es:',
+      options: ['100 %; no se aplica la palanca', '50 %', '0 %', 'Depende de la temperatura'],
+      correct: 0,
+      explain: 'Si hay una sola fase, esa fase es el 100 %. La palanca solo se aplica en la zona bifásica.',
+    },
+    {
+      id: 'q9-25', unit: 'u9', topic: 'curva-aleacion', type: 'mcq',
+      q: '¿Cuál es la diferencia principal entre la curva del metal puro (U8) y la de la aleación isomorfa (U9)?',
+      options: ['El metal puro tiene una meseta horizontal; la aleación tiene dos quiebres y un tramo inclinado', 'La aleación tiene una meseta y el metal puro no', 'Las dos tienen exactamente la misma forma', 'La aleación no se enfría'],
+      correct: 0,
+      explain: 'El metal puro solidifica a T constante (meseta). La aleación isomorfa solidifica en un rango: liquidus y solidus son dos quiebres, sin meseta.',
+    },
+    {
+      id: 'q9-26', unit: 'u9', topic: 'curva-aleacion', type: 'mcq',
+      q: '¿La curva de la aleación isomorfa tiene una meseta horizontal?',
+      options: ['No; la temperatura sigue bajando entre liquidus y solidus', 'Sí, en el liquidus', 'Sí, en el solidus', 'Sí, pero solo si enfría rápido'],
+      correct: 0,
+      explain: 'No hay meseta: el calor latente se libera durante todo el rango de solidificación. La meseta es del metal puro (U8) y del eutéctico (U10).',
+    },
+    {
+      id: 'q9-27', unit: 'u9', topic: 'curva-aleacion', type: 'mcq',
+      q: 'El primer cambio de pendiente de la curva de la aleación ocurre cuando:',
+      options: ['Se llega al liquidus y aparece el primer sólido α', 'Se llega al solidus y desaparece el líquido', 'Termina el enfriamiento', 'Se alcanza la temperatura ambiente'],
+      correct: 0,
+      explain: 'En el liquidus empieza la solidificación: aparece el primer sólido y se libera calor latente; la pendiente se hace menos empinada.',
+    },
+    {
+      id: 'q9-28', unit: 'u9', topic: 'curva-aleacion', type: 'mcq',
+      q: 'El segundo quiebre de la curva de la aleación marca:',
+      options: ['El solidus: desaparece el último líquido', 'El liquidus: aparece el primer sólido', 'El inicio del calentamiento', 'La temperatura de fusión del metal puro'],
+      correct: 0,
+      explain: 'En el solidus termina la solidificación: ya no queda líquido y el sólido α vuelve a enfriarse.',
+    },
+    {
+      id: 'q9-29', unit: 'u9', topic: 'curva-aleacion', type: 'num',
+      q: 'Una aleación Cu–40 % Ni tiene liquidus a 1280 °C y solidus a 1240 °C. ¿Cuál es su rango de solidificación ΔT?',
+      answer: 40, tolerance: 0.5, answerUnit: '°C',
+      steps: ['ΔT = TL − TS', 'ΔT = 1280 − 1240', 'ΔT = 40 °C'],
+      explain: 'El rango de solidificación es la diferencia entre la temperatura de liquidus y la de solidus para esa composición.',
+    },
+    {
+      id: 'q9-30', unit: 'u9', topic: 'segregacion', type: 'mcq',
+      q: 'La microsegregación (coring) se corrige con:',
+      options: ['Homogeneización', 'Trabajo en caliente', 'Enfriamiento rápido', 'Agregar más soluto'],
+      correct: 0,
+      explain: 'El coring ocurre entre brazos dendríticos, a distancias cortas; la homogeneización permite que la difusión empareje la composición.',
+    },
+    {
+      id: 'q9-31', unit: 'u9', topic: 'segregacion', type: 'mcq',
+      q: 'La macrosegregación se reduce con:',
+      options: ['Trabajo en caliente', 'Homogeneización', 'Recocido de recristalización', 'Nada, es imposible'],
+      correct: 0,
+      explain: 'La macro ocurre entre superficie y centro; las distancias son demasiado grandes para la difusión, así que se reduce con deformación en caliente.',
+    },
+    {
+      id: 'q9-32', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'Aleación Cu–35 % Ni a 1250 °C, con CL = 32 % y CS = 43 %. ¿Qué porcentaje de líquido hay?',
+      answer: 72.7, tolerance: 0.4, answerUnit: '%',
+      steps: ['%L = (CS − CA)/(CS − CL) × 100', '%L = (43 − 35)/(43 − 32) × 100', '%L = 8/11 × 100 = 72,7 %'],
+      explain: 'La aleación está más cerca de CL, por eso hay más líquido. La isoterma completa mide 11.',
+    },
+    {
+      id: 'q9-33', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'Con los datos anteriores (CS = 43, CA = 35, CL = 32), ¿qué porcentaje de sólido hay?',
+      answer: 27.3, tolerance: 0.4, answerUnit: '%',
+      steps: ['%S = (CA − CL)/(CS − CL) × 100', '%S = (35 − 32)/11 × 100', '%S = 3/11 × 100 = 27,3 %'],
+      explain: 'Control: 72,7 + 27,3 = 100 %. El sólido es la fase más lejana a CA y por eso está en menor cantidad.',
+    },
+    {
+      id: 'q9-34', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'En una zona bifásica se lee CL = 40 %, CS = 60 % y CA = 45 %. ¿Qué porcentaje de líquido hay?',
+      answer: 75, tolerance: 0.4, answerUnit: '%',
+      steps: ['%L = (CS − CA)/(CS − CL) × 100', '%L = (60 − 45)/(60 − 40) × 100', '%L = 15/20 × 100 = 75 %'],
+      explain: 'El denominador es 20. El sólido sería 25 %; control 75 + 25 = 100 %.',
+    },
+    {
+      id: 'q9-35', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'Una aleación tiene CA = 25 % de B, CL = 20 % y CS = 32 %. ¿Qué porcentaje de líquido hay?',
+      answer: 58.3, tolerance: 0.4, answerUnit: '%',
+      steps: ['%L = (CS − CA)/(CS − CL) × 100', '%L = (32 − 25)/(32 − 20) × 100', '%L = 7/12 × 100 = 58,3 %'],
+      explain: 'CA = 25 está más cerca de CL = 20, por eso hay más líquido. El sólido es 41,7 %.',
+    },
+    {
+      id: 'q9-36', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'Una pieza de 2 kg de la aleación Cu–35 % Ni está a 1250 °C. Si hay 72,7 % de líquido, ¿cuántos gramos de líquido hay?',
+      answer: 1454, tolerance: 3, answerUnit: 'g',
+      steps: ['mL = (%L/100) · mtotal', 'mL = 0,727 × 2000 g', 'mL = 1454 g'],
+      explain: 'La masa total es 2 kg = 2000 g. La palanca reparte cantidades; la composición del líquido sigue siendo 32 % Ni.',
+    },
+    {
+      id: 'q9-37', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'Con 58,3 % de líquido y 41,7 % de sólido, ¿cuántos kilogramos de sólido hay en una pieza de 3 kg?',
+      answer: 1.251, tolerance: 0.003, answerUnit: 'kg',
+      steps: ['mS = (%S/100) · mtotal', 'mS = 0,417 × 3 kg', 'mS = 1,251 kg'],
+      explain: 'Control: 1,749 kg de líquido + 1,251 kg de sólido = 3 kg.',
+    },
+    {
+      id: 'q9-38', unit: 'u9', topic: 'palanca', type: 'num',
+      q: 'En una zona bifásica, CL = 30 %, CS = 55 % y hay 40 % de líquido. ¿Cuál es la composición CA de la aleación?',
+      answer: 45, tolerance: 0.4, answerUnit: '%',
+      steps: ['%L = (CS − CA)/(CS − CL) × 100', '40 = (55 − CA)/(55 − 30) × 100', '55 − CA = 10 → CA = 45 %'],
+      explain: 'Es la palanca al revés: conocés las composiciones de las fases y una fracción, y despejás CA.',
+    },
+  ],
+};
+
+  __CDM_MODULES__["data/u9.js"] = { u9 };
+})();
+
 /* ===== data/ensayos.js ===== */
 (function () {
   "use strict";
@@ -3163,12 +3902,13 @@ const CHARPY_VS_IZOD = {
 
 const { u6 } = __CDM_MODULES__["data/u6.js"];
 const { u8 } = __CDM_MODULES__["data/u8.js"];
+const { u9 } = __CDM_MODULES__["data/u9.js"];
 const { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD } = __CDM_MODULES__["data/ensayos.js"];
 
 
 
-const UNITS = { u6, u8 };
-const UNIT_LIST = [u6, u8];
+const UNITS = { u6, u8, u9 };
+const UNIT_LIST = [u6, u8, u9];
 
 const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
@@ -3186,6 +3926,14 @@ const TOPICS = {
   enfriamiento: { label: 'Curva de enfriamiento', unit: 'u8' },
   chvorinov: { label: 'Chvorinov', unit: 'u8' },
   formas: { label: 'Formas y V/A', unit: 'u8' },
+  fases: { label: 'Fase y diagrama', unit: 'u9' },
+  solubilidad: { label: 'Tipos de solubilidad', unit: 'u9' },
+  'hume-rothery': { label: 'Hume-Rothery', unit: 'u9' },
+  'solucion-solida': { label: 'Solución sólida', unit: 'u9' },
+  isomorfo: { label: 'Diagrama isomorfo', unit: 'u9' },
+  palanca: { label: 'Regla de la palanca', unit: 'u9' },
+  'curva-aleacion': { label: 'Curva de la aleación', unit: 'u9' },
+  segregacion: { label: 'Segregación', unit: 'u9' },
 };
 
 const ALL_LESSONS = UNIT_LIST.flatMap((unit) =>
@@ -4049,6 +4797,167 @@ const U8_DIAGRAMS = [nucleacion, enfriamiento];
   __CDM_MODULES__["diagrams/u8.js"] = { U8_DIAGRAMS };
 })();
 
+/* ===== diagrams/u9.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   diagrams/u9.js — diagramas SVG interactivos de la unidad 9
+   ============================================================ */
+
+const arrow = (id) => `
+  <defs>
+    <marker id="${id}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1 L10 5 L0 9 z" fill="var(--muted)"/>
+    </marker>
+  </defs>`;
+
+const isomorfo = {
+  id: 'isomorfo',
+  unit: 'u9',
+  title: 'Diagrama isomorfo Cu–Ni',
+  subtitle: 'Liquidus, solidus y la isoterma de 1250 °C',
+  key: 'isomorfo',
+  notes: [
+    'Por encima del liquidus todo es líquido L; por debajo del solidus todo es sólido α.',
+    'Entre las dos curvas hay L + α: a 1250 °C con CA = 35 % Ni se leen CL = 32 % Ni y CS = 43 % Ni.',
+    'El isomorfo no tiene solvus: Cu y Ni son solubles en todo el rango.',
+  ],
+  legend: [
+    { color: 'accent', text: 'Liquidus' },
+    { color: 'green', text: 'Solidus' },
+    { color: 'amber', text: 'L + α' },
+    { color: 'rose', text: 'Isoterma' },
+  ],
+  variants: [
+    {
+      key: 'unica',
+      label: 'Diagrama Cu–Ni',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Diagrama de fases isomorfo cobre-níquel con la isoterma de 1250 grados">
+        ${arrow('ar-iso')}
+        <line x1="58" y1="250" x2="344" y2="250" class="svg-axis" marker-end="url(#ar-iso)"/>
+        <line x1="58" y1="250" x2="58" y2="30" class="svg-axis" marker-end="url(#ar-iso)"/>
+        <text x="18" y="24" class="svg-text svg-text--strong" font-size="8">T (°C)</text>
+        <text x="200" y="288" text-anchor="middle" class="svg-text svg-text--strong" font-size="8">% en peso de Ni</text>
+        <text x="70" y="281" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Cu</text>
+        <text x="330" y="281" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Ni</text>
+
+        <g class="svg-grid" stroke="var(--line)" stroke-width="0.6" stroke-dasharray="2 4">
+          <line x1="58" y1="198" x2="330" y2="198"/>
+          <line x1="58" y1="146" x2="330" y2="146"/>
+          <line x1="58" y1="94" x2="330" y2="94"/>
+          <line x1="58" y1="42" x2="330" y2="42"/>
+          <line x1="122" y1="42" x2="122" y2="250"/>
+          <line x1="174" y1="42" x2="174" y2="250"/>
+          <line x1="226" y1="42" x2="226" y2="250"/>
+          <line x1="278" y1="42" x2="278" y2="250"/>
+        </g>
+
+        <text x="52" y="201" text-anchor="end" class="svg-text svg-text--muted" font-size="7">1200</text>
+        <text x="52" y="149" text-anchor="end" class="svg-text svg-text--muted" font-size="7">1300</text>
+        <text x="52" y="97" text-anchor="end" class="svg-text svg-text--muted" font-size="7">1400</text>
+        <text x="52" y="45" text-anchor="end" class="svg-text svg-text--muted" font-size="7">1500</text>
+        <text x="52" y="253" text-anchor="end" class="svg-text svg-text--muted" font-size="7">1100</text>
+        <text x="70" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">0</text>
+        <text x="122" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">20</text>
+        <text x="174" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">40</text>
+        <text x="226" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">60</text>
+        <text x="278" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">80</text>
+        <text x="330" y="264" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">100</text>
+
+        <path d="M70 250 C 105 235, 135 210, 153 172 C 170 145, 200 135, 226 115 C 255 95, 300 72, 330 65"
+          fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M70 250 C 105 244, 145 228, 174 177 C 178 174, 180 173, 182 172 C 195 160, 210 148, 226 136 C 255 117, 300 80, 330 65"
+          fill="none" stroke="var(--green)" stroke-width="2.6" stroke-linecap="round"/>
+
+        <text x="100" y="110" class="svg-text svg-text--accent" font-size="9">L</text>
+        <text x="196" y="142" class="svg-text svg-text--amber" font-size="8">L + α</text>
+        <text x="244" y="224" class="svg-text svg-text--green" font-size="9">α</text>
+
+        <line x1="153" y1="172" x2="182" y2="172" stroke="var(--rose)" stroke-width="2.2" stroke-dasharray="4 3"/>
+        <text x="167" y="162" text-anchor="middle" class="svg-text svg-text--rose" font-size="6.5">isoterma</text>
+        <line x1="161" y1="172" x2="161" y2="250" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="3 4"/>
+        <text x="58" y="168" text-anchor="end" class="svg-text svg-text--rose" font-size="7">1250</text>
+        <text x="161" y="246" text-anchor="middle" class="svg-text svg-text--muted" font-size="6.5">35</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 100, y: 110, lx: 112, ly: 96, label: 'Zona líquida (L)', q: '¿Qué hay por encima del liquidus?', detail: 'Todo líquido. Al cruzar el liquidus empieza a formarse el primer sólido α.' },
+        { n: 2, x: 132, y: 210, lx: 112, ly: 214, label: 'Liquidus', q: '¿Qué separa la línea de liquidus?', detail: 'Separa todo líquido (arriba) de la zona L + α. Es la temperatura a la que aparece el primer sólido para esa composición.' },
+        { n: 3, x: 110, y: 242, lx: 96, ly: 258, label: 'Solidus', q: '¿Qué separa la línea de solidus?', detail: 'Separa la zona L + α (arriba) de todo sólido α (abajo). Al cruzarlo desaparece la última gota de líquido.' },
+        { n: 4, x: 210, y: 140, lx: 236, ly: 128, label: 'Zona L + α', q: '¿Qué hay entre liquidus y solidus?', detail: 'Coexisten líquido y sólido α. Cada fase tiene su propia composición: CL en el liquidus y CS en el solidus.' },
+        { n: 5, x: 250, y: 220, lx: 272, ly: 236, label: 'Fase sólida α', q: '¿Qué hay por debajo del solidus?', detail: 'Todo sólido α: una sola fase con estructura FCC, rica en Ni para esta aleación.' },
+        { n: 6, x: 153, y: 172, lx: 140, ly: 158, label: 'CL = 32 % Ni', q: '¿Dónde se lee CL?', detail: 'En el liquidus, sobre la isoterma. Es la composición del líquido: 32 % Ni (más rica en Cu, el de menor punto de fusión).' },
+        { n: 7, x: 182, y: 172, lx: 196, ly: 158, label: 'CS = 43 % Ni', q: '¿Dónde se lee CS?', detail: 'En el solidus, sobre la isoterma. Es la composición del sólido α: 43 % Ni (más rico en Ni, el de mayor punto de fusión).' },
+        { n: 8, x: 161, y: 202, lx: 132, ly: 214, label: 'CA = 35 % Ni', q: '¿Qué es CA y cuánto vale?', detail: 'La composición global de la aleación: 35 % Ni. Es una vertical fija; no cambia al enfriar. CL y CS son las composiciones de cada fase.' },
+      ],
+    },
+  ],
+};
+
+const curvaAleacion = {
+  id: 'curva-aleacion',
+  unit: 'u9',
+  title: 'Curva de enfriamiento de la aleación',
+  subtitle: 'Dos quiebres: liquidus y solidus, sin meseta',
+  key: 'curva-aleacion',
+  notes: [
+    'La aleación isomorfa no tiene meseta: la temperatura sigue bajando entre liquidus y solidus.',
+    'El primer quiebre es el liquidus (aparece el primer sólido); el segundo es el solidus (desaparece el último líquido).',
+    'En el metal puro de la U8 hay una sola meseta horizontal en Tf. En la U10, el eutéctico también tendrá una meseta.',
+  ],
+  legend: [
+    { color: 'accent', text: 'Líquido' },
+    { color: 'amber', text: 'L + α' },
+    { color: 'green', text: 'Sólido α' },
+    { color: 'rose', text: 'Liquidus / solidus' },
+  ],
+  variants: [
+    {
+      key: 'unica',
+      label: 'Curva T–t',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Curva de enfriamiento de una aleación isomorfa con liquidus y solidus">
+        ${arrow('ar-cu9')}
+        <line x1="58" y1="250" x2="344" y2="250" class="svg-axis" marker-end="url(#ar-cu9)"/>
+        <line x1="58" y1="250" x2="58" y2="30" class="svg-axis" marker-end="url(#ar-cu9)"/>
+        <text x="20" y="40" class="svg-text svg-text--strong" font-size="9">T</text>
+        <text x="326" y="268" class="svg-text svg-text--strong" font-size="9">t</text>
+
+        <line x1="60" y1="156" x2="330" y2="156" stroke="var(--rose)" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <line x1="60" y1="177" x2="330" y2="177" stroke="var(--rose)" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <text x="245" y="150" text-anchor="start" class="svg-text svg-text--rose" font-size="6.5">1280 °C · liquidus</text>
+        <text x="245" y="168" text-anchor="start" class="svg-text svg-text--rose" font-size="6.5">1240 °C · solidus</text>
+
+        <path d="M70 45 C 92 94, 118 136, 140 156" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M140 156 C 166 163, 192 171, 215 177" fill="none" stroke="var(--amber)" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M215 177 C 236 200, 280 228, 315 244" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/>
+
+        <text x="94" y="86" class="svg-text svg-text--accent" font-size="9">L</text>
+        <text x="160" y="118" class="svg-text svg-text--amber" font-size="8">L + α</text>
+        <text x="272" y="226" class="svg-text svg-text--green" font-size="9">α</text>
+
+        <line x1="318" y1="156" x2="318" y2="177" stroke="var(--violet)" stroke-width="1.2"/>
+        <line x1="313" y1="156" x2="323" y2="156" stroke="var(--violet)" stroke-width="1.2"/>
+        <line x1="313" y1="177" x2="323" y2="177" stroke="var(--violet)" stroke-width="1.2"/>
+        <text x="330" y="170" text-anchor="end" class="svg-text svg-text--violet" font-size="7">ΔT</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 70, y: 45, lx: 100, ly: 34, label: 'Vaciado (t = 0)', q: '¿Dónde empieza la curva?', detail: 'En el vaciado, con el metal 100 % líquido. La temperatura baja mientras se enfría el líquido.' },
+        { n: 2, x: 140, y: 156, lx: 122, ly: 142, label: 'Liquidus: primer sólido', q: '¿Qué ocurre en el primer quiebre?', detail: 'Se llega al liquidus y aparece el primer sólido α. Empieza a liberarse calor latente y la pendiente se hace menos empinada.' },
+        { n: 3, x: 175, y: 166, lx: 166, ly: 190, label: 'Zona L + α', q: '¿Qué pasa entre los dos quiebres?', detail: 'Líquido y sólido α coexisten. La temperatura sigue bajando: no hay meseta. Las composiciones cambian siguiendo liquidus y solidus.' },
+        { n: 4, x: 215, y: 177, lx: 238, ly: 190, label: 'Solidus: último líquido', q: '¿Qué ocurre en el segundo quiebre?', detail: 'Desaparece la última gota de líquido. Termina la solidificación y el sólido α vuelve a enfriarse: la pendiente se hace más empinada.' },
+        { n: 5, x: 280, y: 225, lx: 298, ly: 238, label: 'Sólido α enfriándose', q: '¿Qué pasa después del solidus?', detail: 'Ya es 100 % sólido α. Se elimina calor específico del sólido y la temperatura sigue bajando.' },
+        { n: 6, x: 300, y: 90, lx: 280, ly: 76, label: 'No hay meseta', q: '¿Por qué esta curva no tiene meseta?', detail: 'Porque la solidificación ocurre en un rango de temperaturas: el calor latente se libera entre liquidus y solidus, no a temperatura constante.' },
+      ],
+    },
+  ],
+};
+
+const U9_DIAGRAMS = [isomorfo, curvaAleacion];
+
+  __CDM_MODULES__["diagrams/u9.js"] = { U9_DIAGRAMS };
+})();
+
 /* ===== diagrams/index.js ===== */
 (function () {
   "use strict";
@@ -4058,8 +4967,9 @@ const U8_DIAGRAMS = [nucleacion, enfriamiento];
 
 const { U6_DIAGRAMS } = __CDM_MODULES__["diagrams/u6.js"];
 const { U8_DIAGRAMS } = __CDM_MODULES__["diagrams/u8.js"];
+const { U9_DIAGRAMS } = __CDM_MODULES__["diagrams/u9.js"];
 
-const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS];
+const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS, ...U9_DIAGRAMS];
 
 function getDiagram(id) {
   return ALL_DIAGRAMS.find((diagram) => diagram.id === id) || null;
@@ -4095,6 +5005,7 @@ const SCOPE_LABELS = {
   mix: 'Repaso mixto',
   u6: 'Unidad 6',
   u8: 'Unidad 8',
+  u9: 'Unidad 9',
   due: 'Pendientes de hoy',
   weak: 'Puntos débiles',
   new: 'Preguntas nuevas',
@@ -4109,7 +5020,7 @@ function scopeLabel(scope, topic) {
 }
 
 function unitFiltered(items, scope) {
-  if (scope === 'u6' || scope === 'u8') return items.filter((item) => item.unit === scope);
+  if (['u6', 'u8', 'u9'].includes(scope)) return items.filter((item) => item.unit === scope);
   return items;
 }
 
@@ -4211,7 +5122,7 @@ function masteredQuizCount(unitId) {
    views/home.js — pantalla de inicio
    ============================================================ */
 
-const { ALL_LESSONS, ALL_QUIZ, ALL_FORMULAS, getLesson, getUnit } = __CDM_MODULES__["data/index.js"];
+const { ALL_LESSONS, ALL_QUIZ, ALL_FORMULAS, UNIT_LIST, getLesson, getUnit } = __CDM_MODULES__["data/index.js"];
 const { ALL_DIAGRAMS } = __CDM_MODULES__["diagrams/index.js"];
 const { getState, lessonRead, dailySummary } = __CDM_MODULES__["core/store.js"];
 const { quizDueCount, cardsDueCount } = __CDM_MODULES__["core/sessions.js"];
@@ -4233,7 +5144,12 @@ function masteryFor(unit) {
 }
 
 function unitCard(unit, stats) {
-  const isU6 = unit.id === 'u6';
+  const thirdLink = unit.id === 'u6'
+    ? { href: '#/ensayos', icon: 'flask', label: 'Ensayos' }
+    : unit.id === 'u8'
+      ? { href: '#/practica/simuladores/chvorinov', icon: 'calculator', label: 'Chvorinov' }
+      : { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' };
+
   return `<div class="unit-card unit-card--${unit.id}">
     <div class="unit-card__head">
       <span class="unit-num">${unit.number}</span>
@@ -4241,14 +5157,14 @@ function unitCard(unit, stats) {
         <h3>${unit.title}</h3>
         <p>${unit.subtitle}</p>
       </div>
-      <span class="unit-card__badge">${isU6 ? 'Va seguro' : 'Alta prob.'}</span>
+      <span class="unit-card__badge">${unit.tag}</span>
     </div>
 
     <div class="row row--between" style="margin-top:13px">
       <span class="tiny muted">Dominio estimado</span>
       <span class="tiny mono" style="color:var(--text)">${stats.pct}%</span>
     </div>
-    <div style="margin-top:5px">${bar(stats.pct, isU6 ? 'u6' : 'u8')}</div>
+    <div style="margin-top:5px">${bar(stats.pct, unit.id)}</div>
 
     <div class="unit-card__meta">
       <span><b>${stats.lessonsRead}/${stats.lessonsTotal}</b> lecciones</span>
@@ -4259,9 +5175,7 @@ function unitCard(unit, stats) {
     <div class="unit-card__links">
       <a class="mini-link" href="#/teoria">${icon('book')} Teoría</a>
       <a class="mini-link" href="#/teoria/diagramas">${icon('chart')} Diagramas</a>
-      ${isU6
-        ? `<a class="mini-link" href="#/ensayos">${icon('flask')} Ensayos</a>`
-        : `<a class="mini-link" href="#/practica/simuladores/chvorinov">${icon('calculator')} Chvorinov</a>`}
+      <a class="mini-link" href="${thirdLink.href}">${icon(thirdLink.icon)} ${thirdLink.label}</a>
       <a class="mini-link" href="#/practica/quiz?scope=${unit.id}&n=12">${icon('target')} Practicar</a>
     </div>
   </div>`;
@@ -4272,11 +5186,8 @@ function homeView() {
   const summary = dailySummary();
   const dueQuiz = quizDueCount('mix');
   const dueCards = cardsDueCount('mix');
-  const u6 = getUnit('u6');
-  const u8 = getUnit('u8');
-  const statsU6 = masteryFor(u6);
-  const statsU8 = masteryFor(u8);
-  const overall = Math.round((statsU6.pct + statsU8.pct) / 2);
+  const units = UNIT_LIST.map((unit) => ({ unit, stats: masteryFor(unit) }));
+  const overall = Math.round(units.reduce((acc, item) => acc + item.stats.pct, 0) / units.length);
   const lastLesson = state.lastLesson ? getLesson(state.lastLesson) : null;
   const lastLessonUnit = lastLesson ? getUnit(lastLesson.unit) : null;
   const initialLesson = lastLesson || ALL_LESSONS[0];
@@ -4288,8 +5199,8 @@ function homeView() {
       <div class="hero__top">
         <div class="hero__copy">
           <span class="hero__kicker">Parcial 2 · CDM</span>
-          <h2>Unidades <em>6 y 8</em><br>para repasar en el celular</h2>
-          <p class="hero__sub">Ensayos mecánicos, impacto Charpy/Izod, nucleación y Chvorinov. Sesiones cortas, repetidas hasta que quede en memoria.</p>
+          <h2>Unidades <em>6, 8 y 9</em><br>para repasar en el celular</h2>
+          <p class="hero__sub">Ensayos, impacto Charpy/Izod, fases, solubilidad y regla de la palanca. Sesiones cortas, repetidas hasta que quede en memoria.</p>
         </div>
         <div class="hero__ring">
           ${ring(overall, 'dominio', { size: 78 })}
@@ -4325,8 +5236,7 @@ function homeView() {
         <span class="tiny muted">${ALL_LESSONS.length} lecciones · ${ALL_QUIZ.length} preguntas</span>
       </div>
       <div class="stack">
-        ${unitCard(u6, statsU6)}
-        ${unitCard(u8, statsU8)}
+        ${units.map(({ unit, stats }) => unitCard(unit, stats)).join('')}
       </div>
     </section>
 
@@ -4359,7 +5269,7 @@ function homeView() {
         </a>
         <a class="card card--tap" href="#/practica/simuladores" style="display:block">
           <div class="row" style="gap:8px">${icon('calculator', 'icon--sm')}<b style="font-size:0.85rem">Simuladores</b></div>
-          <p class="card__sub">Chvorinov, impacto y calculadoras</p>
+          <p class="card__sub">Chvorinov, impacto, palanca y calculadoras</p>
         </a>
         <a class="card card--tap" href="#/teoria/formulas" style="display:block">
           <div class="row" style="gap:8px">${icon('book', 'icon--sm')}<b style="font-size:0.85rem">Fórmulas</b></div>
@@ -4375,7 +5285,7 @@ function homeView() {
     <div class="note">Atajo para el celular: agregá esta página a la pantalla de inicio. Queda como una app, abre sin internet y guarda tu avance. Recomendado: una sesión corta por día y una extra antes del parcial.</div>
   `;
 
-  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6 y 8', nav: 'inicio', back: null };
+  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8 y 9', nav: 'inicio', back: null };
 }
 
   __CDM_MODULES__["views/home.js"] = { homeView };
@@ -4404,9 +5314,11 @@ function pageHead({ eyebrow = '', eyebrowTone = '', title, sub = '', action = ''
     </div>`;
 }
 
+const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok' };
+
 function unitPill(unitId) {
-  const isU6 = unitId === 'u6';
-  return `<span class="badge ${isU6 ? 'badge--accent' : 'badge--warn'}">U${isU6 ? 6 : 8}</span>`;
+  const number = String(unitId).replace(/^u/, '');
+  return `<span class="badge ${UNIT_BADGE[unitId] || 'badge'}">U${number}</span>`;
 }
 
 function topicPill(topicId) {
@@ -4508,7 +5420,7 @@ function segmentedTabs(items, activeKey, { hrefFor } = {}) {
 
 function diagramCard(diagram, solved, total) {
   return `<a class="diagram-card" href="#/teoria/diagramas/${diagram.id}">
-    <span class="diagram-card__thumb ${diagram.unit === 'u8' ? 'diagram-card__thumb--u8' : ''}">${icon('chart')}</span>
+    <span class="diagram-card__thumb diagram-card__thumb--${diagram.unit}">${icon('chart')}</span>
     <span class="row-card__main">
       <span class="row-card__title">${esc(diagram.title)}</span>
       <span class="row-card__meta">${esc(diagram.subtitle)} · ${solved}/${total} puntos</span>
@@ -4560,14 +5472,14 @@ function theoryView() {
         <div class="section__title">${unitPill(unit.id)} ${unit.title}</div>
         <span class="tiny muted mono">${read}/${total} leídas</span>
       </div>
-      ${bar(percent(read, total), unit.id === 'u6' ? 'u6' : 'u8')}
+      ${bar(percent(read, total), unit.id)}
       <div class="stack stack--sm">
         ${unit.lessons.map((lesson, index) => lessonRow(lesson, index)).join('')}
       </div>
       <details class="acc">
         <summary>${icon('alert', 'icon--sm')} Qué entra y qué no · Unidad ${unit.number}</summary>
         <div class="acc__body">
-          <div class="callout callout--${unit.id === 'u6' ? 'info' : 'warn'}" style="margin-bottom:10px">
+          <div class="callout callout--${unit.id === 'u6' ? 'info' : unit.id === 'u8' ? 'warn' : 'tip'}" style="margin-bottom:10px">
             <div class="callout__icon">${icon('graduation')}</div>
             <div><h4>Indicación de cátedra</h4><p>${unit.examQuote}</p></div>
           </div>
@@ -4584,7 +5496,7 @@ function theoryView() {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: 'Unidades 6 y 8',
+      eyebrow: 'Unidades 6, 8 y 9',
       title: 'Teoría esencial',
       sub: 'Lecciones cortas, diagramas interactivos y hoja de fórmulas.',
     })}
@@ -4593,7 +5505,7 @@ function theoryView() {
     <div class="note">Consejo: leé una lección, abrí su diagrama y recién después hacé el quiz del tema. La repetición espaciada te va a volver a traer lo que falles.</div>
   `;
 
-  return { el, title: 'Teoría', sub: 'Unidades 6 y 8', nav: 'teoria', back: null };
+  return { el, title: 'Teoría', sub: 'Unidades 6, 8 y 9', nav: 'teoria', back: null };
 }
 
 function practiceHref(topic) {
@@ -4739,7 +5651,17 @@ const TOPIC_BY_DIAGRAM = {
   transicion: 'transicion',
   nucleacion: 'nucleacion',
   enfriamiento: 'enfriamiento',
+  isomorfo: 'isomorfo',
+  'curva-aleacion': 'curva-aleacion',
 };
+
+const DIAGRAM_SECTION = {
+  u6: 'Diagramas de ensayos',
+  u8: 'Diagramas de solidificación',
+  u9: 'Diagramas de fases',
+};
+
+const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9' };
 
 function totalPins(diagram) {
   return diagram.variants.reduce((acc, variant) => acc + variant.pins.length, 0);
@@ -4757,7 +5679,7 @@ function diagramsListView() {
     const diagrams = diagramsForUnit(unit.id);
     return `<section class="section">
       <div class="section__head">
-        <div class="section__title">${unitPill(unit.id)} ${unit.id === 'u6' ? 'Diagramas de ensayos' : 'Diagramas de solidificación'}</div>
+        <div class="section__title">${unitPill(unit.id)} ${DIAGRAM_SECTION[unit.id] || `Diagramas de la Unidad ${unit.number}`}</div>
         <span class="tiny muted mono">${diagrams.length} diagramas</span>
       </div>
       <div class="stack stack--sm">
@@ -4803,8 +5725,8 @@ function diagramView({ params, query }) {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: `Unidad ${diagram.unit === 'u6' ? 6 : 8} · diagrama interactivo`,
-      eyebrowTone: diagram.unit === 'u8' ? 'eyebrow--u8' : '',
+      eyebrow: `Unidad ${Number(diagram.unit.slice(1))} · diagrama interactivo`,
+      eyebrowTone: EYEBROW_TONE[diagram.unit] || '',
       title: diagram.title,
       sub: diagram.subtitle,
     })}
@@ -4903,7 +5825,7 @@ function diagramView({ params, query }) {
       </div>
 
       <div class="row" style="margin-top:10px;gap:8px">
-        <div style="flex:1">${bar(pct, diagram.unit === 'u8' ? 'u8' : '')}</div>
+        <div style="flex:1">${bar(pct, diagram.unit)}</div>
         <span class="tiny muted mono">${pct}%</span>
         ${solved.length ? `<button class="btn btn--xs btn--ghost" type="button" data-reset>${icon('refresh', 'icon--xs')} Reiniciar</button>` : ''}
       </div>
@@ -5127,7 +6049,7 @@ function diagramView({ params, query }) {
   return {
     el,
     title: diagram.title,
-    sub: `Unidad ${diagram.unit === 'u6' ? 6 : 8}`,
+    sub: `Unidad ${Number(diagram.unit.slice(1))}`,
     nav: 'teoria',
     back,
   };
@@ -5171,7 +6093,7 @@ function includesNormalized(haystack, needle) {
    views/formulas.js — hoja de fórmulas con modo ocultar
    ============================================================ */
 
-const { ALL_FORMULAS } = __CDM_MODULES__["data/index.js"];
+const { ALL_FORMULAS, UNIT_LIST } = __CDM_MODULES__["data/index.js"];
 const { icon } = __CDM_MODULES__["core/ui.js"];
 const { normalize } = __CDM_MODULES__["core/text.js"];
 const { pageHead, formulaCard, segmentedTabs } = __CDM_MODULES__["views/partials.js"];
@@ -5207,8 +6129,7 @@ function formulasView() {
     </div>
     <div class="chip-row" data-controls>
       <button class="chip" type="button" data-unit="todas" aria-pressed="true">Todas</button>
-      <button class="chip" type="button" data-unit="u6" aria-pressed="false">Unidad 6</button>
-      <button class="chip" type="button" data-unit="u8" aria-pressed="false">Unidad 8</button>
+      ${UNIT_LIST.map((unit) => `<button class="chip" type="button" data-unit="${unit.id}" aria-pressed="false">Unidad ${unit.number}</button>`).join('')}
       <button class="chip" type="button" data-mask aria-pressed="false">${icon('bulb', 'icon--xs')} <span>Ocultar todas</span></button>
     </div>
     <div id="formulaList" class="stack"></div>
@@ -5237,7 +6158,7 @@ function formulasView() {
       if (!rows.length) return '';
       return `<section class="section">
         <div class="section__head">
-          <div class="section__title">${group.unit === 'u6' ? 'U6' : 'U8'} · ${group.name}</div>
+          <div class="section__title">U${Number(group.unit.slice(1))} · ${group.name}</div>
           <span class="tiny muted mono">${rows.length}</span>
         </div>
         <div class="stack stack--sm">${rows.map((formula) => formulaCard(formula, { maskable: state.masked })).join('')}</div>
@@ -5502,14 +6423,15 @@ function practiceView() {
 
   const modes = [
     { href: '#/practica/quiz?scope=mix&n=10', icon: 'play', title: 'Quiz rápido', meta: '10 preguntas mixtas · prioriza lo que tenés pendiente', badge: `${dueQuiz} pendientes` },
-    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las dos unidades', badge: '20' },
-    { href: '#/practica/quiz?scope=u6&n=12', icon: 'flask', title: 'Práctica Unidad 6', meta: 'Ensayos, impacto, dureza, fractura y fatiga', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u6').length}` },
+    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las tres unidades', badge: '20' },
+    { href: '#/practica/quiz?scope=u6&n=12', icon: 'flask', title: 'Práctica Unidad 6', meta: 'Ensayos, impacto, dureza y fatiga', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u6').length}` },
     { href: '#/practica/quiz?scope=u8&n=12', icon: 'layers', title: 'Práctica Unidad 8', meta: 'Nucleación, grano y Chvorinov', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u8').length}` },
+    { href: '#/practica/quiz?scope=u9&n=12', icon: 'layers', title: 'Práctica Unidad 9', meta: 'Fases, solubilidad, diagrama isomorfo y palanca', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u9').length}` },
     { href: '#/practica/quiz?scope=weak&n=10', icon: 'target', title: 'Puntos débiles', meta: 'Sólo preguntas en las que fallaste la última vez', badge: `${weak}` },
     { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, impacto, Brinell, flexión y fatiga', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
     { href: '#/practica/quiz?scope=new&n=10', icon: 'sparkles', title: 'Preguntas nuevas', meta: 'Todavía no las respondiste', badge: `${newCount}` },
     { href: '#/practica/tarjetas?scope=mix&n=20', icon: 'layers', title: 'Tarjetas', meta: 'Memorizá definiciones y fórmulas con autoevaluación', badge: `${dueCards} para hoy` },
-    { href: '#/practica/simuladores', icon: 'calculator', title: 'Simuladores', meta: 'Chvorinov, formas básicas, impacto y calculadoras', badge: '3' },
+    { href: '#/practica/simuladores', icon: 'calculator', title: 'Simuladores', meta: 'Chvorinov, formas, impacto, palanca y calculadoras', badge: '4' },
     { href: '#/teoria/formulas', icon: 'book', title: 'Hoja de fórmulas', meta: 'Repaso rápido con fórmulas tapadas', badge: `${ALL_FORMULAS.length}` },
   ];
 
@@ -5673,7 +6595,7 @@ function quizView({ query }) {
     qArea.innerHTML = `
       <div class="q-card">
         <div class="q-meta">
-          <span class="badge badge--${question.unit === 'u6' ? 'accent' : 'warn'}">U${question.unit === 'u6' ? 6 : 8}</span>
+          <span class="badge badge--${question.unit === 'u6' ? 'accent' : question.unit === 'u8' ? 'warn' : 'ok'}">U${Number(question.unit.slice(1))}</span>
           <span class="badge">${esc(topicInfo.label)}</span>
           ${question.type === 'num' ? '<span class="badge badge--violet">cálculo</span>' : ''}
         </div>
@@ -6283,6 +7205,13 @@ function labHubView() {
       title: 'Chvorinov y formas básicas',
       meta: 'Calculá V, A, V/A y ts de cubo, prisma, cilindro y esfera. Compará formas y entrená las fórmulas.',
       badge: 'Unidad 8',
+    },
+    {
+      href: '#/practica/simuladores/palanca',
+      icon: 'layers',
+      title: 'Regla de la palanca',
+      meta: 'Calculá %L y %S con CL, CA y CS. Incluye masa de cada fase y retos rápidos.',
+      badge: 'Unidad 9',
     },
     {
       href: '#/practica/simuladores/impacto',
@@ -7012,6 +7941,217 @@ function calculadorasView() {
   __CDM_MODULES__["views/lab.js"] = { labHubView, chvorinovView, impactoView, calculadorasView };
 })();
 
+/* ===== views/palanca.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   views/palanca.js — simulador de la regla de la palanca (U9)
+   ============================================================ */
+
+const { pageHead } = __CDM_MODULES__["views/partials.js"];
+const { icon } = __CDM_MODULES__["core/ui.js"];
+const { formatNumber, parseNumber } = __CDM_MODULES__["core/utils.js"];
+
+function tieSvg(CL, CA, CS) {
+  const x = (value) => 42 + Math.max(0, Math.min(100, value)) * 2.8;
+  return `<svg viewBox="0 0 360 74" role="img" aria-label="Isoterma con CL, CA y CS" style="width:100%;height:auto">
+    <line x1="36" y1="40" x2="328" y2="40" stroke="var(--line-strong)" stroke-width="2"/>
+    <line x1="36" y1="34" x2="36" y2="46" stroke="var(--line-strong)"/>
+    <line x1="328" y1="34" x2="328" y2="46" stroke="var(--line-strong)"/>
+    <line x1="${x(CL).toFixed(1)}" y1="40" x2="${x(CA).toFixed(1)}" y2="40" stroke="var(--accent)" stroke-width="5" opacity="0.35"/>
+    <line x1="${x(CA).toFixed(1)}" y1="40" x2="${x(CS).toFixed(1)}" y2="40" stroke="var(--green)" stroke-width="5" opacity="0.35"/>
+    <circle cx="${x(CL).toFixed(1)}" cy="40" r="5" fill="var(--accent)"/>
+    <circle cx="${x(CA).toFixed(1)}" cy="40" r="5" fill="var(--amber)"/>
+    <circle cx="${x(CS).toFixed(1)}" cy="40" r="5" fill="var(--green)"/>
+    <text x="36" y="66" class="svg-text svg-text--muted" font-size="7">composición (% B) →</text>
+  </svg>`;
+}
+
+function randomExercise() {
+  const CL = 10 + Math.floor(Math.random() * 30);
+  const CS = CL + 18 + Math.floor(Math.random() * 22);
+  const CA = CL + 2 + Math.floor(Math.random() * (CS - CL - 4));
+  return { CL, CA, CS };
+}
+
+function palancaView() {
+  const state = { CL: 32, CA: 35, CS: 43, mass: 2000 };
+  let train = randomExercise();
+
+  const el = document.createElement('div');
+  el.className = 'page';
+  el.innerHTML = `
+    ${pageHead({
+      eyebrow: 'Unidad 9 · simulador',
+      eyebrowTone: 'eyebrow--u9',
+      title: 'Regla de la palanca',
+      sub: 'Leé CL y CS del diagrama, calculá %L y %S y comprobá que sumen 100 %.',
+    })}
+
+    <div class="card">
+      <div class="grid grid--2">
+        <div class="field">
+          <label class="field__label" for="pal-cl">CL · líquido (%)</label>
+          <div class="input-group"><input class="input" id="pal-cl" data-pal="CL" type="text" inputmode="decimal" value="${state.CL}"><span class="input-group__unit">%</span></div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="pal-ca">CA · aleación (%)</label>
+          <div class="input-group"><input class="input" id="pal-ca" data-pal="CA" type="text" inputmode="decimal" value="${state.CA}"><span class="input-group__unit">%</span></div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="pal-cs">CS · sólido (%)</label>
+          <div class="input-group"><input class="input" id="pal-cs" data-pal="CS" type="text" inputmode="decimal" value="${state.CS}"><span class="input-group__unit">%</span></div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="pal-mass">Masa total (opcional)</label>
+          <div class="input-group"><input class="input" id="pal-mass" data-pal="mass" type="text" inputmode="decimal" value="${state.mass}"><span class="input-group__unit">g</span></div>
+        </div>
+      </div>
+      <p class="tiny" data-pal-error style="color:var(--rose);min-height:18px;margin:2px 0 0"></p>
+      <div class="chip-row" style="margin-top:6px;flex-wrap:wrap">
+        <button class="chip" type="button" data-ex='{"CL":32,"CA":35,"CS":43,"mass":2000}'>Cu–35 % Ni</button>
+        <button class="chip" type="button" data-ex='{"CL":40,"CA":45,"CS":60,"mass":2000}'>Números redondos</button>
+        <button class="chip" type="button" data-ex='{"CL":20,"CA":25,"CS":32,"mass":3000}'>CA = 25 %</button>
+        <button class="chip" type="button" data-ex='{"CL":30,"CA":40,"CS":50,"mass":3000}'>Ejemplo 30/40/50</button>
+      </div>
+      <div data-pal-tie style="margin-top:10px"></div>
+      <div class="row row--wrap" data-pal-tie-labels style="gap:6px;margin-top:2px"></div>
+      <div class="grid grid--2" style="margin-top:4px">
+        <div class="stat stat--accent"><div class="stat__value" data-pal-l>—</div><div class="stat__label">% líquido</div></div>
+        <div class="stat"><div class="stat__value" data-pal-s>—</div><div class="stat__label">% sólido</div></div>
+      </div>
+      <div class="grid grid--2" style="margin-top:10px">
+        <div class="stat"><div class="stat__value" data-pal-ml style="font-size:1.1rem">—</div><div class="stat__label">masa de líquido</div></div>
+        <div class="stat"><div class="stat__value" data-pal-ms style="font-size:1.1rem">—</div><div class="stat__label">masa de sólido</div></div>
+      </div>
+      <div class="formula" data-pal-step style="margin-top:12px"></div>
+      <p class="tiny muted" data-pal-check style="margin-top:8px"></p>
+    </div>
+
+    <div class="callout callout--tip">
+      <div class="callout__icon">${icon('bulb')}</div>
+      <div><h4>Cómo leerlo</h4><p>La isoterma es la palanca: <b>%L</b> usa el brazo opuesto <b>CS − CA</b>; <b>%S</b> usa <b>CA − CL</b>. El denominador siempre es <b>CS − CL</b>. La fase más cercana a CA es la más abundante.</p></div>
+    </div>
+
+    <div class="card" data-train-card>
+      <div class="row row--between">
+        <h3 style="font-size:1rem">${icon('target', 'icon--sm')} Reto rápido</h3>
+        <span class="badge">%L</span>
+      </div>
+      <p class="card__sub" data-train-q style="margin-top:6px"></p>
+      <div class="row" style="gap:8px;align-items:flex-end">
+        <div class="field" style="flex:1">
+          <label class="field__label" for="pal-train">Tu resultado (% líquido)</label>
+          <div class="input-group"><input class="input" id="pal-train" data-train-input type="text" inputmode="decimal" placeholder="Ej.: 58,3"><span class="input-group__unit">%</span></div>
+        </div>
+      </div>
+      <p class="tiny" data-train-msg style="min-height:18px;margin:4px 0 0"></p>
+      <div class="row row--wrap" style="margin-top:4px">
+        <button class="btn btn--primary btn--sm" type="button" data-train-check>Comprobar</button>
+        <button class="btn btn--soft btn--sm" type="button" data-train-next>${icon('refresh', 'icon--sm')} Otro</button>
+      </div>
+    </div>
+  `;
+
+  const inputs = [...el.querySelectorAll('[data-pal]')];
+  const errEl = el.querySelector('[data-pal-error]');
+  const tieEl = el.querySelector('[data-pal-tie]');
+  const tieLabels = el.querySelector('[data-pal-tie-labels]');
+  const trainQ = el.querySelector('[data-train-q]');
+  const trainInput = el.querySelector('[data-train-input]');
+  const trainMsg = el.querySelector('[data-train-msg]');
+
+  function read() {
+    inputs.forEach((input) => {
+      state[input.dataset.pal] = parseNumber(input.value);
+    });
+    return state;
+  }
+
+  function render() {
+    const { CL, CA, CS, mass } = read();
+    const valid = Number.isFinite(CL) && Number.isFinite(CA) && Number.isFinite(CS) && CL < CA && CA < CS;
+    tieEl.innerHTML = tieSvg(Number.isFinite(CL) ? CL : 0, Number.isFinite(CA) ? CA : 0, Number.isFinite(CS) ? CS : 0);
+
+    if (!valid) {
+      tieLabels.innerHTML = '';
+      errEl.textContent = 'Revisá los datos: tiene que cumplirse CL < CA < CS.';
+      el.querySelector('[data-pal-l]').textContent = '—';
+      el.querySelector('[data-pal-s]').textContent = '—';
+      el.querySelector('[data-pal-ml]').textContent = '—';
+      el.querySelector('[data-pal-ms]').textContent = '—';
+      el.querySelector('[data-pal-step]').innerHTML = '<div class="formula__expr">%L = (CS − CA)/(CS − CL) · 100</div>';
+      el.querySelector('[data-pal-check]').textContent = '';
+      return;
+    }
+
+    errEl.textContent = '';
+    tieLabels.innerHTML = `<span class="badge badge--accent">CL = ${formatNumber(CL, 1)} %</span>
+      <span class="badge badge--warn">CA = ${formatNumber(CA, 1)} %</span>
+      <span class="badge badge--ok">CS = ${formatNumber(CS, 1)} %</span>`;
+    const pctL = ((CS - CA) / (CS - CL)) * 100;
+    const pctS = ((CA - CL) / (CS - CL)) * 100;
+    el.querySelector('[data-pal-l]').textContent = `${formatNumber(pctL, 1)} %`;
+    el.querySelector('[data-pal-s]').textContent = `${formatNumber(pctS, 1)} %`;
+    const m = Number.isFinite(mass) && mass > 0 ? mass : 0;
+    el.querySelector('[data-pal-ml]').textContent = m ? `${formatNumber((pctL / 100) * m, 1)} g` : '—';
+    el.querySelector('[data-pal-ms]').textContent = m ? `${formatNumber((pctS / 100) * m, 1)} g` : '—';
+    el.querySelector('[data-pal-step]').innerHTML = `<div class="formula__expr">%L = (${formatNumber(CS, 1)} − ${formatNumber(CA, 1)}) / (${formatNumber(CS, 1)} − ${formatNumber(CL, 1)}) · 100 = ${formatNumber(pctL, 1)} %</div>
+      <div class="formula__note">%S = (${formatNumber(CA, 1)} − ${formatNumber(CL, 1)}) / ${formatNumber(CS - CL, 1)} · 100 = ${formatNumber(pctS, 1)} %</div>`;
+    el.querySelector('[data-pal-check]').textContent = `Control: ${formatNumber(pctL, 1)} % + ${formatNumber(pctS, 1)} % = 100 %. La fase más cercana a CA es la más abundante.`;
+  }
+
+  inputs.forEach((input) => input.addEventListener('input', render));
+
+  el.querySelectorAll('[data-ex]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const data = JSON.parse(button.dataset.ex);
+      Object.entries(data).forEach(([key, value]) => {
+        const input = el.querySelector(`[data-pal="${key}"]`);
+        if (input) input.value = value;
+      });
+      render();
+    });
+  });
+
+  function renderTrain() {
+    trainQ.innerHTML = `CL = <b>${train.CL} %</b> · CS = <b>${train.CS} %</b> · CA = <b>${train.CA} %</b>. ¿Cuál es el % de líquido?`;
+    trainInput.value = '';
+    trainMsg.textContent = '';
+    trainMsg.style.color = '';
+  }
+
+  el.querySelector('[data-train-next]').addEventListener('click', () => {
+    train = randomExercise();
+    renderTrain();
+    trainInput.focus();
+  });
+
+  el.querySelector('[data-train-check]').addEventListener('click', () => {
+    const answer = parseNumber(trainInput.value);
+    const correct = ((train.CS - train.CA) / (train.CS - train.CL)) * 100;
+    if (!Number.isFinite(answer)) {
+      trainMsg.textContent = 'Escribí un número.';
+      trainMsg.style.color = 'var(--rose)';
+      return;
+    }
+    if (Math.abs(answer - correct) <= 0.6) {
+      trainMsg.textContent = `¡Bien! ${formatNumber(correct, 1)} % de líquido. Control: el sólido es ${formatNumber(100 - correct, 1)} %.`;
+      trainMsg.style.color = 'var(--green)';
+    } else {
+      trainMsg.textContent = `Todavía no: da ${formatNumber(correct, 1)} %. Numerador: CS − CA = ${train.CS - train.CA}; denominador: CS − CL = ${train.CS - train.CL}.`;
+      trainMsg.style.color = 'var(--rose)';
+    }
+  });
+
+  render();
+  renderTrain();
+  return { el, title: 'Regla de la palanca', sub: 'Unidad 9 · simulador', nav: 'practica', back: '/practica/simuladores' };
+}
+
+  __CDM_MODULES__["views/palanca.js"] = { palancaView };
+})();
+
 /* ===== views/progress.js ===== */
 (function () {
   "use strict";
@@ -7019,7 +8159,7 @@ function calculadorasView() {
    views/progress.js — progreso, temas flojos, ajustes y respaldo
    ============================================================ */
 
-const { ALL_LESSONS, ALL_CARDS, ALL_QUIZ, TOPICS, getUnit } = __CDM_MODULES__["data/index.js"];
+const { ALL_LESSONS, ALL_CARDS, ALL_QUIZ, TOPICS, UNIT_LIST, getUnit } = __CDM_MODULES__["data/index.js"];
 const { ALL_DIAGRAMS } = __CDM_MODULES__["diagrams/index.js"];
 const { getState, dailySummary, weeklyActivity, lessonRead, recentSessions, exportSnapshot, importSnapshot, resetProgress, setSetting, setTheme } = __CDM_MODULES__["core/store.js"];
 const { icon, bar, ring, toast, openSheet, confirmSheet, haptic, applyTheme } = __CDM_MODULES__["core/ui.js"];
@@ -7116,8 +8256,7 @@ function progressView() {
   const summary = dailySummary();
   const weekly = weeklyActivity();
   const accuracy = globalAccuracy();
-  const statsU6 = unitStats('u6');
-  const statsU8 = unitStats('u8');
+  const unitData = UNIT_LIST.map((unit) => ({ unit, stats: unitStats(unit.id) }));
   const topics = topicStats();
   const practicedTopics = topics.filter((topic) => topic.attempts > 0);
   const boxes = boxesDistribution();
@@ -7125,8 +8264,8 @@ function progressView() {
   const badges = achievements();
   const maxWeek = Math.max(1, ...weekly.map((day) => day.answers));
   const weakTopics = [...topics].filter((topic) => topic.attempts >= 2).sort((a, b) => a.accuracy - b.accuracy).slice(0, 3);
-  const totalMasteredQuiz = statsU6.quizMastered + statsU8.quizMastered;
-  const totalMasteredCards = statsU6.cardsMastered + statsU8.cardsMastered;
+  const totalMasteredQuiz = unitData.reduce((acc, item) => acc + item.stats.quizMastered, 0);
+  const totalMasteredCards = unitData.reduce((acc, item) => acc + item.stats.cardsMastered, 0);
 
   const el = document.createElement('div');
   el.className = 'page';
@@ -7173,16 +8312,16 @@ function progressView() {
     <section class="section">
       <div class="section__head"><div class="section__title">Por unidad</div></div>
       <div class="stack">
-        ${[['u6', statsU6, 'Ensayos y propiedades'], ['u8', statsU8, 'Solidificación y Chvorinov']].map(([unitId, stats, subtitle]) => `
+        ${unitData.map(({ unit, stats }) => `
           <div class="card">
             <div class="row" style="gap:14px">
               ${ring(stats.overall, 'dominio', { size: 66 })}
               <div style="flex:1;min-width:0">
                 <div class="row row--between">
-                  <h3 style="font-size:0.95rem">Unidad ${unitId === 'u6' ? 6 : 8}</h3>
-                  ${unitId === 'u6' ? '<span class="badge badge--accent">Va seguro</span>' : '<span class="badge badge--warn">Alta prob.</span>'}
+                  <h3 style="font-size:0.95rem">Unidad ${unit.number}</h3>
+                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : 'badge--ok'}">${unit.tag}</span>
                 </div>
-                <p class="card__sub">${subtitle}</p>
+                <p class="card__sub">${unit.subtitle}</p>
               </div>
             </div>
             <div class="mini-stats">
@@ -7301,7 +8440,7 @@ function progressView() {
       <div><h4>Guardar en el teléfono</h4><p>En Chrome o Safari, abrí el menú y elegí <b>“Agregar a pantalla de inicio”</b>. La app funciona sin internet después de la primera visita y tu progreso queda guardado en el navegador. Exportá un respaldo de vez en cuando.</p></div>
     </div>
 
-    <p class="tiny muted center">Repaso CDM · Unidades 6 y 8 · Hecho para estudiar en el celular</p>
+    <p class="tiny muted center">Repaso CDM · Unidades 6, 8 y 9 · Hecho para estudiar en el celular</p>
   `;
 
   const refresh = () => navigate(`/progreso?r=${Date.now()}`);
@@ -7401,6 +8540,7 @@ const { practiceView } = __CDM_MODULES__["views/practice.js"];
 const { quizView } = __CDM_MODULES__["views/quiz.js"];
 const { flashcardsView } = __CDM_MODULES__["views/flashcards.js"];
 const { labHubView, chvorinovView, impactoView, calculadorasView } = __CDM_MODULES__["views/lab.js"];
+const { palancaView } = __CDM_MODULES__["views/palanca.js"];
 const { progressView } = __CDM_MODULES__["views/progress.js"];
 
 /* ---------------- rutas ---------------- */
@@ -7420,6 +8560,7 @@ addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
 addRoute('/practica/simuladores/impacto', impactoView);
 addRoute('/practica/simuladores/calculadoras', calculadorasView);
+addRoute('/practica/simuladores/palanca', palancaView);
 addRoute('/progreso', progressView);
 
 /* ---------------- estado de la shell ---------------- */
@@ -7482,10 +8623,10 @@ function render() {
   viewEl.replaceChildren(result.el);
 
   document.title = result.title === 'CDM · Repaso'
-    ? 'CDM · Repaso — Unidades 6 y 8'
+    ? 'CDM · Repaso — Unidades 6, 8 y 9'
     : `${result.title} · CDM Repaso`;
   titleEl.textContent = result.title || 'CDM · Repaso';
-  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6 y 8';
+  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8 y 9';
 
   const hasBack = !!result.back;
   backBtn.hidden = !hasBack;
