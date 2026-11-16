@@ -35,7 +35,7 @@ UNIT_LIST.forEach((unit) => {
   unit.quiz.forEach((question) => {
     unique(question.id, 'pregunta');
     if (!TOPICS[question.topic]) errors.push(`Tema desconocido en ${question.id}: ${question.topic}`);
-    if (!['u6', 'u8', 'u9'].includes(question.unit)) errors.push(`Unidad inválida en ${question.id}: ${question.unit}`);
+    if (!['u6', 'u8', 'u9', 'u10'].includes(question.unit)) errors.push(`Unidad inválida en ${question.id}: ${question.unit}`);
     if (question.type === 'mcq') {
       if (!Array.isArray(question.options) || question.options.length < 2) errors.push(`Opciones inválidas en ${question.id}`);
       if (!Number.isInteger(question.correct) || question.correct < 0 || question.correct >= (question.options?.length || 0)) {

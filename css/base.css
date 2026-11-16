@@ -40,6 +40,9 @@
   --u8-soft: rgba(251, 191, 36, 0.12);
   --u9: #4ade80;
   --u9-soft: rgba(74, 222, 128, 0.12);
+  --u10: #c084fc;
+  --u10-soft: rgba(192, 132, 252, 0.13);
+  --draw-ink: #7dd3fc;
 
   --radius-xl: 24px;
   --radius-lg: 18px;
@@ -101,6 +104,9 @@
   --u8-soft: rgba(180, 83, 9, 0.1);
   --u9: #15803d;
   --u9-soft: rgba(21, 128, 61, 0.1);
+  --u10: #7e22ce;
+  --u10-soft: rgba(126, 34, 206, 0.1);
+  --draw-ink: #0369a1;
 
   --shadow-card: 0 18px 36px -30px rgba(15, 23, 42, 0.35);
   --shadow-pop: 0 30px 80px -30px rgba(15, 23, 42, 0.35);

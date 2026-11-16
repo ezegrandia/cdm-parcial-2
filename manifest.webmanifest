@@ -1,7 +1,7 @@
 {
-  "name": "CDM Repaso — Unidades 6, 8 y 9",
+  "name": "CDM Repaso — Unidades 6, 8, 9 y 10",
   "short_name": "CDM Repaso",
-  "description": "Repaso de Ciencia de los Materiales para el Parcial 2: ensayos mecánicos, impacto Charpy/Izod, solidificación, fases, solubilidad y regla de la palanca.",
+  "description": "Repaso móvil de Ciencia de los Materiales — Parcial 2. Unidades 6, 8, 9 y 10.",
   "lang": "es-AR",
   "dir": "ltr",
   "start_url": "./",
@@ -10,7 +10,10 @@
   "orientation": "portrait-primary",
   "background_color": "#070b13",
   "theme_color": "#070b13",
-  "categories": ["education", "productivity"],
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "./assets/icons/icon-192.png",
@@ -36,19 +39,34 @@
       "name": "Quiz rápido",
       "short_name": "Quiz",
       "url": "./index.html#/practica/quiz?scope=mix&n=10",
-      "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Chvorinov",
       "short_name": "Chvorinov",
       "url": "./index.html#/practica/simuladores/chvorinov",
-      "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Regla de la palanca",
       "short_name": "Palanca",
       "url": "./index.html#/practica/simuladores/palanca",
-      "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "./assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

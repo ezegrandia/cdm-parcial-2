@@ -3387,6 +3387,585 @@ const u9 = {
   __CDM_MODULES__["data/u9.js"] = { u9 };
 })();
 
+/* ===== data/u10.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   data/u10.js — Unidad 10: Endurecimiento por Dispersión
+   Fuente: PDF de teoría "Unidad N° 10" + resumen de cátedra
+   "Parcial 2 — Unidades 6 a 10" (páginas 62 a 74).
+   ============================================================ */
+
+const u10 = {
+  id: 'u10',
+  number: 10,
+  title: 'Endurecimiento por Dispersión',
+  shortTitle: 'Dispersión y eutéctico',
+  subtitle: 'Reacciones de 3 fases, fronteras y curvas',
+  tag: 'Alta probabilidad',
+  examQuote: '«De la página 11 a la 14 no la tomo; la página 15 la tomo siempre; la 18 tampoco va.» La curva eutéctica es fija; después van las cinco reacciones de tres fases y lo conceptual de matriz/precipitado.',
+  intro:
+    'La unidad trata de aleaciones con más de una fase: una fase dura y fina dispersa en una matriz blanda. ' +
+    'Para entender cómo se forman esas fases hay que leer el diagrama: las cinco reacciones de tres fases, las fronteras liquidus/solidus/solvus ' +
+    'y la curva de enfriamiento de la aleación eutéctica, que es la que el profesor toma siempre.',
+  priority: [
+    'Las cinco reacciones de tres fases: nombre, ecuación y dibujo.',
+    'Cómo identificar una reacción mirando arriba y abajo de la línea horizontal.',
+    'Liquidus, solidus y solvus: qué separa cada frontera.',
+    'Curva de la aleación eutéctica: una sola meseta horizontal.',
+    'Curva de la hipoeutéctica: codo en el liquidus + meseta eutéctica.',
+    'Comparación de las curvas U8 (puro), U9 (isomorfa) y U10 (eutéctica).',
+    'Matriz, precipitado y microconstituyente; compuestos intermetálicos.',
+    'Estructura laminar, λ y propiedades; hipo vs. hipereutéctica.',
+  ],
+  notPriority: 'Páginas 11 a 14 (diagrama Pb–Sn completo y listado de tipos) y página 18 (rangos de composición): no entran. La página 15 (curva eutéctica) sí entra siempre; la 19 (curva hipoeutéctica) la complementa.',
+
+  lessons: [
+    {
+      id: 'u10-dispersion',
+      unit: 'u10',
+      title: 'Matriz, precipitado y microconstituyente',
+      kicker: 'Endurecimiento por dispersión',
+      minutes: 4,
+      goal: 'Distinguir matriz, precipitado y microconstituyente, y explicar por qué una segunda fase endurece.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'En las aleaciones endurecidas por dispersión hay <b>más de una fase</b>. Una fase dura y fina queda repartida en una matriz blanda: las partículas frenan el movimiento de las dislocaciones y suben la resistencia sin perder toda la ductilidad.',
+        },
+        {
+          t: 'table',
+          head: ['Concepto', 'Qué es', 'Característica clave'],
+          rows: [
+            ['<b>Matriz</b>', 'Fase continua, en mayor cantidad.', 'Blanda y dúctil: aporta tenacidad y soporta la deformación.'],
+            ['<b>Precipitado</b>', 'Fase dispersa, en menor cantidad.', 'Duro y resistente; las partículas deben ser pequeñas, redondas y numerosas.'],
+            ['<b>Microconstituyente</b>', 'Mezcla de fases que se ve al microscopio.', 'No es una fase: por ejemplo, el eutéctico laminar α + β.'],
+          ],
+        },
+        {
+          t: 'p',
+          html: 'Si las partículas son grandes y angulosas generan concentradores de tensión y el material se vuelve frágil. Si son finas y numerosas, la dislocación tiene que rodearlas y deja anillos: eso cuesta energía y endurece.',
+        },
+        {
+          t: 'p',
+          html: 'Los <b>compuestos intermetálicos</b> son otra cosa: dos o más elementos forman una fase nueva, con composición, estructura y propiedades propias. Son muy duros y frágiles. Los <b>estequiométricos</b> tienen composición fija (en el diagrama, una línea vertical); los <b>no estequiométricos</b> admiten un rango y aportan alto punto de fusión, rigidez y resistencia a la oxidación y a la termofluencia.',
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'Microconstituyente ≠ fase',
+          html: 'El eutéctico laminar es una <b>mezcla de dos fases</b> (α + β), no una fase única. Una fase tiene estructura y composición propias; un microconstituyente es el arreglo que ves al microscopio.',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'Definir matriz, precipitado y microconstituyente sin confundirlos, y explicar por qué la dispersión endurece. También diferenciar el endurecimiento por dispersión (dos fases) del endurecimiento por solución sólida (una fase).',
+        },
+      ],
+      keyPoints: [
+        'Matriz: continua, blanda y dúctil; en mayor cantidad.',
+        'Precipitado: disperso, duro; partículas chicas, redondas y numerosas.',
+        'Microconstituyente: mezcla de fases, no una fase.',
+        'Intermetálicos: fase nueva, duros y frágiles; estequiométricos o no.',
+        'Dispersión = más de una fase; solución sólida = una sola fase.',
+      ],
+    },
+
+    {
+      id: 'u10-reacciones',
+      unit: 'u10',
+      title: 'Las 5 reacciones de tres fases',
+      kicker: 'Nombre, ecuación y dibujo',
+      minutes: 6,
+      goal: 'Memorizar las cinco reacciones con su ecuación y reconocerlas por lo que hay arriba y abajo de la línea horizontal.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'En un diagrama complejo, una reacción de tres fases aparece como una <b>línea horizontal</b> a la temperatura de la reacción. Sobre esa línea hay tres puntos: los dos extremos y uno central, que es la composición donde ocurre la transformación. Para identificarla, mirá qué fases hay <b>arriba</b> y <b>abajo</b> del punto central.',
+        },
+        {
+          t: 'table',
+          head: ['Reacción', 'Ecuación', 'Qué pasa al enfriar'],
+          rows: [
+            ['<b>Eutéctica</b>', 'L → α + β', 'Un líquido se transforma en dos sólidos distintos, a temperatura constante.'],
+            ['<b>Peritéctica</b>', 'α + L → β', 'Un sólido y un líquido se combinan para formar un nuevo sólido.'],
+            ['<b>Monotéctica</b>', 'L₁ → L₂ + α', 'Un líquido se separa en otro líquido (de distinta composición) y un sólido.'],
+            ['<b>Eutectoide</b>', 'γ → α + β', 'Un sólido se transforma en dos sólidos. Es como una eutéctica, pero todo en estado sólido.'],
+            ['<b>Peritectoide</b>', 'α + β → γ', 'Dos sólidos se combinan para formar un tercer sólido.'],
+          ],
+        },
+        {
+          t: 'callout',
+          tone: 'tip',
+          title: 'Truco para no confundirlas',
+          html: '<b>Eu-</b> (eutéctica/eutectoide): una fase se separa en dos (<b>1 → 2</b>). <b>Peri-</b> (peritéctica/peritectoide): dos fases se combinan en una (<b>2 → 1</b>). La terminación <b>-oide</b> indica que ocurre en estado sólido, sin líquido.',
+        },
+        {
+          t: 'p',
+          html: 'Procedimiento en tres pasos: <b>1)</b> localizá la línea horizontal; <b>2)</b> ubicá los tres puntos (extremos y centro); <b>3)</b> identificá las fases arriba y abajo del punto central. Si arriba hay L y abajo α + β, es eutéctica; si arriba hay α + L y abajo β, es peritéctica; si todo es sólido y una fase se separa en dos, es eutectoide.',
+        },
+        {
+          t: 'diagram',
+          id: 'reacciones',
+          label: 'Ver los dibujos de las 5 reacciones',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'Las <b>cinco ecuaciones de memoria</b> y el dibujo esquemático de cada reacción. También que expliques el procedimiento de identificación, no sólo el nombre. <a class="inline-link" href="#/practica/dibujar">Practicá dibujándolas desde cero →</a>',
+        },
+      ],
+      keyPoints: [
+        'Eutéctica: L → α + β (1 líquido → 2 sólidos).',
+        'Peritéctica: α + L → β (2 fases → 1 sólido).',
+        'Monotéctica: L₁ → L₂ + α (líquido → líquido + sólido).',
+        'Eutectoide: γ → α + β (todo sólido, 1 → 2).',
+        'Peritectoide: α + β → γ (todo sólido, 2 → 1).',
+        'Eu = 1 → 2 · Peri = 2 → 1 · -oide = sin líquido.',
+      ],
+    },
+
+    {
+      id: 'u10-fronteras',
+      unit: 'u10',
+      title: 'Liquidus, solidus y solvus',
+      kicker: 'Las tres fronteras',
+      minutes: 5,
+      goal: 'Explicar qué separa cada frontera y no confundir líquido, sólido y dos sólidos.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'Las tres fronteras se leen por las fases que tienen a cada lado. No alcanza con decir «líquido y sólido»: hay que aclarar si es una sola fase o una mezcla.',
+        },
+        {
+          t: 'table',
+          head: ['Frontera', 'Separa…', 'Qué pasa al cruzarla'],
+          rows: [
+            ['<b>Liquidus</b>', 'L (todo líquido) de L + sólido (L + α o L + β).', 'Empieza a formarse el primer sólido.'],
+            ['<b>Solidus</b>', 'Sólido (α o β) de sólido + líquido.', 'Desaparece la última gota de líquido; queda todo sólido.'],
+            ['<b>Solvus</b>', 'Una solución sólida (α) de dos sólidos (α + β).', 'El exceso de soluto precipita como segunda fase sólida; no hay líquido.'],
+          ],
+        },
+        {
+          t: 'callout',
+          tone: 'trap',
+          title: 'Ojo con las definiciones',
+          html: 'El <b>liquidus</b> no separa líquido de sólido a secas: separa <b>L</b> de <b>L + sólido</b>. El <b>solidus</b> separa <b>sólido</b> de <b>sólido + líquido</b>. El <b>solvus</b> separa <b>una solución sólida</b> de <b>dos sólidos</b> (α de α + β).',
+        },
+        {
+          t: 'p',
+          html: 'Referencia Pb–Sn: el punto eutéctico está en <b>61,9 % Sn y 183 °C</b>; la solubilidad máxima de α es <b>19 % Sn</b> y la de β es <b>97,5 % Sn</b>. El diagrama completo Pb–Sn no entra como tema (páginas 11–14), pero estos valores sirven para ubicar las fronteras y las curvas.',
+        },
+        {
+          t: 'diagram',
+          id: 'fronteras',
+          label: 'Ver el esquema con liquidus, solidus y solvus',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'Que digas qué fases hay a cada lado de cada línea. El error clásico es llamar «solidus» al solvus o decir que el liquidus separa líquido de sólido sin mencionar la mezcla.',
+        },
+      ],
+      keyPoints: [
+        'Liquidus: L ↔ L + sólido; empieza la solidificación.',
+        'Solidus: sólido ↔ sólido + líquido; termina la solidificación.',
+        'Solvus: α ↔ α + β; precipita la segunda fase sólida.',
+        'Pb–Sn: eutéctico 61,9 % Sn · 183 °C; α máx. 19 % Sn; β 97,5 % Sn.',
+        'El diagrama Pb–Sn completo no entra; el esquema sí ayuda a leer las fronteras.',
+      ],
+    },
+
+    {
+      id: 'u10-eutectica',
+      unit: 'u10',
+      title: 'La aleación eutéctica y el laminado',
+      kicker: 'Solidifica a una sola temperatura',
+      minutes: 5,
+      goal: 'Explicar la reacción eutéctica, la estructura laminar y la diferencia hipo/hipereutéctica.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'La <b>aleación eutéctica</b> tiene la composición exacta del punto eutéctico. Al enfriarse, el líquido se transforma <b>simultáneamente</b> en dos sólidos, α + β, a una única temperatura. Es como si fuera un metal puro: tiene una sola temperatura de solidificación.',
+        },
+        {
+          t: 'formula',
+          expr: 'L → α + β   a T constante',
+          note: 'La reacción eutéctica libera calor latente mientras hay líquido; por eso la temperatura no baja.',
+        },
+        {
+          t: 'p',
+          html: 'Las dos fases crecen juntas porque se reparten el soluto por delante del frente: el estaño se difunde hacia las placas de β y el plomo hacia las placas de α. El resultado es una <b>estructura laminar</b>: placas alternadas de las dos fases. Cuanto más rápido enfría, más finas son las laminillas (menor <b>λ</b>) y más resistencia tiene el eutéctico, porque hay más fronteras para frenar dislocaciones.',
+        },
+        {
+          t: 'p',
+          html: 'Si la aleación tiene <b>menos</b> soluto que el eutéctico (hipoeutéctica), primero precipita α primaria en un rango de temperaturas y el líquido restante solidifica como eutéctico. Si tiene <b>más</b> (hipereutéctica), la fase primaria es β. La estructura final siempre es <b>primaria + eutéctico</b>.',
+        },
+        {
+          t: 'callout',
+          tone: 'info',
+          title: 'No todos los eutécticos son laminares',
+          html: 'La forma depende de la velocidad de enfriamiento, las impurezas y la aleación. El eutéctico Al–Si sin modificar forma placas de silicio en aguja que fragilizan; con un modificador, el silicio aparece como barras redondeadas y mejora la ductilidad.',
+        },
+      ],
+      keyPoints: [
+        'Eutéctica: composición exacta del punto eutéctico; L → α + β a T constante.',
+        'La meseta aparece porque el calor latente compensa el calor extraído.',
+        'Estructura laminar α/β; más rápido = menor λ = más resistencia.',
+        'Hipoeutéctica: α primaria + eutéctico. Hipereutéctica: β primaria + eutéctico.',
+        'No todos los eutécticos son laminares (Al–Si).',
+      ],
+    },
+
+    {
+      id: 'u10-curvas',
+      unit: 'u10',
+      title: 'Curva eutéctica, hipoeutéctica y comparación',
+      kicker: 'Una meseta vs. codo + meseta',
+      minutes: 6,
+      goal: 'Dibujar la curva eutéctica y la hipoeutéctica, y compararlas con las curvas de las unidades 8 y 9.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'La curva de la aleación <b>eutéctica</b> baja desde el líquido y se detiene en la temperatura eutéctica: aparece una <b>meseta horizontal</b>. Es la <b>estabilización térmica simple</b>: la aleación solidifica o funde a una sola temperatura. Mientras el líquido se transforma en α + β, el calor latente liberado compensa el calor que extrae el molde. Terminada la transformación, la temperatura vuelve a bajar.',
+        },
+        {
+          t: 'p',
+          html: 'La <b>hipoeutéctica</b> tiene, además, un <b>codo</b> antes: en el liquidus empieza a precipitar la fase primaria α. La temperatura sigue bajando por la zona α + L y después aparece la misma <b>meseta eutéctica</b>, donde solidifica el líquido restante. La hipereutéctica es igual, pero la fase primaria es β.',
+        },
+        {
+          t: 'note',
+          html: 'La curva de la imagen de cátedra (Pb–30 % Sn) es <b>hipoeutéctica</b>: tiene codo en el liquidus y después la meseta eutéctica. La eutéctica pura (61,9 % Sn) no tiene codo: sólo la meseta.',
+        },
+        {
+          t: 'table',
+          head: ['Curva', 'Forma', '¿Meseta?', 'Qué significa'],
+          rows: [
+            ['<b>U8 · metal puro</b>', 'Una meseta horizontal.', 'Sí, a Tf.', 'Solidifica a una sola temperatura (Tf).'],
+            ['<b>U9 · aleación isomorfa</b>', 'Dos quiebres: liquidus y solidus.', '<b>No</b>.', 'Solidifica en un rango de T; L + α en pendiente.'],
+            ['<b>U10 · eutéctica</b>', 'Una meseta horizontal.', 'Sí, a TE.', 'L → α + β a temperatura constante.'],
+            ['<b>U10 · hipoeutéctica</b>', 'Codo en el liquidus + meseta.', 'Sí, a TE.', 'α primaria en un rango; luego eutéctico a TE.'],
+          ],
+        },
+        {
+          t: 'callout',
+          tone: 'tip',
+          title: 'Truco de las tres curvas',
+          html: '<b>U8:</b> una meseta. <b>U9:</b> dos quiebres, sin meseta. <b>U10:</b> una meseta eutéctica (la hipoeutéctica agrega un codo antes). Si ves una sola meseta y no hay codo, es eutéctica o metal puro; para distinguirlas, mirá la temperatura y si hay dos fases sólidas.',
+        },
+        {
+          t: 'diagram',
+          id: 'curvas-u10',
+          label: 'Ver eutéctica, hipoeutéctica y comparación U8–U9–U10',
+        },
+        {
+          t: 'callout',
+          tone: 'prof',
+          title: 'Qué busca el profesor',
+          html: 'Dibujar la curva eutéctica con su meseta y explicar por qué se detiene. Después, compararla: la hipoeutéctica tiene codo + meseta; la isomorfa de la U9 no tiene meseta; la U8 sí tiene una meseta, pero a Tf del metal puro.',
+        },
+      ],
+      keyPoints: [
+        'Eutéctica: una sola meseta a TE; L → α + β a T constante.',
+        'Hipoeutéctica: codo en liquidus (α primaria) + meseta eutéctica.',
+        'Hipereutéctica: codo con β primaria + meseta eutéctica.',
+        'U8: meseta a Tf. U9: dos quiebres, sin meseta. U10: meseta eutéctica.',
+        'La meseta existe porque el calor latente compensa el calor extraído.',
+      ],
+    },
+
+    {
+      id: 'u10-aplicaciones',
+      unit: 'u10',
+      title: 'Propiedades, λ y fuera de equilibrio',
+      kicker: 'Aplicaciones y microestructura',
+      minutes: 4,
+      goal: 'Relacionar la microestructura del eutéctico con sus propiedades y reconocer el enfriamiento fuera de equilibrio.',
+      blocks: [
+        {
+          t: 'p',
+          html: 'El eutéctico ya es resistente por sí mismo, pero se puede mejorar: refinando el grano con inoculantes, controlando la cantidad de eutéctico y haciéndolo más fino (menor <b>λ</b>). Cada fase ya está endurecida por solución sólida y algunas pueden endurecerse por trabajo en frío. Más fronteras entre fases = más resistencia.',
+        },
+        {
+          t: 'p',
+          html: 'El <b>espaciamiento interlaminar λ</b> es la distancia entre el centro de una laminilla de α y el centro de la siguiente. Depende de la rapidez de crecimiento: a mayor rapidez de enfriamiento, menor λ, laminillas más finas y mayor resistencia. El tamaño del grano eutéctico también se refina por inoculación.',
+        },
+        {
+          t: 'p',
+          html: 'Si el enfriamiento es demasiado rápido, la difusión no alcanza: se produce una <b>curva de solidus fuera del equilibrio</b> y puede aparecer más microconstituyente eutéctico del que predice el diagrama, o una estructura distinta. Es la misma idea de la U9: sin tiempo para difundir no se cumple el equilibrio y aparecen segregación y propiedades distintas.',
+        },
+        {
+          t: 'callout',
+          tone: 'info',
+          title: 'Ejemplo Al–Si',
+          html: 'Sin modificar, el silicio del eutéctico Al–Si solidifica como placas en aguja que concentran tensiones y fragilizan. Con un modificador, crece como barras redondeadas: misma composición, mejor ductilidad y resistencia. La microestructura, no sólo la composición, define las propiedades.',
+        },
+      ],
+      keyPoints: [
+        'Eutéctico fino (menor λ) = más fronteras = más resistencia.',
+        'λ baja al aumentar la rapidez de enfriamiento.',
+        'El grano eutéctico se refina por inoculación.',
+        'Al–Si: agujas fragilizan; modificado, barras redondeadas.',
+        'Enfriamiento rápido → solidus fuera de equilibrio → más eutéctico/segregación.',
+      ],
+    },
+  ],
+
+  // La U10 se evalúa de forma conceptual: no se agregan fórmulas a la hoja.
+  formulas: [],
+
+  cards: [
+    { id: 'c10-01', unit: 'u10', topic: 'dispersion', front: '¿Qué es la matriz?', back: 'La fase continua, en mayor cantidad: blanda y dúctil, aporta tenacidad y soporta la deformación.' },
+    { id: 'c10-02', unit: 'u10', topic: 'dispersion', front: '¿Qué es el precipitado?', back: 'La fase dispersa, en menor cantidad: dura y resistente. Sus partículas deben ser pequeñas, redondas y numerosas.' },
+    { id: 'c10-03', unit: 'u10', topic: 'dispersion', front: '¿Qué es un microconstituyente?', back: 'Una mezcla de fases que se observa al microscopio, como el eutéctico laminar α + β. No es una fase única.' },
+    { id: 'c10-04', unit: 'u10', topic: 'dispersion', front: '¿Cómo deben ser las partículas de precipitado?', back: 'Pequeñas, redondas y numerosas. Si son grandes y angulosas generan concentradores de tensión y fragilizan.' },
+    { id: 'c10-05', unit: 'u10', topic: 'dispersion', front: 'Diferencia entre dispersión y solución sólida', back: 'La dispersión tiene más de una fase (matriz + precipitado); la solución sólida tiene una sola fase con el soluto disuelto en la red.' },
+    { id: 'c10-06', unit: 'u10', topic: 'dispersion', front: '¿Qué es un compuesto intermetálico?', back: 'Una fase nueva formada por dos o más elementos, con composición, estructura y propiedades propias. Es muy duro y frágil.' },
+    { id: 'c10-07', unit: 'u10', topic: 'dispersion', front: 'Intermetálicos estequiométricos vs. no estequiométricos', back: 'Estequiométrico: composición fija, línea vertical en el diagrama. No estequiométrico: admite un rango; aporta alto punto de fusión, rigidez y resistencia a la oxidación y termofluencia.' },
+    { id: 'c10-08', unit: 'u10', topic: 'reacciones', front: 'Reacción eutéctica', back: 'L → α + β. Un líquido se transforma en dos sólidos distintos, a temperatura constante.' },
+    { id: 'c10-09', unit: 'u10', topic: 'reacciones', front: 'Reacción peritéctica', back: 'α + L → β. Un sólido y un líquido se combinan para formar un nuevo sólido.' },
+    { id: 'c10-10', unit: 'u10', topic: 'reacciones', front: 'Reacción monotéctica', back: 'L₁ → L₂ + α. Un líquido se separa en otro líquido de distinta composición y un sólido.' },
+    { id: 'c10-11', unit: 'u10', topic: 'reacciones', front: 'Reacción eutectoide', back: 'γ → α + β. Un sólido se transforma en dos sólidos; es como una eutéctica, pero todo en estado sólido.' },
+    { id: 'c10-12', unit: 'u10', topic: 'reacciones', front: 'Reacción peritectoide', back: 'α + β → γ. Dos sólidos se combinan para formar un tercer sólido.' },
+    { id: 'c10-13', unit: 'u10', topic: 'reacciones', front: '¿Cómo se identifica una reacción de tres fases?', back: '1) Línea horizontal = temperatura de la reacción. 2) Tres puntos: extremos y centro. 3) Fases arriba y abajo del punto central.' },
+    { id: 'c10-14', unit: 'u10', topic: 'reacciones', front: 'Truco eu- / peri- / -oide', back: 'Eu: 1 fase → 2. Peri: 2 fases → 1. La terminación -oide indica que ocurre en estado sólido, sin líquido.' },
+    { id: 'c10-15', unit: 'u10', topic: 'fronteras', front: '¿Qué separa el liquidus?', back: 'Separa L (todo líquido) de L + sólido. Al cruzarlo empieza a formarse el primer sólido.' },
+    { id: 'c10-16', unit: 'u10', topic: 'fronteras', front: '¿Qué separa el solidus?', back: 'Separa sólido de sólido + líquido. Al cruzarlo desaparece la última gota de líquido.' },
+    { id: 'c10-17', unit: 'u10', topic: 'fronteras', front: '¿Qué separa el solvus?', back: 'Separa una solución sólida (α) de dos sólidos (α + β). Al cruzarlo precipita la segunda fase sólida; no hay líquido.' },
+    { id: 'c10-18', unit: 'u10', topic: 'fronteras', front: 'Referencia Pb–Sn', back: 'Eutéctico: 61,9 % Sn y 183 °C. α máxima: 19 % Sn. β: 97,5 % Sn. El diagrama completo no entra; los valores sirven de referencia.' },
+    { id: 'c10-19', unit: 'u10', topic: 'eutectica', front: '¿Qué es una aleación eutéctica?', back: 'La que tiene la composición exacta del punto eutéctico: L → α + β a una sola temperatura, formando un microconstituyente laminar.' },
+    { id: 'c10-20', unit: 'u10', topic: 'curvas', front: 'Curva de la aleación eutéctica', back: 'Una sola meseta horizontal a TE. Es la estabilización térmica simple porque solidifica a una sola temperatura.' },
+    { id: 'c10-21', unit: 'u10', topic: 'curvas', front: 'Curva de la hipoeutéctica', back: 'Un codo en el liquidus (empieza a precipitar α primaria) y después la meseta eutéctica. La fase primaria solidifica en un rango de T.' },
+    { id: 'c10-22', unit: 'u10', topic: 'eutectica', front: 'Hipoeutéctica vs. hipereutéctica', back: 'Hipo: α primaria + eutéctico. Hiper: β primaria + eutéctico. La estructura final siempre es primaria + eutéctico.' },
+    { id: 'c10-23', unit: 'u10', topic: 'eutectica', front: '¿Por qué el eutéctico forma laminillas?', back: 'Las dos fases crecen juntas y se reparten el soluto por delante del frente: el estaño va a β y el plomo a α, formando placas alternadas.' },
+    { id: 'c10-24', unit: 'u10', topic: 'aplicaciones', front: '¿Qué es el espaciamiento interlaminar λ?', back: 'La distancia entre el centro de una laminilla α y el centro de la siguiente. A mayor rapidez de enfriamiento, menor λ y mayor resistencia.' },
+    { id: 'c10-25', unit: 'u10', topic: 'aplicaciones', front: 'Eutéctico Al–Si: sin modificar vs. modificado', back: 'Sin modificar, el silicio forma placas en aguja que fragilizan. Modificado, forma barras redondeadas y mejora la ductilidad y la resistencia.' },
+    { id: 'c10-26', unit: 'u10', topic: 'curvas', front: 'Curva del metal puro (U8)', back: 'Una sola meseta horizontal a Tf: solidifica a una sola temperatura. No tiene codo.' },
+    { id: 'c10-27', unit: 'u10', topic: 'curvas', front: 'Curva de la aleación isomorfa (U9)', back: 'Dos quiebres (liquidus y solidus) y un tramo inclinado L + α. No tiene meseta: solidifica en un rango de temperaturas.' },
+    { id: 'c10-28', unit: 'u10', topic: 'curvas', front: 'Comparación U8 / U9 / U10', back: 'U8: una meseta a Tf. U9: dos quiebres, sin meseta. U10: una meseta eutéctica (la hipoeutéctica agrega un codo antes).' },
+    { id: 'c10-29', unit: 'u10', topic: 'aplicaciones', front: 'Solidificación eutéctica fuera de equilibrio', back: 'Si enfría demasiado rápido, la difusión no alcanza: el solidus se corre y aparece más microconstituyente eutéctico o una estructura distinta.' },
+  ],
+
+  quiz: [
+    {
+      id: 'q10-01', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: '¿Cuál es la matriz en una aleación endurecida por dispersión?',
+      options: ['La fase continua, blanda y dúctil, en mayor cantidad', 'La fase dura y dispersa', 'La mezcla de dos fases', 'El compuesto intermetálico'],
+      correct: 0,
+      explain: 'La matriz es continua, está en mayor cantidad y aporta tenacidad; el precipitado es la fase dura y dispersa.',
+    },
+    {
+      id: 'q10-02', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: 'Las partículas de precipitado deben ser:',
+      options: ['Pequeñas, redondas y numerosas', 'Grandes y angulosas', 'Una sola partícula grande', 'Siempre líquidas'],
+      correct: 0,
+      explain: 'Partículas finas y numerosas frenan dislocaciones sin generar concentradores de tensión. Las grandes y angulosas fragilizan.',
+    },
+    {
+      id: 'q10-03', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: '¿Qué es un microconstituyente?',
+      options: ['Una mezcla de fases que se ve al microscopio', 'Una fase con estructura propia', 'Un compuesto intermetálico', 'La matriz siempre'],
+      correct: 0,
+      explain: 'El eutéctico laminar α + β es un microconstituyente: una mezcla de dos fases, no una fase única.',
+    },
+    {
+      id: 'q10-04', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: 'La diferencia entre endurecimiento por dispersión y por solución sólida es que:',
+      options: ['La dispersión tiene más de una fase; la solución sólida tiene una sola', 'La solución sólida tiene más de una fase', 'Son exactamente lo mismo', 'La dispersión no endurece'],
+      correct: 0,
+      explain: 'La dispersión usa una segunda fase dura; la solución sólida es una sola fase con soluto disuelto en la red.',
+    },
+    {
+      id: 'q10-05', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: 'Un compuesto intermetálico estequiométrico se representa en el diagrama como:',
+      options: ['Una línea vertical (composición fija)', 'Una región ancha', 'Una meseta horizontal', 'Un líquido'],
+      correct: 0,
+      explain: 'Composición fija → línea vertical. Los no estequiométricos admiten un rango de composiciones.',
+    },
+    {
+      id: 'q10-06', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La reacción eutéctica es:',
+      options: ['L → α + β', 'α + L → β', 'L₁ → L₂ + α', 'γ → α + β'],
+      correct: 0,
+      explain: 'Un líquido se transforma en dos sólidos distintos a temperatura constante.',
+    },
+    {
+      id: 'q10-07', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La reacción peritéctica es:',
+      options: ['α + L → β', 'L → α + β', 'γ → α + β', 'α + β → γ'],
+      correct: 0,
+      explain: 'Un sólido y un líquido se combinan para formar un nuevo sólido.',
+    },
+    {
+      id: 'q10-08', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La reacción monotéctica es:',
+      options: ['L₁ → L₂ + α', 'L → α + β', 'α + L → β', 'α + β → γ'],
+      correct: 0,
+      explain: 'Un líquido se separa en otro líquido de distinta composición y un sólido.',
+    },
+    {
+      id: 'q10-09', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La reacción eutectoide es:',
+      options: ['γ → α + β', 'L → α + β', 'α + L → β', 'L₁ → L₂ + α'],
+      correct: 0,
+      explain: 'Un sólido se transforma en dos sólidos. Es como una eutéctica, pero sin líquido.',
+    },
+    {
+      id: 'q10-10', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La reacción peritectoide es:',
+      options: ['α + β → γ', 'γ → α + β', 'L → α + β', 'α + L → β'],
+      correct: 0,
+      explain: 'Dos sólidos se combinan para formar un tercer sólido, todo en estado sólido.',
+    },
+    {
+      id: 'q10-11', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'En un diagrama, por arriba de la línea hay L y por abajo α + β. La reacción es:',
+      options: ['Eutéctica', 'Peritéctica', 'Eutectoide', 'Peritectoide'],
+      correct: 0,
+      explain: 'Una fase líquida arriba y dos sólidos abajo: L → α + β, eutéctica.',
+    },
+    {
+      id: 'q10-12', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'Por arriba hay α + L y por abajo β. La reacción es:',
+      options: ['Peritéctica', 'Eutéctica', 'Monotéctica', 'Peritectoide'],
+      correct: 0,
+      explain: 'Dos fases (una sólida y una líquida) se combinan en una: α + L → β, peritéctica.',
+    },
+    {
+      id: 'q10-13', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: 'La terminación «-oide» en una reacción indica que:',
+      options: ['Ocurre en estado sólido, sin líquido', 'Ocurre en estado líquido', 'Es siempre eutéctica', 'Produce un gas'],
+      correct: 0,
+      explain: 'Eutectoide y peritectoide ocurren completamente en estado sólido.',
+    },
+    {
+      id: 'q10-14', unit: 'u10', topic: 'fronteras', type: 'mcq',
+      q: 'El liquidus separa:',
+      options: ['L (todo líquido) de L + sólido', 'Sólido de sólido + líquido', 'α de α + β', 'Dos sólidos de un líquido'],
+      correct: 0,
+      explain: 'Al cruzar el liquidus empieza a formarse el primer sólido. No separa líquido de sólido a secas.',
+    },
+    {
+      id: 'q10-15', unit: 'u10', topic: 'fronteras', type: 'mcq',
+      q: 'El solidus separa:',
+      options: ['Sólido de sólido + líquido', 'L de L + sólido', 'α de α + β', 'Dos líquidos'],
+      correct: 0,
+      explain: 'Al cruzar el solidus desaparece la última gota de líquido y queda todo sólido.',
+    },
+    {
+      id: 'q10-16', unit: 'u10', topic: 'fronteras', type: 'mcq',
+      q: 'El solvus separa:',
+      options: ['Una solución sólida de dos sólidos', 'Líquido de líquido + sólido', 'Sólido de sólido + líquido', 'Dos líquidos'],
+      correct: 0,
+      explain: 'El solvus separa α de α + β: precipita una segunda fase sólida, sin líquido.',
+    },
+    {
+      id: 'q10-17', unit: 'u10', topic: 'fronteras', type: 'mcq',
+      q: 'En el sistema Pb–Sn, el punto eutéctico está en:',
+      options: ['61,9 % Sn y 183 °C', '19 % Sn y 183 °C', '97,5 % Sn y 300 °C', '50 % Sn y 250 °C'],
+      correct: 0,
+      explain: 'Pb–Sn: eutéctico 61,9 % Sn · 183 °C; α máxima 19 % Sn; β 97,5 % Sn.',
+    },
+    {
+      id: 'q10-18', unit: 'u10', topic: 'eutectica', type: 'mcq',
+      q: 'La aleación eutéctica solidifica:',
+      options: ['A una sola temperatura, en una meseta', 'En un rango de temperaturas, sin meseta', 'Siempre por debajo de 0 °C', 'Sin liberar calor latente'],
+      correct: 0,
+      explain: 'L → α + β a temperatura constante: la curva tiene una sola meseta.',
+    },
+    {
+      id: 'q10-19', unit: 'u10', topic: 'curvas', type: 'mcq',
+      q: 'La curva de la aleación eutéctica tiene:',
+      options: ['Una sola meseta horizontal a TE', 'Dos quiebres y ningún tramo horizontal', 'Un codo y ninguna meseta', 'Tres mesetas'],
+      correct: 0,
+      explain: 'Es la estabilización térmica simple: una meseta porque solidifica a una sola temperatura.',
+    },
+    {
+      id: 'q10-20', unit: 'u10', topic: 'curvas', type: 'mcq',
+      q: 'La curva de una aleación hipoeutéctica tiene:',
+      options: ['Un codo en el liquidus y después la meseta eutéctica', 'Sólo una meseta, sin codo', 'Dos mesetas', 'Ninguna meseta'],
+      correct: 0,
+      explain: 'Primero precipita α primaria en un rango (codo) y después el líquido restante solidifica como eutéctico en la meseta.',
+    },
+    {
+      id: 'q10-21', unit: 'u10', topic: 'curvas', type: 'mcq',
+      q: '¿Por qué la curva eutéctica tiene una meseta?',
+      options: ['El calor latente liberado compensa el calor extraído y la T no baja', 'Porque no se extrae calor', 'Porque la aleación se calienta', 'Porque no hay cambio de fase'],
+      correct: 0,
+      explain: 'Mientras hay líquido transformándose en α + β, el calor latente mantiene la temperatura constante.',
+    },
+    {
+      id: 'q10-22', unit: 'u10', topic: 'curvas', type: 'mcq',
+      q: 'La principal diferencia entre la curva de la U9 (isomorfa) y la U10 (eutéctica) es:',
+      options: ['La U9 tiene dos quiebres y ninguna meseta; la U10 tiene una meseta', 'Las dos tienen meseta', 'La U9 tiene meseta y la U10 no', 'Son iguales'],
+      correct: 0,
+      explain: 'La isomorfa solidifica en un rango (liquidus/solidus), sin meseta. La eutéctica solidifica a una temperatura, con meseta.',
+    },
+    {
+      id: 'q10-23', unit: 'u10', topic: 'curvas', type: 'mcq',
+      q: 'El metal puro (U8) y la aleación eutéctica (U10) se parecen en que:',
+      options: ['Los dos tienen una meseta horizontal', 'Los dos tienen dos quiebres', 'Los dos solidifican en un rango', 'Ninguno tiene meseta'],
+      correct: 0,
+      explain: 'Ambos tienen una meseta porque solidifican a temperatura constante; cambian la temperatura y las fases que se forman.',
+    },
+    {
+      id: 'q10-24', unit: 'u10', topic: 'eutectica', type: 'mcq',
+      q: 'La estructura del eutéctico se describe como:',
+      options: ['Laminar: placas alternadas de α y β', 'Una sola fase homogénea', 'Grandes bloques de α y β separados', 'Siempre columnar'],
+      correct: 0,
+      explain: 'Las dos fases crecen juntas repartiéndose el soluto y forman placas alternadas (laminillas).',
+    },
+    {
+      id: 'q10-25', unit: 'u10', topic: 'eutectica', type: 'mcq',
+      q: 'Una aleación hipereutéctica tiene:',
+      options: ['β primaria + eutéctico', 'α primaria + eutéctico', '100 % eutéctico', 'Sólo líquido'],
+      correct: 0,
+      explain: 'A la derecha del punto eutéctico precipita β primaria antes del eutéctico. La hipoeutéctica tiene α primaria.',
+    },
+    {
+      id: 'q10-26', unit: 'u10', topic: 'aplicaciones', type: 'mcq',
+      q: 'Al aumentar la rapidez de enfriamiento del eutéctico:',
+      options: ['λ disminuye y la resistencia sube', 'λ aumenta y la resistencia baja', 'λ no cambia', 'Desaparece el eutéctico'],
+      correct: 0,
+      explain: 'Más rápido = laminillas más finas (menor λ) = más fronteras para frenar dislocaciones = más resistencia.',
+    },
+    {
+      id: 'q10-27', unit: 'u10', topic: 'aplicaciones', type: 'mcq',
+      q: 'En el eutéctico Al–Si sin modificar, el silicio forma:',
+      options: ['Placas en aguja que fragilizan', 'Barras redondeadas', 'Una sola fase líquida', 'Laminillas de plomo'],
+      correct: 0,
+      explain: 'Las agujas concentran tensiones y fragilizan; con modificador, el silicio crece como barras redondeadas y mejora la ductilidad.',
+    },
+    {
+      id: 'q10-28', unit: 'u10', topic: 'aplicaciones', type: 'mcq',
+      q: 'Si el eutéctico solidifica fuera del equilibrio por enfriamiento rápido:',
+      options: ['Aparece más microconstituyente eutéctico o una estructura distinta', 'No cambia nada', 'Desaparece el eutéctico', 'Sólo se forma α'],
+      correct: 0,
+      explain: 'La difusión no alcanza, el solidus se corre y la microestructura real difiere de la de equilibrio.',
+    },
+    {
+      id: 'q10-29', unit: 'u10', topic: 'dispersion', type: 'mcq',
+      q: '¿Cuál es la diferencia entre un compuesto intermetálico y un microconstituyente eutéctico?',
+      options: ['El compuesto es una fase nueva; el eutéctico es una mezcla de dos fases', 'Son lo mismo', 'El eutéctico es una fase única', 'El compuesto es una mezcla de fases'],
+      correct: 0,
+      explain: 'El intermetálico tiene estructura y composición propias. El eutéctico laminar es una mezcla de α + β.',
+    },
+    {
+      id: 'q10-30', unit: 'u10', topic: 'reacciones', type: 'mcq',
+      q: '¿Cuál de estas reacciones ocurre completamente en estado sólido?',
+      options: ['Eutectoide y peritectoide', 'Eutéctica y peritéctica', 'Monotéctica y eutéctica', 'Sólo la eutéctica'],
+      correct: 0,
+      explain: 'La terminación -oide indica que no hay líquido: eutectoide (γ → α + β) y peritectoide (α + β → γ).',
+    },
+  ],
+};
+
+  __CDM_MODULES__["data/u10.js"] = { u10 };
+})();
+
 /* ===== data/ensayos.js ===== */
 (function () {
   "use strict";
@@ -3657,12 +4236,13 @@ const CHARPY_VS_IZOD = {
 const { u6 } = __CDM_MODULES__["data/u6.js"];
 const { u8 } = __CDM_MODULES__["data/u8.js"];
 const { u9 } = __CDM_MODULES__["data/u9.js"];
+const { u10 } = __CDM_MODULES__["data/u10.js"];
 const { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD } = __CDM_MODULES__["data/ensayos.js"];
 
 
 
-const UNITS = { u6, u8, u9 };
-const UNIT_LIST = [u6, u8, u9];
+const UNITS = { u6, u8, u9, u10 };
+const UNIT_LIST = [u6, u8, u9, u10];
 
 const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
@@ -3688,6 +4268,12 @@ const TOPICS = {
   palanca: { label: 'Regla de la palanca', unit: 'u9' },
   'curva-aleacion': { label: 'Curva de la aleación', unit: 'u9' },
   segregacion: { label: 'Segregación', unit: 'u9' },
+  dispersion: { label: 'Dispersión', unit: 'u10' },
+  reacciones: { label: 'Reacciones de 3 fases', unit: 'u10' },
+  fronteras: { label: 'Liquidus / solidus / solvus', unit: 'u10' },
+  eutectica: { label: 'Aleación eutéctica', unit: 'u10' },
+  curvas: { label: 'Curvas U10', unit: 'u10' },
+  aplicaciones: { label: 'Aplicaciones U10', unit: 'u10' },
 };
 
 const ALL_LESSONS = UNIT_LIST.flatMap((unit) =>
@@ -4713,6 +5299,382 @@ const U9_DIAGRAMS = [isomorfo, curvaAleacion];
   __CDM_MODULES__["diagrams/u9.js"] = { U9_DIAGRAMS };
 })();
 
+/* ===== diagrams/u10.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   diagrams/u10.js — reacciones de 3 fases, fronteras y curvas
+   ============================================================ */
+
+const arrow = (id) => `
+  <defs>
+    <marker id="${id}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1 L10 5 L0 9 z" fill="var(--muted)"/>
+    </marker>
+  </defs>`;
+
+/* ---------- 5 reacciones en un solo esquema ---------- */
+
+const panel = (x, y, title, equation, drawing, pin) => `
+  <g>
+    <rect x="${x}" y="${y}" width="170" height="78" rx="7" fill="var(--bg-soft)" stroke="var(--line)"/>
+    <text x="${x + 8}" y="${y + 14}" class="svg-text svg-text--strong" font-size="7.5">${title}</text>
+    <text x="${x + 8}" y="${y + 25}" class="svg-text svg-text--rose" font-size="6.6">${equation}</text>
+    ${drawing}
+  </g>`;
+
+const reacciones = {
+  id: 'reacciones',
+  unit: 'u10',
+  title: 'Las 5 reacciones de tres fases',
+  subtitle: 'Los esquemas del PDF, uno por pestaña',
+  key: 'reacciones',
+  cta: { href: '#/practica/dibujar', label: 'Dibujar las reacciones desde cero' },
+  notes: [
+    'La línea horizontal es la temperatura de la reacción. Mirá qué fases hay arriba y abajo del punto central.',
+    'Eu = 1 fase → 2 · Peri = 2 fases → 1 · -oide = todo sólido, sin líquido.',
+    'Cada pestaña reproduce el esquema de la cátedra: α y β a los costados, L o γ en la cúspide y la mezcla debajo.',
+    'Para entrenar de verdad, <a class="inline-link" href="#/practica/dibujar">dibujá cada reacción desde cero</a>.',
+  ],
+  legend: [
+    { color: 'rose', text: 'Línea de reacción' },
+    { color: 'accent', text: 'Líquido' },
+    { color: 'green', text: 'Sólidos' },
+  ],
+  variants: [
+    {
+      key: 'eutectica',
+      label: 'Eutéctica',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de la reacción eutéctica L a alfa más beta">
+        <text x="180" y="25" text-anchor="middle" class="svg-text svg-text--rose" font-size="9">L → α + β</text>
+        <line x1="82" y1="170" x2="278" y2="170" stroke="var(--rose)" stroke-width="1.6"/>
+        <path d="M82 170 C72 160, 64 151, 58 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M82 170 C72 180, 64 189, 58 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 160, 296 151, 302 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 180, 296 189, 302 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M150 72 L180 170 L210 72" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
+        <text x="82" y="158" class="svg-text svg-text--green" font-size="10">α</text>
+        <text x="278" y="158" class="svg-text svg-text--green" font-size="10">β</text>
+        <text x="180" y="103" text-anchor="middle" class="svg-text svg-text--accent" font-size="10">L</text>
+        <text x="180" y="205" text-anchor="middle" class="svg-text svg-text--muted" font-size="9">α + β</text>
+        <text x="180" y="286" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Una fase líquida se separa en dos sólidos</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 180, y: 170, lx: 180, ly: 145, label: 'Línea eutéctica', q: '¿Qué reacción ocurre en la línea?', detail: 'L → α + β: un líquido se transforma en dos sólidos distintos a temperatura constante.' },
+        { n: 2, x: 180, y: 78, lx: 180, ly: 60, label: 'Líquido L', q: '¿Qué fase hay arriba del centro?', detail: 'Líquido. La cúspide con forma de V es la zona líquida que llega hasta el punto eutéctico.' },
+        { n: 3, x: 55, y: 145, lx: 55, ly: 127, label: 'Fase α', q: '¿Qué fase hay a la izquierda?', detail: 'α: solución sólida rica en el componente de la izquierda.' },
+        { n: 4, x: 305, y: 145, lx: 305, ly: 127, label: 'Fase β', q: '¿Qué fase hay a la derecha?', detail: 'β: solución sólida rica en el componente de la derecha.' },
+        { n: 5, x: 180, y: 230, lx: 180, ly: 250, label: 'Zona α + β', q: '¿Qué hay debajo de la línea?', detail: 'Las dos fases sólidas α y β. Es el microconstituyente eutéctico.' },
+      ],
+    },
+    {
+      key: 'peritectica',
+      label: 'Peritéctica',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de la reacción peritéctica alfa más líquido a beta">
+        <text x="180" y="25" text-anchor="middle" class="svg-text svg-text--rose" font-size="9">α + L → β</text>
+        <line x1="82" y1="170" x2="296" y2="170" stroke="var(--rose)" stroke-width="1.6"/>
+        <path d="M82 170 C72 160, 64 151, 58 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M82 170 C72 180, 64 189, 58 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M296 170 C286 158, 278 150, 272 140" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M296 170 C306 180, 314 189, 320 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M180 170 L162 200 M180 170 L198 200" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <text x="82" y="158" class="svg-text svg-text--green" font-size="10">α</text>
+        <text x="296" y="158" class="svg-text svg-text--green" font-size="10">L</text>
+        <text x="142" y="125" class="svg-text svg-text--amber" font-size="9">α + L</text>
+        <text x="180" y="192" text-anchor="middle" class="svg-text svg-text--green" font-size="10">β</text>
+        <text x="180" y="286" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Un sólido y un líquido se combinan en un sólido</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 180, y: 170, lx: 180, ly: 145, label: 'Línea peritéctica', q: '¿Qué reacción ocurre en la línea?', detail: 'α + L → β: dos fases (un sólido y un líquido) se combinan para formar un nuevo sólido.' },
+        { n: 2, x: 112, y: 100, lx: 100, ly: 82, label: 'Zona α + L', q: '¿Qué hay arriba, a la izquierda?', detail: 'α + L: el sólido α y el líquido conviven antes de la reacción.' },
+        { n: 3, x: 55, y: 145, lx: 55, ly: 127, label: 'Fase α', q: '¿Qué fase hay a la izquierda?', detail: 'α: el sólido que entra en la reacción peritéctica.' },
+        { n: 4, x: 318, y: 138, lx: 318, ly: 120, label: 'Líquido L', q: '¿Qué fase hay a la derecha?', detail: 'L: el líquido que entra en la reacción peritéctica.' },
+        { n: 5, x: 180, y: 210, lx: 180, ly: 228, label: 'Fase β', q: '¿Qué fase hay debajo del centro?', detail: 'β: el nuevo sólido que se forma por la reacción α + L → β.' },
+      ],
+    },
+    {
+      key: 'monotectica',
+      label: 'Monotéctica',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de la reacción monotéctica L uno a L dos más alfa">
+        <text x="180" y="25" text-anchor="middle" class="svg-text svg-text--rose" font-size="9">L₁ → L₂ + α</text>
+        <line x1="60" y1="170" x2="316" y2="170" stroke="var(--rose)" stroke-width="1.6"/>
+        <path d="M28 210 C38 190, 48 180, 60 170 C78 120, 112 84, 148 80 C188 78, 214 118, 224 170" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M224 170 C244 152, 264 138, 286 128" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M316 170 C324 158, 330 150, 336 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M316 170 C324 180, 330 189, 336 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <text x="72" y="132" class="svg-text svg-text--violet" font-size="10">L₂</text>
+        <text x="232" y="112" class="svg-text svg-text--accent" font-size="10">L₁</text>
+        <text x="316" y="155" class="svg-text svg-text--green" font-size="10">α</text>
+        <text x="180" y="208" text-anchor="middle" class="svg-text svg-text--muted" font-size="9">α + L₂</text>
+        <text x="102" y="62" class="svg-text svg-text--muted" font-size="7">zona de miscibilidad</text>
+        <path d="M138 68 C150 80, 160 98, 168 118" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar-mono)"/>
+        <defs><marker id="ar-mono" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 1 L10 5 L0 9 z" fill="var(--muted)"/></marker></defs>
+        <text x="180" y="286" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Un líquido se separa en otro líquido y un sólido</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 180, y: 170, lx: 180, ly: 145, label: 'Línea monotéctica', q: '¿Qué reacción ocurre en la línea?', detail: 'L₁ → L₂ + α: un líquido se separa en otro líquido de distinta composición y un sólido.' },
+        { n: 2, x: 55, y: 145, lx: 52, ly: 124, label: 'Líquido L₂', q: '¿Qué líquido queda a la izquierda?', detail: 'L₂: el líquido pobre en soluto que queda separado del L₁.' },
+        { n: 3, x: 258, y: 90, lx: 258, ly: 72, label: 'Líquido L₁', q: '¿Qué líquido está en la cúpula?', detail: 'L₁: el líquido rico en soluto, dentro de la zona de miscibilidad.' },
+        { n: 4, x: 336, y: 135, lx: 330, ly: 118, label: 'Fase α', q: '¿Qué sólido se forma?', detail: 'α: el sólido que precipita junto con L₂.' },
+        { n: 5, x: 180, y: 235, lx: 180, ly: 255, label: 'Zona α + L₂', q: '¿Qué hay debajo de la línea?', detail: 'α + L₂: el sólido α y el líquido L₂ en equilibrio.' },
+      ],
+    },
+    {
+      key: 'eutectoide',
+      label: 'Eutectoide',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de la reacción eutectoide gamma a alfa más beta">
+        <text x="180" y="25" text-anchor="middle" class="svg-text svg-text--rose" font-size="9">γ → α + β</text>
+        <line x1="82" y1="170" x2="278" y2="170" stroke="var(--rose)" stroke-width="1.6"/>
+        <path d="M82 170 C72 160, 64 151, 58 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M82 170 C72 180, 64 189, 58 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 160, 296 151, 302 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 180, 296 189, 302 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M150 72 L180 170 L210 72" fill="none" stroke="var(--amber)" stroke-width="2.2"/>
+        <text x="82" y="158" class="svg-text svg-text--green" font-size="10">α</text>
+        <text x="278" y="158" class="svg-text svg-text--green" font-size="10">β</text>
+        <text x="180" y="103" text-anchor="middle" class="svg-text svg-text--amber" font-size="10">γ</text>
+        <text x="180" y="205" text-anchor="middle" class="svg-text svg-text--muted" font-size="9">α + β</text>
+        <text x="180" y="286" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Un sólido se transforma en dos sólidos</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 180, y: 170, lx: 180, ly: 145, label: 'Línea eutectoide', q: '¿Qué reacción ocurre en la línea?', detail: 'γ → α + β: un sólido γ se transforma en dos sólidos α y β. Todo ocurre en estado sólido.' },
+        { n: 2, x: 180, y: 78, lx: 180, ly: 60, label: 'Fase γ', q: '¿Qué fase hay arriba del centro?', detail: 'γ: el sólido que se descompone en α + β. La cúspide es de fase sólida, no líquida.' },
+        { n: 3, x: 55, y: 145, lx: 55, ly: 127, label: 'Fase α', q: '¿Qué fase hay a la izquierda?', detail: 'α: uno de los dos sólidos que se forman.' },
+        { n: 4, x: 305, y: 145, lx: 305, ly: 127, label: 'Fase β', q: '¿Qué fase hay a la derecha?', detail: 'β: el otro sólido que se forma.' },
+        { n: 5, x: 180, y: 230, lx: 180, ly: 250, label: 'Zona α + β', q: '¿Qué hay debajo de la línea?', detail: 'α + β: los dos sólidos resultantes, sin líquido.' },
+      ],
+    },
+    {
+      key: 'peritectoide',
+      label: 'Peritectoide',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de la reacción peritectoide alfa más beta a gamma">
+        <text x="180" y="25" text-anchor="middle" class="svg-text svg-text--rose" font-size="9">α + β → γ</text>
+        <line x1="82" y1="170" x2="278" y2="170" stroke="var(--rose)" stroke-width="1.6"/>
+        <path d="M82 170 C72 160, 64 151, 58 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M82 170 C72 180, 64 189, 58 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 160, 296 151, 302 142" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M278 170 C288 180, 296 189, 302 198" fill="none" stroke="var(--green)" stroke-width="2.2"/>
+        <path d="M180 170 L162 200 M180 170 L198 200" fill="none" stroke="var(--amber)" stroke-width="2.2"/>
+        <text x="82" y="158" class="svg-text svg-text--green" font-size="10">α</text>
+        <text x="278" y="158" class="svg-text svg-text--green" font-size="10">β</text>
+        <text x="180" y="115" text-anchor="middle" class="svg-text svg-text--amber" font-size="9">α + β</text>
+        <text x="180" y="192" text-anchor="middle" class="svg-text svg-text--amber" font-size="10">γ</text>
+        <text x="180" y="286" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Dos sólidos se combinan en un tercer sólido</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 180, y: 170, lx: 180, ly: 145, label: 'Línea peritectoide', q: '¿Qué reacción ocurre en la línea?', detail: 'α + β → γ: dos sólidos se combinan para formar un tercer sólido γ. Todo en estado sólido.' },
+        { n: 2, x: 180, y: 72, lx: 180, ly: 54, label: 'Zona α + β', q: '¿Qué hay arriba del centro?', detail: 'α + β: los dos sólidos que entran en la reacción.' },
+        { n: 3, x: 55, y: 145, lx: 55, ly: 127, label: 'Fase α', q: '¿Qué fase hay a la izquierda?', detail: 'α: uno de los sólidos de entrada.' },
+        { n: 4, x: 305, y: 145, lx: 305, ly: 127, label: 'Fase β', q: '¿Qué fase hay a la derecha?', detail: 'β: el otro sólido de entrada.' },
+        { n: 5, x: 180, y: 210, lx: 180, ly: 228, label: 'Fase γ', q: '¿Qué fase hay debajo del centro?', detail: 'γ: el nuevo sólido que se forma por la reacción α + β → γ.' },
+      ],
+    },
+  ],
+};
+
+/* ---------- fronteras liquidus / solidus / solvus ---------- */
+
+const fronteras = {
+  id: 'fronteras',
+  unit: 'u10',
+  title: 'Liquidus, solidus y solvus',
+  subtitle: 'Esquema de una aleación eutéctica',
+  key: 'fronteras',
+  notes: [
+    'Liquidus: L ↔ L + sólido. Solidus: sólido ↔ sólido + líquido. Solvus: α ↔ α + β.',
+    'El eutéctico Pb–Sn está en 61,9 % Sn y 183 °C; α máxima 19 % Sn, β 97,5 % Sn.',
+    'El diagrama Pb–Sn completo no entra como tema: este esquema es para leer las fronteras y la curva.',
+  ],
+  legend: [
+    { color: 'accent', text: 'Liquidus' },
+    { color: 'green', text: 'Solidus / solvus' },
+    { color: 'rose', text: 'Isoterma eutéctica' },
+  ],
+  variants: [
+    {
+      key: 'unica',
+      label: 'Esquema Pb–Sn',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Esquema de fronteras liquidus, solidus y solvus en una aleación eutéctica">
+        ${arrow('ar-fr10')}
+        <line x1="55" y1="250" x2="344" y2="250" class="svg-axis" marker-end="url(#ar-fr10)"/>
+        <line x1="55" y1="250" x2="55" y2="28" class="svg-axis" marker-end="url(#ar-fr10)"/>
+        <text x="20" y="40" class="svg-text svg-text--strong" font-size="9">T</text>
+        <text x="198" y="286" text-anchor="middle" class="svg-text svg-text--strong" font-size="8">% en peso de Sn</text>
+        <text x="55" y="266" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Pb</text>
+        <text x="340" y="266" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">Sn</text>
+
+        <line x1="104" y1="160" x2="326" y2="160" stroke="var(--rose)" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text x="210" y="180" text-anchor="middle" class="svg-text svg-text--rose" font-size="6.8">183 °C</text>
+
+        <path d="M55 60 C105 84, 170 122, 230 160" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+        <path d="M340 50 C300 84, 260 122, 230 160" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+        <path d="M55 60 C72 92, 90 130, 104 160" fill="none" stroke="var(--green)" stroke-width="2.1"/>
+        <path d="M340 50 C334 92, 330 130, 326 160" fill="none" stroke="var(--green)" stroke-width="2.1"/>
+        <path d="M104 160 C92 196, 82 224, 72 250" fill="none" stroke="var(--green)" stroke-width="2.1"/>
+        <path d="M326 160 C330 196, 332 224, 334 250" fill="none" stroke="var(--green)" stroke-width="2.1"/>
+
+        <text x="110" y="105" class="svg-text svg-text--accent" font-size="8">L + α</text>
+        <text x="276" y="105" class="svg-text svg-text--accent" font-size="8">L + β</text>
+        <text x="170" y="72" class="svg-text svg-text--accent" font-size="9">L</text>
+        <text x="235" y="235" class="svg-text svg-text--amber" font-size="8">α + β</text>
+
+        <text x="162" y="95" class="svg-text svg-text--accent" font-size="6.5">liquidus</text>
+        <text x="54" y="140" class="svg-text svg-text--green" font-size="6.5">solidus</text>
+        <text x="50" y="228" class="svg-text svg-text--green" font-size="6.5">solvus</text>
+        <text x="262" y="182" class="svg-text svg-text--rose" font-size="6.5">eutéctico</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 143, y: 104, lx: 145, ly: 88, label: 'Liquidus', q: '¿Qué separa el liquidus?', detail: 'Separa L (todo líquido) de L + sólido. Al cruzarlo empieza a formarse el primer sólido.' },
+        { n: 2, x: 82, y: 116, lx: 100, ly: 128, label: 'Solidus', q: '¿Qué separa el solidus?', detail: 'Separa sólido de sólido + líquido. Al cruzarlo desaparece la última gota de líquido.' },
+        { n: 3, x: 83, y: 220, lx: 110, ly: 232, label: 'Solvus', q: '¿Qué separa el solvus?', detail: 'Separa una solución sólida α de α + β (dos sólidos). Al cruzarlo precipita la segunda fase sólida; no hay líquido.' },
+        { n: 4, x: 230, y: 160, lx: 260, ly: 142, label: 'Punto eutéctico', q: '¿Qué indica el punto eutéctico?', detail: 'Composición y temperatura donde el líquido se transforma en α + β a temperatura constante. En Pb–Sn: 61,9 % Sn y 183 °C.' },
+        { n: 5, x: 70, y: 185, lx: 88, ly: 170, label: 'Fase α', q: '¿Qué hay en la zona α?', detail: 'Una solución sólida de Sn en Pb, con solubilidad máxima de 19 % Sn.' },
+        { n: 6, x: 334, y: 195, lx: 310, ly: 180, label: 'Fase β', q: '¿Qué hay en la zona β?', detail: 'Una solución sólida de Pb en Sn, con solubilidad máxima de 97,5 % Sn.' },
+        { n: 7, x: 150, y: 140, lx: 160, ly: 156, label: 'Zona L + α', q: '¿Qué hay entre liquidus y solidus?', detail: 'Líquido y α en equilibrio. La composición y cantidad de cada fase cambian con la temperatura.' },
+        { n: 8, x: 190, y: 235, lx: 220, ly: 250, label: 'Zona α + β', q: '¿Qué hay por debajo del solvus?', detail: 'Dos fases sólidas, α y β. Es la región del eutéctico sólido; no hay líquido.' },
+      ],
+    },
+  ],
+};
+
+/* ---------- curvas U10 ---------- */
+
+const curvasU10 = {
+  id: 'curvas-u10',
+  unit: 'u10',
+  title: 'Curvas de enfriamiento U10',
+  subtitle: 'Eutéctica, hipoeutéctica y comparación U8–U9–U10',
+  key: 'curvas-u10',
+  cta: { href: '#/practica/dibujar', label: 'Dibujar las curvas desde cero' },
+  notes: [
+    'Eutéctica: una sola meseta horizontal porque solidifica a una sola temperatura.',
+    'Hipoeutéctica: codo en el liquidus (α primaria) y después la meseta eutéctica.',
+    'Comparación: U8 = una meseta; U9 = dos quiebres sin meseta; U10 = meseta eutéctica.',
+    'Para practicar, <a class="inline-link" href="#/practica/dibujar">dibujá las curvas desde cero</a>.',
+  ],
+  legend: [
+    { color: 'accent', text: 'Líquido' },
+    { color: 'amber', text: 'L + sólido / primaria' },
+    { color: 'green', text: 'Sólido' },
+    { color: 'rose', text: 'Meseta / liquidus' },
+  ],
+  variants: [
+    {
+      key: 'eutectica',
+      label: 'Eutéctica',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Curva de enfriamiento de una aleación eutéctica">
+        ${arrow('ar-c10e')}
+        <line x1="56" y1="250" x2="344" y2="250" class="svg-axis" marker-end="url(#ar-c10e)"/>
+        <line x1="56" y1="250" x2="56" y2="28" class="svg-axis" marker-end="url(#ar-c10e)"/>
+        <text x="20" y="40" class="svg-text svg-text--strong" font-size="9">T</text>
+        <text x="326" y="268" class="svg-text svg-text--strong" font-size="9">t</text>
+        <line x1="58" y1="165" x2="336" y2="165" stroke="var(--rose)" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="64" y="158" class="svg-text svg-text--rose" font-size="7">TE · 183 °C</text>
+        <path d="M72 48 Q112 145 152 165" fill="none" stroke="var(--accent)" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M152 165 L250 165" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M250 165 Q290 190 318 244" fill="none" stroke="var(--green)" stroke-width="2.8" stroke-linecap="round"/>
+        <text x="90" y="95" class="svg-text svg-text--accent" font-size="9">L</text>
+        <text x="152" y="140" text-anchor="middle" class="svg-text svg-text--amber" font-size="7.5">L → α + β</text>
+        <text x="322" y="210" class="svg-text svg-text--green" font-size="9">α + β</text>
+        <text x="195" y="192" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">una sola meseta</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 72, y: 48, lx: 105, ly: 36, label: 'Líquido', q: '¿Qué hay antes de la meseta?', detail: 'La aleación está 100 % líquida y se enfría hasta la temperatura eutéctica.' },
+        { n: 2, x: 152, y: 165, lx: 120, ly: 180, label: 'Inicio de la meseta', q: '¿Qué ocurre al llegar a TE?', detail: 'Empieza la reacción eutéctica L → α + β. La temperatura se detiene porque el calor latente compensa el calor extraído.' },
+        { n: 3, x: 250, y: 165, lx: 275, ly: 148, label: 'Fin de la meseta', q: '¿Qué marca el final de la meseta?', detail: 'Se terminó el líquido: todo es α + β. Desde acá el sólido vuelve a enfriarse y la temperatura baja.' },
+        { n: 4, x: 300, y: 226, lx: 310, ly: 242, label: 'Sólido α + β', q: '¿Qué hay después de la meseta?', detail: 'El eutéctico sólido α + β se sigue enfriando. No hay más cambios de fase.' },
+        { n: 5, x: 200, y: 165, lx: 200, ly: 210, label: 'Meseta = estabilización simple', q: '¿Por qué hay una sola meseta?', detail: 'Porque la aleación eutéctica solidifica a una sola temperatura. Es la estabilización térmica simple.' },
+      ],
+    },
+    {
+      key: 'hipoeutectica',
+      label: 'Hipoeutéctica',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Curva de enfriamiento de una aleación hipoeutéctica">
+        ${arrow('ar-c10h')}
+        <line x1="56" y1="250" x2="344" y2="250" class="svg-axis" marker-end="url(#ar-c10h)"/>
+        <line x1="56" y1="250" x2="56" y2="28" class="svg-axis" marker-end="url(#ar-c10h)"/>
+        <text x="20" y="40" class="svg-text svg-text--strong" font-size="9">T</text>
+        <text x="326" y="268" class="svg-text svg-text--strong" font-size="9">t</text>
+        <line x1="58" y1="165" x2="336" y2="165" stroke="var(--rose)" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="64" y="158" class="svg-text svg-text--rose" font-size="7">TE · 183 °C</text>
+        <path d="M72 48 Q95 100 125 108" fill="none" stroke="var(--accent)" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M125 108 Q160 160 182 165" fill="none" stroke="var(--amber)" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M182 165 L252 165" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M252 165 Q292 190 318 244" fill="none" stroke="var(--green)" stroke-width="2.8" stroke-linecap="round"/>
+        <text x="88" y="88" class="svg-text svg-text--accent" font-size="9">L</text>
+        <text x="120" y="148" class="svg-text svg-text--amber" font-size="7.5">α + L</text>
+        <text x="215" y="152" text-anchor="middle" class="svg-text svg-text--amber" font-size="7">L → eutéctico</text>
+        <text x="282" y="192" class="svg-text svg-text--green" font-size="8">α + eutéctico</text>
+        <text x="158" y="92" class="svg-text svg-text--rose" font-size="6.5">codo liquidus</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 72, y: 48, lx: 102, ly: 36, label: 'Líquido', q: '¿Qué hay al inicio?', detail: 'La aleación está líquida y se enfría hasta el liquidus.' },
+        { n: 2, x: 125, y: 108, lx: 105, ly: 120, label: 'Codo del liquidus', q: '¿Qué significa el codo?', detail: 'Empieza a precipitar la fase primaria α, rica en el componente principal. La temperatura sigue bajando por α + L.' },
+        { n: 3, x: 215, y: 165, lx: 222, ly: 145, label: 'Meseta eutéctica', q: '¿Qué solidifica en la meseta?', detail: 'El líquido restante se transforma en eutéctico α + β a TE. La meseta es la misma que en la eutéctica.' },
+        { n: 4, x: 300, y: 226, lx: 300, ly: 242, label: 'Sólido α + eutéctico', q: '¿Cuál es la estructura final?', detail: 'α primaria (más gruesa, formada antes) rodeada de eutéctico laminar. Es una aleación hipoeutéctica.' },
+        { n: 5, x: 150, y: 132, lx: 178, ly: 118, label: 'α primaria', q: '¿Qué fase primaria precipita?', detail: 'En la hipoeutéctica precipita α primaria. En la hipereutéctica precipitaría β primaria.' },
+      ],
+    },
+    {
+      key: 'comparar',
+      label: 'Comparar U8–U9–U10',
+      svg: `
+      <svg viewBox="0 0 360 300" role="img" aria-label="Comparación de las curvas de enfriamiento de U8, U9 y U10">
+        ${arrow('ar-c10c')}
+        <g>
+          <rect x="8" y="26" width="108" height="232" rx="7" fill="var(--bg-soft)" stroke="var(--line)"/>
+          <text x="62" y="42" text-anchor="middle" class="svg-text svg-text--strong" font-size="7.5">U8 · puro</text>
+          <line x1="24" y1="222" x2="104" y2="222" stroke="var(--line-strong)"/>
+          <line x1="24" y1="222" x2="24" y2="54" stroke="var(--line-strong)"/>
+          <path d="M28 66 Q42 120 54 140" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+          <path d="M82 140 Q90 145 98 204" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="54" y1="140" x2="82" y2="140" stroke="var(--amber)" stroke-width="3.4"/>
+          <text x="86" y="132" text-anchor="middle" class="svg-text svg-text--amber" font-size="6">Tf</text>
+        </g>
+        <g>
+          <rect x="126" y="26" width="108" height="232" rx="7" fill="var(--bg-soft)" stroke="var(--line)"/>
+          <text x="180" y="42" text-anchor="middle" class="svg-text svg-text--strong" font-size="7.5">U9 · isomorfa</text>
+          <line x1="142" y1="222" x2="222" y2="222" stroke="var(--line-strong)"/>
+          <line x1="142" y1="222" x2="142" y2="54" stroke="var(--line-strong)"/>
+          <path d="M146 66 Q158 120 182 142 Q205 190 218 210" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+          <text x="188" y="112" class="svg-text svg-text--accent" font-size="6">2 quiebres</text>
+          <text x="184" y="214" class="svg-text svg-text--green" font-size="6">sin meseta</text>
+        </g>
+        <g>
+          <rect x="244" y="26" width="108" height="232" rx="7" fill="var(--bg-soft)" stroke="var(--line)"/>
+          <text x="298" y="42" text-anchor="middle" class="svg-text svg-text--strong" font-size="7.5">U10 · eutéctica</text>
+          <line x1="260" y1="222" x2="340" y2="222" stroke="var(--line-strong)"/>
+          <line x1="260" y1="222" x2="260" y2="54" stroke="var(--line-strong)"/>
+          <path d="M264 66 Q278 145 294 160" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+          <path d="M324 160 Q330 195 336 204" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="294" y1="160" x2="324" y2="160" stroke="var(--amber)" stroke-width="3.4"/>
+          <text x="326" y="150" text-anchor="middle" class="svg-text svg-text--amber" font-size="6">TE</text>
+          <text x="300" y="214" text-anchor="middle" class="svg-text svg-text--green" font-size="6">1 meseta</text>
+        </g>
+        <text x="180" y="282" text-anchor="middle" class="svg-text svg-text--muted" font-size="7">U8: meseta a Tf · U9: dos quiebres, sin meseta · U10: meseta eutéctica</text>
+      </svg>`,
+      pins: [
+        { n: 1, x: 68, y: 140, lx: 62, ly: 24, label: 'U8 · metal puro', q: '¿Cómo es la curva del metal puro (U8)?', detail: 'Una sola meseta horizontal a Tf. Solidifica a una sola temperatura, sin codo.' },
+        { n: 2, x: 184, y: 160, lx: 180, ly: 24, label: 'U9 · aleación isomorfa', q: '¿Cómo es la curva de la U9?', detail: 'Dos quiebres (liquidus y solidus) y un tramo inclinado L + α. No tiene meseta: solidifica en un rango de temperaturas.' },
+        { n: 3, x: 310, y: 160, lx: 298, ly: 24, label: 'U10 · eutéctica', q: '¿Cómo es la curva de la U10?', detail: 'Una sola meseta horizontal a TE (menor que la fusión de los componentes puros). L → α + β a temperatura constante.' },
+      ],
+    },
+  ],
+};
+
+const U10_DIAGRAMS = [reacciones, fronteras, curvasU10];
+
+  __CDM_MODULES__["diagrams/u10.js"] = { U10_DIAGRAMS };
+})();
+
 /* ===== diagrams/index.js ===== */
 (function () {
   "use strict";
@@ -4723,8 +5685,9 @@ const U9_DIAGRAMS = [isomorfo, curvaAleacion];
 const { U6_DIAGRAMS } = __CDM_MODULES__["diagrams/u6.js"];
 const { U8_DIAGRAMS } = __CDM_MODULES__["diagrams/u8.js"];
 const { U9_DIAGRAMS } = __CDM_MODULES__["diagrams/u9.js"];
+const { U10_DIAGRAMS } = __CDM_MODULES__["diagrams/u10.js"];
 
-const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS, ...U9_DIAGRAMS];
+const ALL_DIAGRAMS = [...U6_DIAGRAMS, ...U8_DIAGRAMS, ...U9_DIAGRAMS, ...U10_DIAGRAMS];
 
 function getDiagram(id) {
   return ALL_DIAGRAMS.find((diagram) => diagram.id === id) || null;
@@ -4761,6 +5724,7 @@ const SCOPE_LABELS = {
   u6: 'Unidad 6',
   u8: 'Unidad 8',
   u9: 'Unidad 9',
+  u10: 'Unidad 10',
   due: 'Pendientes de hoy',
   weak: 'Puntos débiles',
   new: 'Preguntas nuevas',
@@ -4775,7 +5739,7 @@ function scopeLabel(scope, topic) {
 }
 
 function unitFiltered(items, scope) {
-  if (['u6', 'u8', 'u9'].includes(scope)) return items.filter((item) => item.unit === scope);
+  if (['u6', 'u8', 'u9', 'u10'].includes(scope)) return items.filter((item) => item.unit === scope);
   return items;
 }
 
@@ -4903,7 +5867,9 @@ function unitCard(unit, stats) {
     ? { href: '#/ensayos', icon: 'flask', label: 'Ensayos' }
     : unit.id === 'u8'
       ? { href: '#/practica/simuladores/chvorinov', icon: 'calculator', label: 'Chvorinov' }
-      : { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' };
+      : unit.id === 'u9'
+        ? { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' }
+        : { href: '#/teoria/diagramas/curvas-u10', icon: 'chart', label: 'Curvas' };
 
   return `<div class="unit-card unit-card--${unit.id}">
     <div class="unit-card__head">
@@ -4954,8 +5920,8 @@ function homeView() {
       <div class="hero__top">
         <div class="hero__copy">
           <span class="hero__kicker">Parcial 2 · CDM</span>
-          <h2>Unidades <em>6, 8 y 9</em><br>para repasar en el celular</h2>
-          <p class="hero__sub">Ensayos, impacto Charpy/Izod, fases, solubilidad y regla de la palanca. Sesiones cortas, repetidas hasta que quede en memoria.</p>
+          <h2>Unidades <em>6, 8, 9 y 10</em><br>para repasar en el celular</h2>
+          <p class="hero__sub">Ensayos, fases, palanca, reacciones de tres fases y curvas de enfriamiento. Sesiones cortas, repetidas hasta que quede en memoria.</p>
         </div>
         <div class="hero__ring">
           ${ring(overall, 'dominio', { size: 78 })}
@@ -5040,7 +6006,7 @@ function homeView() {
     <div class="note">Atajo para el celular: agregá esta página a la pantalla de inicio. Queda como una app, abre sin internet y guarda tu avance. Recomendado: una sesión corta por día y una extra antes del parcial.</div>
   `;
 
-  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8 y 9', nav: 'inicio', back: null };
+  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8, 9 y 10', nav: 'inicio', back: null };
 }
 
   __CDM_MODULES__["views/home.js"] = { homeView };
@@ -5069,7 +6035,7 @@ function pageHead({ eyebrow = '', eyebrowTone = '', title, sub = '', action = ''
     </div>`;
 }
 
-const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok' };
+const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok', u10: 'badge--violet' };
 
 function unitPill(unitId) {
   const number = String(unitId).replace(/^u/, '');
@@ -5251,7 +6217,7 @@ function theoryView() {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: 'Unidades 6, 8 y 9',
+      eyebrow: 'Unidades 6, 8, 9 y 10',
       title: 'Teoría esencial',
       sub: 'Lecciones cortas, diagramas interactivos y hoja de fórmulas.',
     })}
@@ -5260,7 +6226,7 @@ function theoryView() {
     <div class="note">Consejo: leé una lección, abrí su diagrama y recién después hacé el quiz del tema. La repetición espaciada te va a volver a traer lo que falles.</div>
   `;
 
-  return { el, title: 'Teoría', sub: 'Unidades 6, 8 y 9', nav: 'teoria', back: null };
+  return { el, title: 'Teoría', sub: 'Unidades 6, 8, 9 y 10', nav: 'teoria', back: null };
 }
 
 function practiceHref(topic) {
@@ -5408,15 +6374,19 @@ const TOPIC_BY_DIAGRAM = {
   enfriamiento: 'enfriamiento',
   isomorfo: 'isomorfo',
   'curva-aleacion': 'curva-aleacion',
+  reacciones: 'reacciones',
+  fronteras: 'fronteras',
+  'curvas-u10': 'curvas',
 };
 
 const DIAGRAM_SECTION = {
   u6: 'Diagramas de ensayos',
   u8: 'Diagramas de solidificación',
   u9: 'Diagramas de fases',
+  u10: 'Reacciones y curvas',
 };
 
-const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9' };
+const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9', u10: 'eyebrow--u10' };
 
 function totalPins(diagram) {
   return diagram.variants.reduce((acc, variant) => acc + variant.pins.length, 0);
@@ -5498,7 +6468,7 @@ function diagramView({ params, query }) {
 
   const variantTabs = el.querySelector('#variantTabs');
   if (variantTabs) {
-    variantTabs.innerHTML = `<div class="segmented" role="tablist">
+    variantTabs.innerHTML = `<div class="segmented segmented--variants" role="tablist">
       ${diagram.variants.map((variant) => `<button type="button" role="tab" data-variant="${variant.key}" aria-selected="${variant.key === state.variantKey}">${variant.label}</button>`).join('')}
     </div>`;
   }
@@ -5592,6 +6562,7 @@ function diagramView({ params, query }) {
 
       <div class="stack stack--sm" style="margin-top:10px">
         ${(diagram.notes || []).map((note) => `<div class="callout callout--tip"><div class="callout__icon">${icon('bulb')}</div><div><p>${note}</p></div></div>`).join('')}
+        ${diagram.cta ? `<a class="btn btn--primary btn--block" href="${diagram.cta.href}">${icon('pencil')} ${diagram.cta.label}</a>` : ''}
       </div>
     `;
 
@@ -6180,10 +7151,12 @@ function practiceView() {
 
   const modes = [
     { href: '#/practica/quiz?scope=mix&n=10', icon: 'play', title: 'Quiz rápido', meta: '10 preguntas mixtas · prioriza lo que tenés pendiente', badge: `${dueQuiz} pendientes` },
-    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las tres unidades', badge: '20' },
+    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las cuatro unidades', badge: '20' },
     { href: '#/practica/quiz?scope=u6&n=12', icon: 'flask', title: 'Práctica Unidad 6', meta: 'Ensayos, impacto, dureza y fatiga', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u6').length}` },
     { href: '#/practica/quiz?scope=u8&n=12', icon: 'layers', title: 'Práctica Unidad 8', meta: 'Nucleación, grano y Chvorinov', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u8').length}` },
     { href: '#/practica/quiz?scope=u9&n=12', icon: 'layers', title: 'Práctica Unidad 9', meta: 'Fases, solubilidad, diagrama isomorfo y palanca', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u9').length}` },
+    { href: '#/practica/quiz?scope=u10&n=12', icon: 'layers', title: 'Práctica Unidad 10', meta: 'Dispersión, reacciones de 3 fases y curvas', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u10').length}` },
+    { href: '#/practica/dibujar', icon: 'pencil', title: 'Dibujar desde cero', meta: '5 reacciones + 3 curvas · sin plantilla y con referencia', badge: '8' },
     { href: '#/practica/quiz?scope=weak&n=10', icon: 'target', title: 'Puntos débiles', meta: 'Sólo preguntas en las que fallaste la última vez', badge: `${weak}` },
     { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, formas y palanca', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
     { href: '#/practica/quiz?scope=new&n=10', icon: 'sparkles', title: 'Preguntas nuevas', meta: 'Todavía no las respondiste', badge: `${newCount}` },
@@ -6352,7 +7325,7 @@ function quizView({ query }) {
     qArea.innerHTML = `
       <div class="q-card">
         <div class="q-meta">
-          <span class="badge badge--${question.unit === 'u6' ? 'accent' : question.unit === 'u8' ? 'warn' : 'ok'}">U${Number(question.unit.slice(1))}</span>
+          <span class="badge badge--${question.unit === 'u6' ? 'accent' : question.unit === 'u8' ? 'warn' : question.unit === 'u9' ? 'ok' : 'violet'}">U${Number(question.unit.slice(1))}</span>
           <span class="badge">${esc(topicInfo.label)}</span>
           ${question.type === 'num' ? '<span class="badge badge--violet">cálculo</span>' : ''}
         </div>
@@ -6822,6 +7795,433 @@ function flashcardsView({ query }) {
 }
 
   __CDM_MODULES__["views/flashcards.js"] = { flashcardsView };
+})();
+
+/* ===== views/draw.js ===== */
+(function () {
+  "use strict";
+/* ============================================================
+   views/draw.js — práctica de dibujo desde cero (U10)
+   ============================================================ */
+
+const { ALL_DIAGRAMS } = __CDM_MODULES__["diagrams/index.js"];
+const { icon } = __CDM_MODULES__["core/ui.js"];
+const { pageHead } = __CDM_MODULES__["views/partials.js"];
+
+const STORE_KEY = 'cdm-draw-v1';
+
+const CHALLENGES = [
+  {
+    id: 'eutectica', group: 'Reacciones', title: 'Eutéctica', diagram: 'reacciones', variant: 'eutectica',
+    equation: 'L → α + β',
+    labels: ['α', 'β', 'L', 'α + β'],
+    prompt: 'Dibujá el esquema de la reacción eutéctica. Marcá α, β, L, la línea horizontal y la zona α + β. Escribí también la ecuación.',
+    tip: 'Línea horizontal → α y β a los costados → cúspide con L arriba → α + β abajo.',
+  },
+  {
+    id: 'peritectica', group: 'Reacciones', title: 'Peritéctica', diagram: 'reacciones', variant: 'peritectica',
+    equation: 'α + L → β',
+    labels: ['α', 'L', 'α + L', 'β'],
+    prompt: 'Dibujá el esquema de la reacción peritéctica. Marcá α, L, α + L, β y la línea horizontal. Escribí la ecuación.',
+    tip: 'α a la izquierda, L a la derecha, α + L arriba del centro y β en la cúspide de abajo.',
+  },
+  {
+    id: 'monotectica', group: 'Reacciones', title: 'Monotéctica', diagram: 'reacciones', variant: 'monotectica',
+    equation: 'L₁ → L₂ + α',
+    labels: ['L₂', 'L₁', 'α', 'α + L₂'],
+    prompt: 'Dibujá el esquema de la reacción monotéctica. Marcá la zona de miscibilidad, L₂, L₁, α y α + L₂. Escribí la ecuación.',
+    tip: 'Domo de miscibilidad → L₂ afuera a la izquierda → L₁ adentro → α a la derecha → α + L₂ abajo.',
+  },
+  {
+    id: 'eutectoide', group: 'Reacciones', title: 'Eutectoide', diagram: 'reacciones', variant: 'eutectoide',
+    equation: 'γ → α + β',
+    labels: ['α', 'β', 'γ', 'α + β'],
+    prompt: 'Dibujá el esquema de la reacción eutectoide. Marcá α, β, γ, la línea horizontal y α + β. Escribí la ecuación.',
+    tip: 'Como la eutéctica, pero la cúspide de arriba es γ (sólido) y no hay líquido.',
+  },
+  {
+    id: 'peritectoide', group: 'Reacciones', title: 'Peritectoide', diagram: 'reacciones', variant: 'peritectoide',
+    equation: 'α + β → γ',
+    labels: ['α', 'β', 'α + β', 'γ'],
+    prompt: 'Dibujá el esquema de la reacción peritectoide. Marcá α, β, α + β, γ y la línea horizontal. Escribí la ecuación.',
+    tip: 'α a la izquierda, β a la derecha, α + β arriba y γ en la cúspide de abajo. Todo sólido.',
+  },
+  {
+    id: 'curva-eutectica', group: 'Curvas', title: 'Curva eutéctica', diagram: 'curvas-u10', variant: 'eutectica',
+    equation: 'L → α + β a TE',
+    labels: ['L', 'L → α + β', 'α + β'],
+    prompt: 'Dibujá la curva de enfriamiento de la aleación eutéctica. Ejes T–t, tramo líquido, meseta horizontal a TE y tramo sólido. Indicá por qué se detiene.',
+    tip: 'Una sola meseta horizontal a TE: el calor latente compensa el calor extraído. Después baja el sólido α + β.',
+  },
+  {
+    id: 'curva-hipoeutectica', group: 'Curvas', title: 'Curva hipoeutéctica', diagram: 'curvas-u10', variant: 'hipoeutectica',
+    equation: 'α primaria + eutéctico',
+    labels: ['L', 'α + L', 'L → eutéctico', 'α + eutéctico'],
+    prompt: 'Dibujá la curva de una aleación hipoeutéctica. Marcá el codo del liquidus, la meseta eutéctica y la zona sólida final α + eutéctico.',
+    tip: 'Primero precipita α primaria (codo), después la meseta eutéctica. No es una sola meseta: hay codo + meseta.',
+  },
+  {
+    id: 'comparar-curvas', group: 'Curvas', title: 'Comparar U8 – U9 – U10', diagram: 'curvas-u10', variant: 'comparar',
+    equation: 'U8: meseta · U9: sin meseta · U10: meseta',
+    labels: ['U8', 'U9', 'U10'],
+    prompt: 'Dibujá las tres curvas: metal puro (U8), aleación isomorfa (U9) y eutéctica (U10). Marcá la meseta de U8, los dos quiebres de U9 y la meseta de U10.',
+    tip: 'U8: una meseta a Tf. U9: dos quiebres, sin meseta. U10: una meseta a TE.',
+  },
+];
+
+function readDone() {
+  try {
+    const value = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+    return new Set(Array.isArray(value) ? value : []);
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function saveDone(done) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify([...done])); } catch (e) {}
+}
+
+function referenceSvg(challenge) {
+  const diagram = ALL_DIAGRAMS.find((item) => item.id === challenge.diagram);
+  const variant = diagram?.variants.find((item) => item.key === challenge.variant);
+  return variant?.svg || '<p class="muted">Referencia no disponible.</p>';
+}
+
+function drawView() {
+  const done = readDone();
+  let index = 0;
+  let strokes = [];
+  let labels = [];
+  let activeLabel = null;
+  let drawing = false;
+  let current = null;
+  let ctx = null;
+  let canvas = null;
+  let stage = null;
+
+  const el = document.createElement('div');
+  el.className = 'page';
+  el.innerHTML = `
+    ${pageHead({
+      eyebrow: 'Dibujo a mano',
+      title: 'Dibujar desde cero',
+      sub: 'Sin plantilla: dibujá el esquema, ubicá las etiquetas obligatorias y recién después compará con la referencia.',
+    })}
+
+    <div class="card draw-intro">
+      <div class="row" style="gap:10px;align-items:flex-start">
+        <span class="draw-intro__icon">${icon('pencil')}</span>
+        <div>
+          <h3>El desafío es producirlo, no reconocerlo</h3>
+          <p class="card__sub">Dibujá primero la línea horizontal, después las fases de los costados y al final la cúspide. Después ubicá todas las etiquetas en el canvas y escribí la ecuación al costado. No podés marcar el desafío hasta que estén el dibujo y todas las etiquetas.</p>
+        </div>
+      </div>
+      <div class="row row--between" style="margin-top:12px">
+        <span class="badge badge--violet" id="drawCount">${done.size}/${CHALLENGES.length} practicados</span>
+        <span class="muted" style="font-size:0.78rem">Se guarda en este teléfono</span>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section__head"><div class="section__title">Elegí el desafío</div></div>
+      <div class="draw-groups">
+        <div class="draw-group">
+          <div class="draw-group__title">5 reacciones</div>
+          <div class="draw-chips">
+            ${CHALLENGES.filter((c) => c.group === 'Reacciones').map((c) => `<button type="button" class="draw-chip" data-challenge="${c.id}">${c.title}</button>`).join('')}
+          </div>
+        </div>
+        <div class="draw-group">
+          <div class="draw-group__title">3 curvas</div>
+          <div class="draw-chips">
+            ${CHALLENGES.filter((c) => c.group === 'Curvas').map((c) => `<button type="button" class="draw-chip" data-challenge="${c.id}">${c.title}</button>`).join('')}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="card draw-card">
+      <div class="row row--between" style="align-items:flex-start;gap:10px">
+        <div>
+          <div class="eyebrow eyebrow--u10" id="drawGroup">Reacciones</div>
+          <h3 id="drawTitle" style="margin-top:2px">Eutéctica</h3>
+        </div>
+        <span class="badge" id="drawBadge">1 / 8</span>
+      </div>
+
+      <p class="draw-prompt" id="drawPrompt"></p>
+
+      <div class="draw-stage" id="drawStage">
+        <canvas id="drawCanvas" aria-label="Área para dibujar el esquema"></canvas>
+      </div>
+
+      <div class="draw-labels">
+        <div class="row row--between">
+          <div class="section__title" style="font-size:0.9rem">Etiquetas obligatorias</div>
+          <span class="badge badge--warn" id="drawLabelCount">0/4</span>
+        </div>
+        <p class="draw-muted">Elegí una etiqueta y tocá el canvas para ubicarla. Sin todas las etiquetas no podés marcar el desafío.</p>
+        <div class="draw-label-chips" id="drawLabelChips"></div>
+        <div class="draw-toolbar">
+          <button type="button" class="btn btn--soft btn--sm" id="drawLabelRemove">${icon('trash')} Quitar última etiqueta</button>
+          <button type="button" class="btn btn--soft btn--sm is-active" id="drawPencil">${icon('pencil')} Lápiz</button>
+        </div>
+      </div>
+
+      <div class="draw-toolbar">
+        <button type="button" class="btn btn--soft btn--sm" id="drawUndo">${icon('undo')} Deshacer</button>
+        <button type="button" class="btn btn--soft btn--sm" id="drawClear">${icon('trash')} Borrar</button>
+        <button type="button" class="btn btn--soft btn--sm" id="drawReveal">${icon('eye')} Ver referencia</button>
+      </div>
+
+      <div class="draw-ref" id="drawRef" hidden>
+        <div class="row row--between" style="margin-bottom:8px">
+          <div class="section__title" style="font-size:0.9rem">Referencia del PDF</div>
+          <span class="badge badge--bad" id="drawEq"></span>
+        </div>
+        <div class="draw-ref__frame" id="drawRefFrame"></div>
+        <div class="draw-ref__labels" id="drawRefLabels"></div>
+      </div>
+
+      <div class="draw-actions">
+        <button type="button" class="btn btn--primary btn--block" id="drawMark">${icon('check')} Me salió de memoria</button>
+        <button type="button" class="btn btn--soft btn--block" id="drawNext">Siguiente desafío →</button>
+      </div>
+      <p class="draw-muted" id="drawTip" hidden></p>
+    </div>
+  `;
+
+  const $ = (selector) => el.querySelector(selector);
+  const title = $('#drawTitle');
+  const group = $('#drawGroup');
+  const badge = $('#drawBadge');
+  const prompt = $('#drawPrompt');
+  const tip = $('#drawTip');
+  const ref = $('#drawRef');
+  const refFrame = $('#drawRefFrame');
+  const refLabels = $('#drawRefLabels');
+  const eq = $('#drawEq');
+  const reveal = $('#drawReveal');
+  const mark = $('#drawMark');
+  const count = $('#drawCount');
+  const chips = [...el.querySelectorAll('[data-challenge]')];
+  const labelChips = $('#drawLabelChips');
+  const labelCount = $('#drawLabelCount');
+
+  const challenge = () => CHALLENGES[index];
+
+  const updateChips = () => {
+    chips.forEach((chip) => {
+      const active = chip.dataset.challenge === challenge().id;
+      chip.classList.toggle('is-active', active);
+      chip.setAttribute('aria-pressed', String(active));
+    });
+  };
+
+  const requiredLabels = () => challenge().labels || [];
+  const missingLabels = () => requiredLabels().filter((label) => !labels.some((item) => item.text === label));
+
+  const updateMark = () => {
+    const missing = missingLabels();
+    const isDone = done.has(challenge().id);
+    const noDrawing = strokes.length === 0;
+    mark.disabled = missing.length > 0 || noDrawing;
+    mark.classList.toggle('is-done', isDone && missing.length === 0 && !noDrawing);
+    mark.innerHTML = missing.length
+      ? `${icon('list')} Faltan ${missing.length} etiquetas`
+      : noDrawing
+        ? `${icon('pencil')} Dibujá el esquema`
+        : `${icon('check')} ${isDone ? 'Practicado' : 'Me salió de memoria'}`;
+  };
+
+  const updateDone = () => {
+    count.textContent = `${done.size}/${CHALLENGES.length} practicados`;
+    updateMark();
+  };
+
+  const updateLabelsUI = () => {
+    const required = requiredLabels();
+    const placed = required.filter((label) => labels.some((item) => item.text === label));
+    labelCount.textContent = `${placed.length}/${required.length}`;
+    labelChips.innerHTML = required.map((label) => {
+      const isPlaced = labels.some((item) => item.text === label);
+      return `<button type="button" class="draw-label-chip ${activeLabel === label ? 'is-active' : ''} ${isPlaced ? 'is-placed' : ''}" data-label="${label}" aria-pressed="${activeLabel === label}">${label}</button>`;
+    }).join('');
+    $('#drawPencil').classList.toggle('is-active', !activeLabel);
+    updateMark();
+  };
+
+  const redraw = () => {
+    if (!ctx || !canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    const ink = getComputedStyle(document.documentElement).getPropertyValue('--draw-ink').trim() || '#7dd3fc';
+    ctx.strokeStyle = ink;
+    ctx.fillStyle = ink;
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const stroke of strokes) {
+      if (!stroke.points.length) continue;
+      ctx.beginPath();
+      ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+      if (stroke.points.length === 1) {
+        ctx.arc(stroke.points[0].x, stroke.points[0].y, 1.1, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        for (const point of stroke.points.slice(1)) ctx.lineTo(point.x, point.y);
+        ctx.stroke();
+      }
+    }
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '700 15px system-ui, -apple-system, Segoe UI, sans-serif';
+    for (const label of labels) {
+      const width = ctx.measureText(label.text).width;
+      ctx.fillStyle = 'rgba(8, 15, 28, 0.88)';
+      ctx.fillRect(label.x - width / 2 - 4, label.y - 12, width + 8, 22);
+      ctx.fillStyle = '#fbbf24';
+      ctx.fillText(label.text, label.x, label.y);
+    }
+  };
+
+  const resizeCanvas = () => {
+    if (!canvas || !stage) return;
+    const rect = stage.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    redraw();
+  };
+
+  const pointFromEvent = (event) => {
+    const rect = canvas.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  };
+
+  const placeLabel = (text, point) => {
+    const existing = labels.find((item) => item.text === text);
+    if (existing) {
+      existing.x = point.x;
+      existing.y = point.y;
+    } else {
+      labels.push({ text, x: point.x, y: point.y });
+    }
+    activeLabel = null;
+    updateLabelsUI();
+    redraw();
+  };
+
+  const startStroke = (event) => {
+    if (event.button !== undefined && event.button !== 0 && event.pointerType === 'mouse') return;
+    event.preventDefault();
+    const point = pointFromEvent(event);
+    if (activeLabel) {
+      placeLabel(activeLabel, point);
+      return;
+    }
+    canvas.setPointerCapture(event.pointerId);
+    drawing = true;
+    current = { points: [point] };
+    strokes.push(current);
+    updateMark();
+    redraw();
+  };
+
+  const moveStroke = (event) => {
+    if (!drawing || !current) return;
+    event.preventDefault();
+    current.points.push(pointFromEvent(event));
+    redraw();
+  };
+
+  const endStroke = (event) => {
+    if (!drawing) return;
+    drawing = false;
+    current = null;
+    if (event?.pointerId !== undefined && canvas.hasPointerCapture(event.pointerId)) {
+      canvas.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const setChallenge = (nextIndex) => {
+    index = (nextIndex + CHALLENGES.length) % CHALLENGES.length;
+    strokes = [];
+    labels = [];
+    activeLabel = null;
+    drawing = false;
+    current = null;
+    const item = challenge();
+    title.textContent = item.title;
+    group.textContent = item.group;
+    badge.textContent = `${index + 1} / ${CHALLENGES.length}`;
+    prompt.textContent = item.prompt;
+    tip.textContent = '';
+    tip.hidden = true;
+    eq.textContent = item.equation;
+    refFrame.innerHTML = referenceSvg(item);
+    refLabels.textContent = `Etiquetas: ${(item.labels || []).join(' · ')}`;
+    ref.hidden = true;
+    reveal.innerHTML = `${icon('eye')} Ver referencia`;
+    updateChips();
+    updateDone();
+    updateLabelsUI();
+    requestAnimationFrame(resizeCanvas);
+  };
+
+  canvas = $('#drawCanvas');
+  stage = $('#drawStage');
+  ctx = canvas.getContext('2d');
+  canvas.addEventListener('pointerdown', startStroke);
+  canvas.addEventListener('pointermove', moveStroke);
+  canvas.addEventListener('pointerup', endStroke);
+  canvas.addEventListener('pointercancel', endStroke);
+  canvas.addEventListener('pointerleave', (event) => { if (drawing) endStroke(event); });
+  window.addEventListener('resize', resizeCanvas);
+
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    const next = CHALLENGES.findIndex((item) => item.id === chip.dataset.challenge);
+    if (next >= 0) setChallenge(next);
+  }));
+
+  $('#drawUndo').addEventListener('click', () => { strokes.pop(); updateMark(); redraw(); });
+  $('#drawClear').addEventListener('click', () => { strokes = []; labels = []; activeLabel = null; updateLabelsUI(); updateMark(); redraw(); });
+  $('#drawLabelRemove').addEventListener('click', () => { labels.pop(); activeLabel = null; updateLabelsUI(); redraw(); });
+  $('#drawPencil').addEventListener('click', () => { activeLabel = null; updateLabelsUI(); });
+  labelChips.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-label]');
+    if (!button) return;
+    activeLabel = button.dataset.label;
+    updateLabelsUI();
+  });
+  reveal.addEventListener('click', () => {
+    ref.hidden = !ref.hidden;
+    reveal.innerHTML = `${icon('eye')} ${ref.hidden ? 'Ver referencia' : 'Ocultar referencia'}`;
+    tip.textContent = ref.hidden ? '' : challenge().tip;
+    tip.hidden = ref.hidden;
+    if (!ref.hidden) ref.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+  mark.addEventListener('click', () => {
+    if (missingLabels().length) return;
+    if (done.has(challenge().id)) done.delete(challenge().id); else done.add(challenge().id);
+    saveDone(done);
+    updateDone();
+  });
+  $('#drawNext').addEventListener('click', () => setChallenge(index + 1));
+
+  setChallenge(0);
+  requestAnimationFrame(resizeCanvas);
+
+  return { el, title: 'Dibujar desde cero', sub: 'Práctica de dibujo', nav: 'practica', back: '/practica' };
+}
+
+  __CDM_MODULES__["views/draw.js"] = { drawView };
 })();
 
 /* ===== data/shapes.js ===== */
@@ -8008,7 +9408,7 @@ function progressView() {
               <div style="flex:1;min-width:0">
                 <div class="row row--between">
                   <h3 style="font-size:0.95rem">Unidad ${unit.number}</h3>
-                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : 'badge--ok'}">${unit.tag}</span>
+                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : unit.id === 'u9' ? 'badge--ok' : 'badge--violet'}">${unit.tag}</span>
                 </div>
                 <p class="card__sub">${unit.subtitle}</p>
               </div>
@@ -8228,6 +9628,7 @@ const { ensayosView, ensayoView } = __CDM_MODULES__["views/ensayos.js"];
 const { practiceView } = __CDM_MODULES__["views/practice.js"];
 const { quizView } = __CDM_MODULES__["views/quiz.js"];
 const { flashcardsView } = __CDM_MODULES__["views/flashcards.js"];
+const { drawView } = __CDM_MODULES__["views/draw.js"];
 const { labHubView, chvorinovView } = __CDM_MODULES__["views/lab.js"];
 const { palancaView } = __CDM_MODULES__["views/palanca.js"];
 const { progressView } = __CDM_MODULES__["views/progress.js"];
@@ -8245,6 +9646,7 @@ addRoute('/ensayos/:id', ensayoView);
 addRoute('/practica', practiceView);
 addRoute('/practica/quiz', quizView);
 addRoute('/practica/tarjetas', flashcardsView);
+addRoute('/practica/dibujar', drawView);
 addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
 addRoute('/practica/simuladores/palanca', palancaView);
@@ -8310,10 +9712,10 @@ function render() {
   viewEl.replaceChildren(result.el);
 
   document.title = result.title === 'CDM · Repaso'
-    ? 'CDM · Repaso — Unidades 6, 8 y 9'
+    ? 'CDM · Repaso — Unidades 6, 8, 9 y 10'
     : `${result.title} · CDM Repaso`;
   titleEl.textContent = result.title || 'CDM · Repaso';
-  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8 y 9';
+  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8, 9 y 10';
 
   const hasBack = !!result.back;
   backBtn.hidden = !hasBack;

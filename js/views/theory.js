@@ -59,7 +59,7 @@ export function theoryView() {
   el.className = 'page';
   el.innerHTML = `
     ${pageHead({
-      eyebrow: 'Unidades 6, 8 y 9',
+      eyebrow: 'Unidades 6, 8, 9 y 10',
       title: 'Teoría esencial',
       sub: 'Lecciones cortas, diagramas interactivos y hoja de fórmulas.',
     })}
@@ -68,7 +68,7 @@ export function theoryView() {
     <div class="note">Consejo: leé una lección, abrí su diagrama y recién después hacé el quiz del tema. La repetición espaciada te va a volver a traer lo que falles.</div>
   `;
 
-  return { el, title: 'Teoría', sub: 'Unidades 6, 8 y 9', nav: 'teoria', back: null };
+  return { el, title: 'Teoría', sub: 'Unidades 6, 8, 9 y 10', nav: 'teoria', back: null };
 }
 
 function practiceHref(topic) {

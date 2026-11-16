@@ -18,7 +18,7 @@ export function pageHead({ eyebrow = '', eyebrowTone = '', title, sub = '', acti
     </div>`;
 }
 
-const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok' };
+const UNIT_BADGE = { u6: 'badge--accent', u8: 'badge--warn', u9: 'badge--ok', u10: 'badge--violet' };
 
 export function unitPill(unitId) {
   const number = String(unitId).replace(/^u/, '');

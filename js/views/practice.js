@@ -29,10 +29,12 @@ export function practiceView() {
 
   const modes = [
     { href: '#/practica/quiz?scope=mix&n=10', icon: 'play', title: 'Quiz rápido', meta: '10 preguntas mixtas · prioriza lo que tenés pendiente', badge: `${dueQuiz} pendientes` },
-    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las tres unidades', badge: '20' },
+    { href: '#/practica/quiz?scope=exam&n=20', icon: 'trophy', title: 'Examen rápido', meta: '20 preguntas al azar de las cuatro unidades', badge: '20' },
     { href: '#/practica/quiz?scope=u6&n=12', icon: 'flask', title: 'Práctica Unidad 6', meta: 'Ensayos, impacto, dureza y fatiga', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u6').length}` },
     { href: '#/practica/quiz?scope=u8&n=12', icon: 'layers', title: 'Práctica Unidad 8', meta: 'Nucleación, grano y Chvorinov', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u8').length}` },
     { href: '#/practica/quiz?scope=u9&n=12', icon: 'layers', title: 'Práctica Unidad 9', meta: 'Fases, solubilidad, diagrama isomorfo y palanca', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u9').length}` },
+    { href: '#/practica/quiz?scope=u10&n=12', icon: 'layers', title: 'Práctica Unidad 10', meta: 'Dispersión, reacciones de 3 fases y curvas', badge: `${ALL_QUIZ.filter((q) => q.unit === 'u10').length}` },
+    { href: '#/practica/dibujar', icon: 'pencil', title: 'Dibujar desde cero', meta: '5 reacciones + 3 curvas · sin plantilla y con referencia', badge: '8' },
     { href: '#/practica/quiz?scope=weak&n=10', icon: 'target', title: 'Puntos débiles', meta: 'Sólo preguntas en las que fallaste la última vez', badge: `${weak}` },
     { href: '#/practica/quiz?scope=calc&n=8', icon: 'calculator', title: 'Cálculos numéricos', meta: 'Chvorinov, formas y palanca', badge: `${ALL_QUIZ.filter((q) => q.type === 'num').length}` },
     { href: '#/practica/quiz?scope=new&n=10', icon: 'sparkles', title: 'Preguntas nuevas', meta: 'Todavía no las respondiste', badge: `${newCount}` },

@@ -14,6 +14,7 @@ import { ensayosView, ensayoView } from './views/ensayos.js';
 import { practiceView } from './views/practice.js';
 import { quizView } from './views/quiz.js';
 import { flashcardsView } from './views/flashcards.js';
+import { drawView } from './views/draw.js';
 import { labHubView, chvorinovView } from './views/lab.js';
 import { palancaView } from './views/palanca.js';
 import { progressView } from './views/progress.js';
@@ -31,6 +32,7 @@ addRoute('/ensayos/:id', ensayoView);
 addRoute('/practica', practiceView);
 addRoute('/practica/quiz', quizView);
 addRoute('/practica/tarjetas', flashcardsView);
+addRoute('/practica/dibujar', drawView);
 addRoute('/practica/simuladores', labHubView);
 addRoute('/practica/simuladores/chvorinov', chvorinovView);
 addRoute('/practica/simuladores/palanca', palancaView);
@@ -96,10 +98,10 @@ function render() {
   viewEl.replaceChildren(result.el);
 
   document.title = result.title === 'CDM · Repaso'
-    ? 'CDM · Repaso — Unidades 6, 8 y 9'
+    ? 'CDM · Repaso — Unidades 6, 8, 9 y 10'
     : `${result.title} · CDM Repaso`;
   titleEl.textContent = result.title || 'CDM · Repaso';
-  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8 y 9';
+  subEl.textContent = result.sub || 'Parcial 2 · Unidades 6, 8, 9 y 10';
 
   const hasBack = !!result.back;
   backBtn.hidden = !hasBack;

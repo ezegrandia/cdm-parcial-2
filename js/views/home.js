@@ -28,7 +28,9 @@ function unitCard(unit, stats) {
     ? { href: '#/ensayos', icon: 'flask', label: 'Ensayos' }
     : unit.id === 'u8'
       ? { href: '#/practica/simuladores/chvorinov', icon: 'calculator', label: 'Chvorinov' }
-      : { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' };
+      : unit.id === 'u9'
+        ? { href: '#/practica/simuladores/palanca', icon: 'calculator', label: 'Palanca' }
+        : { href: '#/teoria/diagramas/curvas-u10', icon: 'chart', label: 'Curvas' };
 
   return `<div class="unit-card unit-card--${unit.id}">
     <div class="unit-card__head">
@@ -79,8 +81,8 @@ export function homeView() {
       <div class="hero__top">
         <div class="hero__copy">
           <span class="hero__kicker">Parcial 2 · CDM</span>
-          <h2>Unidades <em>6, 8 y 9</em><br>para repasar en el celular</h2>
-          <p class="hero__sub">Ensayos, impacto Charpy/Izod, fases, solubilidad y regla de la palanca. Sesiones cortas, repetidas hasta que quede en memoria.</p>
+          <h2>Unidades <em>6, 8, 9 y 10</em><br>para repasar en el celular</h2>
+          <p class="hero__sub">Ensayos, fases, palanca, reacciones de tres fases y curvas de enfriamiento. Sesiones cortas, repetidas hasta que quede en memoria.</p>
         </div>
         <div class="hero__ring">
           ${ring(overall, 'dominio', { size: 78 })}
@@ -165,5 +167,5 @@ export function homeView() {
     <div class="note">Atajo para el celular: agregá esta página a la pantalla de inicio. Queda como una app, abre sin internet y guarda tu avance. Recomendado: una sesión corta por día y una extra antes del parcial.</div>
   `;
 
-  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8 y 9', nav: 'inicio', back: null };
+  return { el, title: 'CDM · Repaso', sub: 'Parcial 2 · Unidades 6, 8, 9 y 10', nav: 'inicio', back: null };
 }

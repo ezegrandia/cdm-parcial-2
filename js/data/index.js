@@ -5,12 +5,13 @@
 import { u6 } from './u6.js';
 import { u8 } from './u8.js';
 import { u9 } from './u9.js';
+import { u10 } from './u10.js';
 import { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD } from './ensayos.js';
 
 export { ENSAYOS, ENSAYO_CATEGORIES, CHARPY_VS_IZOD };
 
-export const UNITS = { u6, u8, u9 };
-export const UNIT_LIST = [u6, u8, u9];
+export const UNITS = { u6, u8, u9, u10 };
+export const UNIT_LIST = [u6, u8, u9, u10];
 
 export const TOPICS = {
   traccion: { label: 'Tracción', unit: 'u6' },
@@ -36,6 +37,12 @@ export const TOPICS = {
   palanca: { label: 'Regla de la palanca', unit: 'u9' },
   'curva-aleacion': { label: 'Curva de la aleación', unit: 'u9' },
   segregacion: { label: 'Segregación', unit: 'u9' },
+  dispersion: { label: 'Dispersión', unit: 'u10' },
+  reacciones: { label: 'Reacciones de 3 fases', unit: 'u10' },
+  fronteras: { label: 'Liquidus / solidus / solvus', unit: 'u10' },
+  eutectica: { label: 'Aleación eutéctica', unit: 'u10' },
+  curvas: { label: 'Curvas U10', unit: 'u10' },
+  aplicaciones: { label: 'Aplicaciones U10', unit: 'u10' },
 };
 
 export const ALL_LESSONS = UNIT_LIST.flatMap((unit) =>

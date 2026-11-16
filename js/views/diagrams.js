@@ -23,15 +23,19 @@ const TOPIC_BY_DIAGRAM = {
   enfriamiento: 'enfriamiento',
   isomorfo: 'isomorfo',
   'curva-aleacion': 'curva-aleacion',
+  reacciones: 'reacciones',
+  fronteras: 'fronteras',
+  'curvas-u10': 'curvas',
 };
 
 const DIAGRAM_SECTION = {
   u6: 'Diagramas de ensayos',
   u8: 'Diagramas de solidificación',
   u9: 'Diagramas de fases',
+  u10: 'Reacciones y curvas',
 };
 
-const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9' };
+const EYEBROW_TONE = { u6: '', u8: 'eyebrow--u8', u9: 'eyebrow--u9', u10: 'eyebrow--u10' };
 
 function totalPins(diagram) {
   return diagram.variants.reduce((acc, variant) => acc + variant.pins.length, 0);
@@ -113,7 +117,7 @@ export function diagramView({ params, query }) {
 
   const variantTabs = el.querySelector('#variantTabs');
   if (variantTabs) {
-    variantTabs.innerHTML = `<div class="segmented" role="tablist">
+    variantTabs.innerHTML = `<div class="segmented segmented--variants" role="tablist">
       ${diagram.variants.map((variant) => `<button type="button" role="tab" data-variant="${variant.key}" aria-selected="${variant.key === state.variantKey}">${variant.label}</button>`).join('')}
     </div>`;
   }
@@ -207,6 +211,7 @@ export function diagramView({ params, query }) {
 
       <div class="stack stack--sm" style="margin-top:10px">
         ${(diagram.notes || []).map((note) => `<div class="callout callout--tip"><div class="callout__icon">${icon('bulb')}</div><div><p>${note}</p></div></div>`).join('')}
+        ${diagram.cta ? `<a class="btn btn--primary btn--block" href="${diagram.cta.href}">${icon('pencil')} ${diagram.cta.label}</a>` : ''}
       </div>
     `;
 

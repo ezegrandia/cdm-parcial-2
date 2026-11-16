@@ -158,6 +158,8 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+.segmented--variants { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+.segmented--variants button { white-space: normal; line-height: 1.15; padding: 6px 8px; }
 .segmented button[aria-selected="true"] {
   background: var(--surface-3);
   color: var(--text);
@@ -254,6 +256,7 @@
 .bar__fill--u6 { background: linear-gradient(90deg, var(--u6), #60a5fa); }
 .bar__fill--u8 { background: linear-gradient(90deg, var(--u8), #f97316); }
 .bar__fill--u9 { background: linear-gradient(90deg, var(--u9), #22d3ee); }
+.bar__fill--u10 { background: linear-gradient(90deg, var(--u10), #f472b6); }
 .bar__fill--ok { background: linear-gradient(90deg, var(--green), #22d3ee); }
 .bar__fill--warn { background: linear-gradient(90deg, var(--amber), #fb923c); }
 .bar__fill--bad { background: linear-gradient(90deg, var(--rose), #f472b6); }
@@ -1400,6 +1403,7 @@ body.is-focus .toast { bottom: calc(96px + var(--safe-b)); }
 
 .diagram-card__thumb--u8 { color: var(--u8); }
 .diagram-card__thumb--u9 { color: var(--u9); }
+.diagram-card__thumb--u10 { color: var(--u10); }
 
 /* ---------------- simuladores ---------------- */
 
@@ -1704,3 +1708,73 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); margin-bottom:
   .formula__expr { font-size: 0.95rem; }
   .fcard__expr { font-size: 0.92rem; }
 }
+
+
+/* ---------- Práctica de dibujo U10 ---------- */
+.draw-intro { border-color: color-mix(in srgb, var(--u10) 26%, var(--line)); }
+.draw-intro__icon {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 13px; color: var(--u10);
+  background: var(--u10-soft); border: 1px solid color-mix(in srgb, var(--u10) 30%, transparent);
+}
+.draw-groups { display: grid; gap: 14px; }
+.draw-group { display: grid; gap: 8px; }
+.draw-group__title { color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.draw-chips { display: flex; flex-wrap: wrap; gap: 7px; padding-bottom: 2px; }
+.draw-chip {
+  flex: 0 0 auto; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft);
+  color: var(--muted); font: inherit; font-size: 0.78rem; font-weight: 700; padding: 8px 12px; cursor: pointer;
+}
+.draw-chip.is-active { color: var(--u10); border-color: color-mix(in srgb, var(--u10) 55%, transparent); background: var(--u10-soft); }
+.draw-card { display: grid; gap: 12px; }
+.draw-prompt { margin: 0; color: var(--text); font-size: 0.9rem; line-height: 1.55; }
+.draw-stage {
+  position: relative; width: 100%; height: 330px; overflow: hidden; border-radius: 14px;
+  border: 1px solid var(--line); background-color: var(--bg-soft);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: -1px -1px;
+}
+.draw-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.draw-toolbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.draw-ref { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.draw-ref[hidden] { display: none; }
+.draw-ref__frame { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.draw-ref__frame svg { display: block; width: 100%; height: auto; }
+.draw-actions { display: grid; gap: 8px; margin-top: 2px; }
+.draw-actions .btn.is-done { background: var(--ok-soft); color: var(--ok); border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
+.draw-muted { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.45; }
+@media (max-width: 380px) { .draw-stage { height: 300px; } }
+
+.inline-link { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+
+
+.draw-labels { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.draw-label-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.draw-label-chip {
+  border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft);
+  color: var(--text); font: inherit; font-size: 0.82rem; font-weight: 700;
+  padding: 8px 12px; cursor: pointer;
+}
+.draw-label-chip.is-active { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 55%, transparent); background: var(--amber-soft); }
+.draw-label-chip.is-placed { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.draw-label-chip.is-placed::after { content: ' ✓'; }
+.draw-toolbar .btn.is-active { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: var(--accent-soft); }
+.draw-actions .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+
+/* El SVG de referencia no está dentro de .diagram-frame: repetir sus colores */
+.draw-ref__frame .svg-text {
+  fill: var(--text-dim);
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 600;
+}
+.draw-ref__frame .svg-text--strong { fill: var(--text); font-weight: 700; }
+.draw-ref__frame .svg-text--muted { fill: var(--muted); font-weight: 500; }
+.draw-ref__frame .svg-text--mono { font-family: var(--mono); }
+.draw-ref__frame .svg-text--accent { fill: var(--accent); }
+.draw-ref__frame .svg-text--violet { fill: var(--violet); }
+.draw-ref__frame .svg-text--amber { fill: var(--amber); }
+.draw-ref__frame .svg-text--rose { fill: var(--rose); }
+.draw-ref__frame .svg-text--green { fill: var(--green); }
+.draw-ref__labels { color: var(--amber); font-size: 0.78rem; font-weight: 700; line-height: 1.4; }

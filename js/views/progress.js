@@ -165,7 +165,7 @@ export function progressView() {
               <div style="flex:1;min-width:0">
                 <div class="row row--between">
                   <h3 style="font-size:0.95rem">Unidad ${unit.number}</h3>
-                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : 'badge--ok'}">${unit.tag}</span>
+                  <span class="badge ${unit.id === 'u6' ? 'badge--accent' : unit.id === 'u8' ? 'badge--warn' : unit.id === 'u9' ? 'badge--ok' : 'badge--violet'}">${unit.tag}</span>
                 </div>
                 <p class="card__sub">${unit.subtitle}</p>
               </div>

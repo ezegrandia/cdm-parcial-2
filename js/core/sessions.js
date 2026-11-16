@@ -12,6 +12,7 @@ export const SCOPE_LABELS = {
   u6: 'Unidad 6',
   u8: 'Unidad 8',
   u9: 'Unidad 9',
+  u10: 'Unidad 10',
   due: 'Pendientes de hoy',
   weak: 'Puntos débiles',
   new: 'Preguntas nuevas',
@@ -26,7 +27,7 @@ export function scopeLabel(scope, topic) {
 }
 
 function unitFiltered(items, scope) {
-  if (['u6', 'u8', 'u9'].includes(scope)) return items.filter((item) => item.unit === scope);
+  if (['u6', 'u8', 'u9', 'u10'].includes(scope)) return items.filter((item) => item.unit === scope);
   return items;
 }
 

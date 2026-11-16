@@ -1,8 +1,8 @@
-# CDM Repaso — Unidades 6, 8 y 9
+# CDM Repaso — Unidades 6, 8, 9 y 10
 
 App de repaso para el **Parcial 2 de Ciencia de los Materiales** (ITU, Producción Industrial Automatizada), pensada para usarse desde el celular, muchas veces y en sesiones cortas.
 
-Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Izod en detalle), **Unidad 8** (nucleación, grano fino, Chvorinov y volumen/área de figuras) y **Unidad 9** (fases, solubilidad, diagrama isomorfo, regla de la palanca y curva de la aleación). Basada en el resumen de cátedra *«Parcial 2 — Unidades 6 a 10»* y en los apuntes manuscritos.
+Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Izod en detalle), **Unidad 8** (nucleación, grano fino, Chvorinov y volumen/área de figuras) y **Unidad 9** (fases, solubilidad, diagrama isomorfo, regla de la palanca y curva de la aleación), más la **Unidad 10** (dispersión, reacciones de 3 fases, fronteras y curvas eutécticas). La U10 prioriza las **5 reacciones con sus dibujos**, las fronteras **liquidus/solidus/solvus** y la **curva eutéctica/hipoeutéctica**; las páginas 11–14 y 18 del apunte no entran. Basada en el resumen de cátedra *«Parcial 2 — Unidades 6 a 10»* y en los apuntes manuscritos.
 
 | Inicio | Quiz con explicación |
 | --- | --- |
@@ -11,6 +11,12 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 | ![Chvorinov](docs/preview-chvorinov.png) | ![Diagrama](docs/preview-diagrama.png) |
 | **Unidad 9: diagrama isomorfo** | **Regla de la palanca** |
 | ![Isomorfo](docs/preview-isomorfo.png) | ![Palanca](docs/preview-palanca.png) |
+| **U10: las 5 reacciones de 3 fases** | **U10: comparación de curvas U8/U9/U10** |
+| ![Reacciones U10](docs/preview-u10-reacciones.png) | ![Curvas U10](docs/preview-u10-curvas.png) |
+
+**Fronteras de la U10: liquidus, solidus y solvus**
+
+![Fronteras U10](docs/preview-u10-fronteras.png)
 
 **Curva de enfriamiento de la aleación (Unidad 9)**
 
@@ -30,10 +36,11 @@ Contenido: **Unidad 6** (ensayos y propiedades mecánicas, con impacto Charpy/Iz
 
 ## Qué incluye
 
-- **Teoría** en 25 lecciones cortas (9 de la U6, 8 de la U8 y 8 de la U9), con tablas, trampas de examen y «qué busca el profesor». La U6 se trabaja de forma **conceptual**, sin cálculos.
+- **Teoría** en 31 lecciones cortas (9 de la U6, 8 de la U8, 8 de la U9 y 6 de la U10), con tablas, trampas de examen y «qué busca el profesor». La U6 se trabaja de forma **conceptual**, sin cálculos.
 - **Ensayos**: catálogo de 11 ensayos (tracción, flexión 3 y 4 puntos, Brinell, Rockwell, Vickers, Knoop, Shore, Charpy, Izod y fatiga), con probeta, procedimiento, resultados, unidades, errores y pregunta típica.
-- **Diagramas interactivos** (7): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación, curva del metal puro (U8), diagrama isomorfo Cu–Ni y curva de la aleación (U9). Modo *Estudiar* y modo *Practicar* (con pines y opciones).
-- **Práctica**: 132 preguntas (conceptuales de U6 y opción múltiple/cálculos de U8 y U9), 107 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
+- **Diagramas interactivos** (10): curva σ–ε, Charpy/Izod, transición dúctil–frágil, nucleación, curva del metal puro (U8), diagrama isomorfo Cu–Ni y curva de la aleación (U9), más las 5 reacciones de 3 fases, fronteras liquidus/solidus/solvus y curvas U10. Modo *Estudiar* y modo *Practicar* (con pines y opciones), más **Práctica → Dibujar desde cero**.
+- **Dibujar desde cero**: 5 reacciones + 3 curvas en un canvas, sin plantilla, con **etiquetas obligatorias** (α, β, L, etc.) y referencia del PDF. No se puede marcar hasta dibujar y colocar todas las etiquetas.
+- **Práctica**: 162 preguntas (conceptuales de U6 y U10, y opción múltiple/cálculos de U8 y U9), 136 tarjetas de memoria y **repetición espaciada** por cajas (1, 2, 4, 8, 16 y 32 días).
 - **Simuladores**: Chvorinov con cubo/prisma/cilindro/esfera y **regla de la palanca con %L/%S y masa de fases**. La Unidad 6 se trabaja de forma conceptual, sin calculadoras.
 - **Progreso**: racha, meta diaria, precisión por tema, cajas de repaso, logros, respaldo exportable y borrado.
 - **PWA offline**: se puede agregar a la pantalla de inicio y funciona sin internet después de la primera visita.
@@ -99,11 +106,12 @@ js/
     u6.js                  lecciones, tarjetas y quiz conceptuales de la U6
     u8.js                  lecciones, fórmulas, tarjetas y quiz de la U8
     u9.js                  fases, solubilidad, palanca y curva de la U9
+    u10.js                 dispersión, reacciones, fronteras y curvas U10
     ensayos.js             catálogo de ensayos
     shapes.js              figuras básicas para Chvorinov
     index.js               agregados y metadatos
   diagrams/
-    u6.js, u8.js, u9.js    SVG + pines de cada diagrama
+    u6.js, u8.js, u9.js, u10.js   SVG + pines de cada diagrama
     index.js               registro
   views/                   una vista por pantalla (incluye palanca.js)
 tools/

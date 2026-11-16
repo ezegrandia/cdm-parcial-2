@@ -167,6 +167,7 @@
 
 .eyebrow--u8 { color: var(--u8); }
 .eyebrow--u9 { color: var(--u9); }
+.eyebrow--u10 { color: var(--u10); }
 .eyebrow--muted { color: var(--muted); }
 
 .page-head h2 {
@@ -351,6 +352,7 @@
 .unit-card--u6 { --u-color: var(--u6); --u-soft: var(--u6-soft); }
 .unit-card--u8 { --u-color: var(--u8); --u-soft: var(--u8-soft); }
 .unit-card--u9 { --u-color: var(--u9); --u-soft: var(--u9-soft); }
+.unit-card--u10 { --u-color: var(--u10); --u-soft: var(--u10-soft); }
 
 .unit-card__head {
   display: flex;
